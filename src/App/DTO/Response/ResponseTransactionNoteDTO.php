@@ -5,7 +5,7 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App\DTO\Request;
+namespace App\DTO\Response;
 
 
 class ResponseTransactionNoteDTO

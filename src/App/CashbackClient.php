@@ -7,7 +7,7 @@
 
 namespace App\CashbackClient;
 
-use App\DTO\Request\ResponseTransactionNoteDTO;
+use App\DTO\Response\ResponseTransactionNoteDTO;
 use App\DTO\Request\StoreAndUpdateAccountDTO;
 use App\DTO\Request\StoreOrderDTO;
 use App\DTO\Request\UpdateOrderPaidByCacheBackAmountDTO;
