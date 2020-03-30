@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of StoreAccountDTO.php
+ * Description of StoreAndUpdateAccountDTO.php
  * @copyright Copyright (c) MISTER.AM, LLC
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
@@ -10,7 +10,7 @@ namespace App\DTO\Request;
 
 use App\DTO\SettingsDTO;
 
-class StoreAccountDTO
+class StoreAndUpdateAccountDTO
 {
     /** @var SettingsDTO[] */
     private $settings;
@@ -32,9 +32,9 @@ class StoreAccountDTO
 
     /**
      * @param array $data
-     * @return StoreAccountDTO
+     * @return StoreAndUpdateAccountDTO
      */
-    public static function fromArray(array $data): StoreAccountDTO
+    public static function fromArray(array $data): StoreAndUpdateAccountDTO
     {
         return new self(
             $data['settings'] ?? '',
