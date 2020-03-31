@@ -50,7 +50,8 @@ class CashbackClient extends HttpClient
     public function createAccount(array $data): ResponseAccountDTO
     {
         $accountDTO = StoreAndUpdateAccountDTO::fromArray($data);
-        $responseData = $this->post(self::CREATE_ACCOUNT_URL_TEMPLATE, $accountDTO->toArray());
+        $params['json'] = true;
+        $responseData = $this->post(self::CREATE_ACCOUNT_URL_TEMPLATE, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
     }
 
@@ -62,8 +63,9 @@ class CashbackClient extends HttpClient
     public function updateAccount(int $id, array $data)
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_URL_TEMPLATE, $id, 'id');
+        $params['json'] = true;
         $accountDTO = StoreAndUpdateAccountDTO::fromArray($data);
-        $responseData = $this->put($url, $accountDTO->toArray());
+        $responseData = $this->put($url, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
     }
 
@@ -76,6 +78,7 @@ class CashbackClient extends HttpClient
     {
         $url = $this->parseUrlParams(self::GET_ORDER_TRANSACTION_URL_TEMPLATE, $id, 'id');
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
+        $params['json'] = true;
         return $this->get($url, $params);
     }
 
@@ -88,6 +91,7 @@ class CashbackClient extends HttpClient
     {
         $orderDTO = StoreOrderDTO::fromArray($data);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
+        $params['json'] = true;
         $responseData = $this->post(self::CREATE_ORDER_URL_TEMPLATE, $orderDTO->toArray(), $params);
         return ResponseOrderDTO::fromArray($responseData);
     }
@@ -102,6 +106,7 @@ class CashbackClient extends HttpClient
     {
         $url = $this->parseUrlParams(self::UPDATE_ORDER_PRICE_URL_TEMPLATE, $id, 'id');
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
+        $params['json'] = true;
         $orderPriceDTO = UpdateOrderPriceDTO::fromArray($data);
         $responseData = $this->patch($url, $orderPriceDTO->toArray(), $params);
         return ResponseOrderDTO::fromArray($responseData);
@@ -117,6 +122,7 @@ class CashbackClient extends HttpClient
     {
         $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE, $id, 'id');
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
+        $params['json'] = true;
         $orderPaidByCacheBackAmountDTO = UpdateOrderPaidByCacheBackAmountDTO::fromArray($data);
         $responseData = $this->patch($url, $orderPaidByCacheBackAmountDTO->toArray(), $params);
         return ResponseOrderDTO::fromArray($responseData);
@@ -166,6 +172,7 @@ class CashbackClient extends HttpClient
     public function createTransaction(array $data, ResponseAccountDTO $accountDTO)
     {
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
+        $params['json'] = true;
         $transactionDTO = ResponseTransactionDTO::fromArray($data);
         $responseData = $this->post(self::CREATE_TRANSACTION_URL_TEMPLATE, $transactionDTO->toArray(), $params);
         return ResponseTransactionDTO::fromArray($responseData);
@@ -181,6 +188,7 @@ class CashbackClient extends HttpClient
     {
         $url = $this->parseUrlParams(self::UPDATE_TRANSACTION_NOTE_URL_TEMPLATE, $id, 'id');
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
+        $params['json'] = true;
         $transactionNoteDTO = UpdateTransactionNoteDTO::fromArray($data);
         $responseData = $this->patch($url, $transactionNoteDTO->toArray(), $params);
         return ResponseTransactionNoteDTO::fromArray($responseData);
