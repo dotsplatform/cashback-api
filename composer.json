@@ -12,5 +12,10 @@
     "require": {
         "guzzlehttp/guzzle": "^6.5",
         "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dotsplatform\\CashbackClient\\": "src/App/CashbackClient"
+        }
     }
 }
