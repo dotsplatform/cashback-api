@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Dotsplatform\\CashbackClient\\": "src/App/"
+            "Dotsplatform\\CashbackApi\\": "src/App/"
         }
     }
 }
