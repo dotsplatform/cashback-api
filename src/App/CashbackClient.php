@@ -5,7 +5,7 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App\CashbackClient;
+namespace App;
 
 use App\DTO\Response\ResponseTransactionNoteDTO;
 use App\DTO\Request\StoreAndUpdateAccountDTO;
