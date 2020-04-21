@@ -12,17 +12,5 @@
     "require": {
         "guzzlehttp/guzzle": "^6.5",
         "ext-json": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Dotsplatform\\CashbackApi\\": "src/ServiceProvider"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Dotsplatform\\CashbackApi\\ServiceProvider"
-            ]
-        }
     }
 }
