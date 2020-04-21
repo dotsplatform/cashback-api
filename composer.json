@@ -14,8 +14,8 @@
         "ext-json": "*"
     },
     "autoload": {
-        "classmap": [
-            "src/App/CashbackClient.php"
-        ]
+        "psr-4": {
+            "Dotsplatform\\CashbackClient\\": "src/App/"
+        }
     }
 }
