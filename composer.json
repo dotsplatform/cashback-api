@@ -20,7 +20,7 @@
             "App\\": "src/App"
         },
         "files": [
-            "src/App/helpers.php"
+            "src/helpers.php"
         ]
     }
 }
