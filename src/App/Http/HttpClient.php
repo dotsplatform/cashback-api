@@ -32,7 +32,7 @@ abstract class HttpClient
      */
     public function __construct()
     {
-        $this->serviceHost = config('cashaback.cashaback-server.url');
+        $this->serviceHost = config('cashback.cashback-server.url');
     }
 
     /**
