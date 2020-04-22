@@ -28,11 +28,11 @@ abstract class HttpClient
     protected $client;
 
     /**
-     * @param string $serviceHost
+     * HttpClient constructor.
      */
-    public function __construct($serviceHost)
+    public function __construct()
     {
-        $this->serviceHost = $serviceHost;
+        $this->serviceHost = config('cashaback.cashaback-server.url');
     }
 
     /**
