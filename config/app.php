@@ -2,6 +2,6 @@
 
 return [
     'providers' => [
-        'App\ServiceProvider'
+        'src\ServiceProvider'
     ]
 ];
