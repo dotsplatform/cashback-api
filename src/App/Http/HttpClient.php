@@ -33,7 +33,6 @@ abstract class HttpClient
      */
     public function __construct()
     {
-        Config::get('package::file.cashback');
         $this->serviceHost = config('cashback.cashback-server.url');
     }
 
