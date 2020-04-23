@@ -5,19 +5,22 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
+namespace App;
+
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function register()
     {
         $this->mergeConfigFrom(
-            '/config/cashback.php', 'cashback'
+            __DIR__.'/../../config/cashback.php', 'cashback'
         );
     }
 
     public function boot()
     {
         $this->publishes([
-            '/config/cashback.php' => config_path('cashback.php'),
+            __DIR__.'/../../config/cashback.php' => config_path('cashback.php'),
         ]);
     }
 }
