@@ -13,6 +13,7 @@ use App\Http\Exception\UnprocessableEntityException;
 use \GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use App\Http\Exception\NotFoundException;
+use Illuminate\Support\Facades\Config;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class HttpClient
@@ -32,6 +33,7 @@ abstract class HttpClient
      */
     public function __construct()
     {
+        Config::get('package::file.cashback');
         $this->serviceHost = config('cashback.cashback-server.url');
     }
 

@@ -13,14 +13,14 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/cashback.php', 'cashback'
+            __DIR__ . '/../config/cashback.php', 'cashback'
         );
     }
 
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../config/cashback.php' => config_path('cashback.php'),
+            __DIR__ . '/../config/cashback.php' => config_path('cashback.php'),
         ]);
     }
 }
