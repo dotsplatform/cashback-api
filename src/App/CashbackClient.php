@@ -196,7 +196,7 @@ class CashbackClient extends HttpClient
 
     public function parseUrlParams(string $string, int $value, string $paramName): string
     {
-        return str_replace('{$' . $paramName . '}', $value, $string);
+        return str_replace('{' . $paramName . '}', $value, $string);
     }
 
     private function getRequestHeaders(string $externalKey)
