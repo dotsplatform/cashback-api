@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^6.3",
         "ext-json": "*",
         "laravel/framework": "^6.0"
     },
