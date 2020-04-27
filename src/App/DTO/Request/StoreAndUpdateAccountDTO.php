@@ -12,15 +12,12 @@ use App\DTO\SettingsDTO;
 
 class StoreAndUpdateAccountDTO
 {
-    /** @var SettingsDTO[] */
-    private $settings;
-    /** @var string */
-    private $name;
-    /** @var string */
-    private $external_key;
+    private ?SettingsDTO $settings;
+    private string $name;
+    private string $external_key;
 
     private function __construct(
-        array $settings,
+        ?array $settings,
         string $name,
         string $external_key
     )

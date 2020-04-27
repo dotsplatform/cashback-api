@@ -10,8 +10,7 @@ namespace App\DTO\Request;
 
 class UpdateOrderPriceDTO
 {
-    /**var integer */
-    private $price;
+    private int $price;
 
     private function __construct(
         int $price

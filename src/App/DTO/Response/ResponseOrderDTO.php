@@ -12,22 +12,14 @@ use App\DTO\Request\UpdateTransactionNoteDTO;
 
 class ResponseOrderDTO
 {
-    /** @var integer */
-    private $id;
-    /** @var integer */
-    private $account_id;
-    /** @var integer */
-    private $user_id;
-    /**var integer */
-    private $delivery_type;
-    /**var integer */
-    private $price;
-    /**var array */
-    private $data;
-    /**var integer */
-    private $status;
-    /**var integer */
-    private $order_status;
+    private int $id;
+    private int $account_id;
+    private int $user_id;
+    private int $delivery_type;
+    private int $price;
+    private ?array $data;
+    private int $status;
+    private int $order_status;
 
     private function __construct(
         int $id,
@@ -35,7 +27,7 @@ class ResponseOrderDTO
         int $user_id,
         int $delivery_type,
         int $price,
-        array $data,
+        ?array $data,
         int $status,
         int $order_status
     )
@@ -62,7 +54,7 @@ class ResponseOrderDTO
             $data['user_id'] ?? 0,
             $data['delivery_type'] ?? 0,
             $data['price'] ?? 0,
-            $data['data'] ?? '',
+            $data['data'] ?? null,
             $data['status'] ?? 0,
             $data['order_status'] ?? 0
         );
@@ -126,7 +118,7 @@ class ResponseOrderDTO
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getData(): array
     {

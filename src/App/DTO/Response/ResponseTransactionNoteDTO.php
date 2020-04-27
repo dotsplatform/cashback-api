@@ -10,12 +10,9 @@ namespace App\DTO\Response;
 
 class ResponseTransactionNoteDTO
 {
-    /** @var string */
-    private $phone;
-    /** @var integer */
-    private $amount;
-    /** @var string */
-    private $note;
+    private string $phone;
+    private int $amount;
+    private string $note;
 
     private function __construct(
         string $phone,

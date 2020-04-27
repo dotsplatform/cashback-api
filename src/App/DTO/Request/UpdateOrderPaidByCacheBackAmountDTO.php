@@ -10,8 +10,7 @@ namespace App\DTO\Request;
 
 class UpdateOrderPaidByCacheBackAmountDTO
 {
-    /**var integer */
-    private $paid_by_cash_back_amount;
+    private int $paid_by_cash_back_amount;
 
     private function __construct(
         int $paid_by_cash_back_amount

@@ -12,18 +12,14 @@ use App\DTO\SettingsDTO;
 
 class ResponseAccountDTO
 {
-    /** @var integer */
-    private $id;
-    /** @var SettingsDTO[] */
-    private $settings;
-    /** @var string */
-    private $name;
-    /** @var string */
-    private $external_key;
+    private int $id;
+    private ?array $settings;
+    private string $name;
+    private string $external_key;
 
     private function __construct(
         int $id,
-        array $settings,
+        ?array $settings,
         string $name,
         string $external_key
     )
@@ -42,7 +38,7 @@ class ResponseAccountDTO
     {
         return new self(
             $data['id'] ?? 0,
-            $data['settings'] ?? '',
+            $data['settings'] ?? null,
             $data['name'] ?? '',
             $data['external_key'] ?? ''
         );

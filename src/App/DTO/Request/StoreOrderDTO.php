@@ -10,14 +10,10 @@ namespace App\DTO\Request;
 
 class StoreOrderDTO
 {
-    /**var string */
-    private $phone;
-    /**var integer */
-    private $delivery_type;
-    /**var integer */
-    private $price;
-    /**var integer */
-    private $paid_by_cash_back_amount;
+    private string $phone;
+    private int $delivery_type;
+    private int $price;
+    private int $paid_by_cash_back_amount;
 
 
     private function __construct(

@@ -10,22 +10,14 @@ namespace App\DTO\Response;
 
 class ResponseTransactionDTO
 {
-    /** @var string */
-    private $id;
-    /** @var integer */
-    private $user_id;
-    /** @var integer */
-    private $order_id;
-    /** @var string */
-    private $note;
-    /** @var integer */
-    private $amount;
-    /** @var integer */
-    private $status;
-    /** @var array */
-    private $data; //
-    /** @var integer */
-    private $completed_time;
+    private string $id;
+    private int $user_id;
+    private int $order_id;
+    private string $note;
+    private int $amount;
+    private int $status;
+    private ?array $data;
+    private int $completed_time;
 
     private function __construct(
         string $id,
@@ -34,7 +26,7 @@ class ResponseTransactionDTO
         string $note,
         int $amount,
         int $status,
-        array $data,
+        ?array $data,
         int $completed_time
     )
     {
@@ -61,7 +53,7 @@ class ResponseTransactionDTO
             $data['note'] ?? '',
             $data['amount'] ?? 0,
             $data['status'] ?? 0,
-            $data['data'] ?? '',
+            $data['data'] ?? null,
             $data['completed_time'] ?? 0
         );
     }
@@ -133,7 +125,7 @@ class ResponseTransactionDTO
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getData(): array
     {

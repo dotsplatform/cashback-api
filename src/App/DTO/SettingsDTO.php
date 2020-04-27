@@ -10,18 +10,12 @@ namespace App\DTO;
 
 class SettingsDTO
 {
-    /** @var float */
-    private $cashBackPercentDelivery;
-    /** @var float */
-    private $cashBackPercentPickup;
-    /** @var float */
-    private $cashBackPercentBooking;
-    /** @var float */
-    private $cashBackPercentDeliveryInner;
-    /** @var float */
-    private $cashBackPercentDeliveryInnerToDoor;
-    /** @var float */
-    private $minChargeAmount;
+    private float $cashBackPercentDelivery;
+    private float $cashBackPercentPickup;
+    private float $cashBackPercentBooking;
+    private float $cashBackPercentDeliveryInner;
+    private float $cashBackPercentDeliveryInnerToDoor;
+    private float $minChargeAmount;
 
     private function __construct(
         float $cashBackPercentDelivery,

@@ -10,8 +10,7 @@ namespace App\DTO\Request;
 
 class UpdateTransactionNoteDTO
 {
-    /** @var string */
-    private $note;
+    private string $note;
 
     private function __construct(string $note)
     {
