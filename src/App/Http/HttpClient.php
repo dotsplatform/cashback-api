@@ -97,7 +97,9 @@ abstract class HttpClient
         $client = $this->makeClient();
 
         if (!is_null($body)) {
-            $params['body'] = $body;
+            if (!empty($params['json'])) {
+                $params['json'] = $body;
+            }
         }
 
         /** @var ResponseInterface $response */
@@ -114,6 +116,8 @@ abstract class HttpClient
         if (!is_null($body)) {
             if (!empty($params['multipart'])) {
                 $params['multipart'] = $body;
+            }  else if (!empty($params['json'])) {
+                $params['json'] = $body;
             } else {
                 $params['form_params'] = $body;
             }

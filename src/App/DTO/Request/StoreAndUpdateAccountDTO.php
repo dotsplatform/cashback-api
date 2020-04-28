@@ -12,7 +12,7 @@ use App\DTO\SettingsDTO;
 
 class StoreAndUpdateAccountDTO
 {
-    private ?SettingsDTO $settings;
+    private ?array $settings;
     private string $name;
     private string $external_key;
 
@@ -34,7 +34,7 @@ class StoreAndUpdateAccountDTO
     public static function fromArray(array $data): StoreAndUpdateAccountDTO
     {
         return new self(
-            $data['settings'] ?? '',
+            $data['settings'] ?? [],
             $data['name'] ?? '',
             $data['external_key'] ?? ''
         );
@@ -45,11 +45,8 @@ class StoreAndUpdateAccountDTO
      */
     public function toArray(): array
     {
-        $settings = array_map(function (SettingsDTO $settingsDTO) {
-            return $settingsDTO->toArray();
-        }, $this->getSettings());
         return [
-            'settings' => $settings,
+            'settings' => $this->getSettings(),
             'name' => $this->getName(),
             'external_key' => $this->getExternalKey(),
         ];
