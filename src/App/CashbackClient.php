@@ -7,6 +7,7 @@
 
 namespace App;
 
+use App\DTO\Request\StoreTransactionDTO;
 use App\DTO\Response\ResponseTransactionNoteDTO;
 use App\DTO\Request\StoreAndUpdateAccountDTO;
 use App\DTO\Request\StoreOrderDTO;
@@ -173,7 +174,7 @@ class CashbackClient extends HttpClient
     {
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
-        $transactionDTO = ResponseTransactionDTO::fromArray($data);
+        $transactionDTO = StoreTransactionDTO::fromArray($data);
         $responseData = $this->post(self::CREATE_TRANSACTION_URL_TEMPLATE, $transactionDTO->toArray(), $params);
         return ResponseTransactionDTO::fromArray($responseData);
     }
