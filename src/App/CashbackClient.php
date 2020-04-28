@@ -185,7 +185,7 @@ class CashbackClient extends HttpClient
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseTransactionNoteDTO
      */
-    public function updateTransactionNote(int $id, array $data, ResponseAccountDTO $accountDTO)
+    public function updateTransactionNote(string $id, array $data, ResponseAccountDTO $accountDTO)
     {
         $url = $this->parseUrlParams(self::UPDATE_TRANSACTION_NOTE_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
