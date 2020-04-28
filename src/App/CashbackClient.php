@@ -40,7 +40,7 @@ class CashbackClient extends HttpClient
      */
     public function getAccount(int $id)
     {
-        $url = $this->parseUrlParams(self::GET_ACCOUNT_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::GET_ACCOUNT_URL_TEMPLATE, ['id' => $id]);
         return $this->get($url);
     }
 
@@ -63,7 +63,7 @@ class CashbackClient extends HttpClient
      */
     public function updateAccount(int $id, array $data)
     {
-        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
         $accountDTO = StoreAndUpdateAccountDTO::fromArray($data);
         $responseData = $this->put($url, $accountDTO->toArray(), $params);
@@ -77,7 +77,7 @@ class CashbackClient extends HttpClient
      */
     public function getOrderTransaction(int $id, ResponseAccountDTO $accountDTO)
     {
-        $url = $this->parseUrlParams(self::GET_ORDER_TRANSACTION_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::GET_ORDER_TRANSACTION_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
         return $this->get($url, $params);
@@ -105,7 +105,7 @@ class CashbackClient extends HttpClient
      */
     public function updateOrderPrice(int $id, ResponseAccountDTO $accountDTO, array $data)
     {
-        $url = $this->parseUrlParams(self::UPDATE_ORDER_PRICE_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::UPDATE_ORDER_PRICE_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
         $orderPriceDTO = UpdateOrderPriceDTO::fromArray($data);
@@ -121,7 +121,7 @@ class CashbackClient extends HttpClient
      */
     public function updateOrderPaidByCacheBackAmount(int $id, ResponseAccountDTO $accountDTO, array $data)
     {
-        $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
         $orderPaidByCacheBackAmountDTO = UpdateOrderPaidByCacheBackAmountDTO::fromArray($data);
@@ -136,7 +136,7 @@ class CashbackClient extends HttpClient
      */
     public function finishOrder(int $id, ResponseAccountDTO $accountDTO)
     {
-        $url = $this->parseUrlParams(self::FINISH_ORDER_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::FINISH_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $responseData = $this->patch($url, null, $params);
         return ResponseOrderDTO::fromArray($responseData);
@@ -149,7 +149,7 @@ class CashbackClient extends HttpClient
      */
     public function canselOrder(int $id, ResponseAccountDTO $accountDTO)
     {
-        $url = $this->parseUrlParams(self::CANSEL_ORDER_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::CANSEL_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $responseData = $this->patch($url, null, $params);
         return ResponseOrderDTO::fromArray($responseData);
@@ -187,7 +187,7 @@ class CashbackClient extends HttpClient
      */
     public function updateTransactionNote(int $id, array $data, ResponseAccountDTO $accountDTO)
     {
-        $url = $this->parseUrlParams(self::UPDATE_TRANSACTION_NOTE_URL_TEMPLATE, $id, 'id');
+        $url = $this->parseUrlParams(self::UPDATE_TRANSACTION_NOTE_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
         $transactionNoteDTO = UpdateTransactionNoteDTO::fromArray($data);
@@ -195,9 +195,12 @@ class CashbackClient extends HttpClient
         return ResponseTransactionNoteDTO::fromArray($responseData);
     }
 
-    public function parseUrlParams(string $string, int $value, string $paramName): string
+    public function parseUrlParams(string $url, array $data): string
     {
-        return str_replace('{' . $paramName . '}', $value, $string);
+        foreach ($data as $name => $value) {
+            $url = str_replace("{{$name}}", $value, $url);
+        }
+        return $url;
     }
 
     private function getRequestHeaders(string $externalKey)
