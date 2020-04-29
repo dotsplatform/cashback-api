@@ -27,7 +27,7 @@ class CashbackClient extends HttpClient
     const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     const CREATE_ORDER_URL_TEMPLATE = '/orders';
     const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
-    const UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE = '/orders/{id}/paid-by-cach-back-amount';
+    const UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE = '/orders/{id}/paid-by-cash-back-amount';
     const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
     const CANSEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
@@ -184,7 +184,7 @@ class CashbackClient extends HttpClient
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @param array $data
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseTransactionNoteDTO

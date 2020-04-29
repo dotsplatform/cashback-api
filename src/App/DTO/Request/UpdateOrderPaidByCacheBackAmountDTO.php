@@ -41,6 +41,6 @@ class UpdateOrderPaidByCacheBackAmountDTO
      */
     public function getPaidByCacheBackAmount(): int
     {
-        return $this->getPaidByCacheBackAmount();
+        return $this->paid_by_cash_back_amount;
     }
 }
