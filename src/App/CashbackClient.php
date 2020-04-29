@@ -99,11 +99,11 @@ class CashbackClient extends HttpClient
 
     /**
      * @param int $id
-     * @param ResponseAccountDTO $accountDTO
      * @param array $data
+     * @param ResponseAccountDTO $accountDTO
      * @return ResponseOrderDTO
      */
-    public function updateOrderPrice(int $id, ResponseAccountDTO $accountDTO, array $data)
+    public function updateOrderPrice(int $id, array $data, ResponseAccountDTO $accountDTO)
     {
         $url = $this->parseUrlParams(self::UPDATE_ORDER_PRICE_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
@@ -115,11 +115,11 @@ class CashbackClient extends HttpClient
 
     /**
      * @param int $id
-     * @param ResponseAccountDTO $accountDTO
      * @param array $data
+     * @param ResponseAccountDTO $accountDTO
      * @return ResponseOrderDTO
      */
-    public function updateOrderPaidByCacheBackAmount(int $id, ResponseAccountDTO $accountDTO, array $data)
+    public function updateOrderPaidByCacheBackAmount(int $id, array $data, ResponseAccountDTO $accountDTO)
     {
         $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
@@ -156,12 +156,16 @@ class CashbackClient extends HttpClient
     }
 
     /**
+     * @param string $phone
      * @param ResponseAccountDTO $accountDTO
      * @return mixed|null
      */
-    public function getTransaction(ResponseAccountDTO $accountDTO)
+    public function getTransaction(string $phone, ResponseAccountDTO $accountDTO)
     {
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
+        $params['query'] = [
+            'phone' => $phone
+        ];
         return $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
     }
 
