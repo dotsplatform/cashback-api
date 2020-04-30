@@ -1,0 +1,24 @@
+{
+    "name": "dotsplatform/cashback-api",
+    "description": "Client for contact with library cashback",
+    "type": "library",
+    "license": "Apache License",
+    "authors": [
+        {
+            "name": "Yehor Herasymchuk",
+            "email": "yehor@dotplatform.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/App"
+        },
+        "files": [
+            "src/App/helpers.php"
+        ]
+    }
+}
