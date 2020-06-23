@@ -16,6 +16,8 @@ class SettingsDTO
     private float $cashBackPercentDeliveryInner;
     private float $cashBackPercentDeliveryInnerToDoor;
     private float $minChargeAmount;
+    private string $livesiteCallbackUrl;
+    private string $paymentsCallbackUrl;
 
     private function __construct(
         float $cashBackPercentDelivery,
@@ -23,7 +25,9 @@ class SettingsDTO
         float $cashBackPercentBooking,
         float $cashBackPercentDeliveryInner,
         float $cashBackPercentDeliveryInnerToDoor,
-        float $minChargeAmount
+        float $minChargeAmount,
+        string $livesiteCallbackUrl,
+        string $paymentsCallbackUrl
     )
     {
         $this->cashBackPercentDelivery = $cashBackPercentDelivery;
@@ -32,6 +36,8 @@ class SettingsDTO
         $this->cashBackPercentDeliveryInner = $cashBackPercentDeliveryInner;
         $this->cashBackPercentDeliveryInnerToDoor = $cashBackPercentDeliveryInnerToDoor;
         $this->minChargeAmount = $minChargeAmount;
+        $this->livesiteCallbackUrl = $livesiteCallbackUrl;
+        $this->paymentsCallbackUrl = $paymentsCallbackUrl;
     }
 
     public static function fromArray(array $data): SettingsDTO
@@ -42,7 +48,9 @@ class SettingsDTO
             $data['cashBackPercentBooking'] ?? 0,
             $data['cashBackPercentDeliveryInner'] ?? 0,
             $data['cashBackPercentDeliveryInnerToDoor'] ?? 0,
-            $data['minChargeAmount'] ?? 0
+            $data['minChargeAmount'] ?? 0,
+            $data['livesiteCallbackUrl'] ?? '',
+            $data['paymentsCallbackUrl'] ?? '',
         );
     }
 
@@ -55,6 +63,8 @@ class SettingsDTO
             'cashBackPercentDeliveryInner' => $this->getCashBackPercentDeliveryInner(),
             'cashBackPercentDeliveryInnerToDoor' => $this->getCashBackPercentDeliveryInnerToDoor(),
             'minChargeAmount' => $this->getMinChargeAmount(),
+            'livesiteCallbackUrl' => $this->getLivesiteCallbackUrl(),
+            'paymentsCallbackUrl' => $this->getPaymentsCallbackUrl(),
         ];
     }
 
@@ -86,6 +96,16 @@ class SettingsDTO
     public function getMinChargeAmount(): float
     {
         return $this->minChargeAmount;
+    }
+
+    public function getLivesiteCallbackUrl(): string
+    {
+        return $this->livesiteCallbackUrl;
+    }
+
+    public function getPaymentsCallbackUrl(): string
+    {
+        return $this->paymentsCallbackUrl;
     }
 
 }
