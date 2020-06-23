@@ -8,7 +8,6 @@
 namespace App;
 
 use App\DTO\Request\StoreTransactionDTO;
-use App\DTO\Response\ResponseTransactionNoteDTO;
 use App\DTO\Request\StoreAndUpdateAccountDTO;
 use App\DTO\Request\StoreOrderDTO;
 use App\DTO\Request\UpdateOrderPaidByCacheBackAmountDTO;
@@ -17,6 +16,10 @@ use App\DTO\Request\UpdateTransactionNoteDTO;
 use App\DTO\Response\ResponseAccountDTO;
 use App\DTO\Response\ResponseOrderDTO;
 use App\DTO\Response\ResponseTransactionDTO;
+use App\Http\Exception\InvalidParamsDataException;
+use App\Http\Exception\NotFoundException;
+use App\Http\Exception\ServerErrorException;
+use App\Http\Exception\UnprocessableEntityException;
 use App\Http\HttpClient;
 
 class CashbackClient extends HttpClient
@@ -34,19 +37,19 @@ class CashbackClient extends HttpClient
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
 
-    /**
-     * @param int $id
-     * @return mixed|null
-     */
-    public function getAccount(int $id)
+    public function getAccount(int $id): ResponseAccountDTO
     {
         $url = $this->parseUrlParams(self::GET_ACCOUNT_URL_TEMPLATE, ['id' => $id]);
-        return $this->get($url);
+        return ResponseAccountDTO::fromArray($this->get($url));
     }
 
     /**
      * @param array $data
      * @return ResponseAccountDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
     public function createAccount(array $data): ResponseAccountDTO
     {
@@ -60,8 +63,12 @@ class CashbackClient extends HttpClient
      * @param int $id
      * @param array $data
      * @return ResponseAccountDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function updateAccount(int $id, array $data)
+    public function updateAccount(int $id, array $data): ResponseAccountDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
@@ -73,22 +80,27 @@ class CashbackClient extends HttpClient
     /**
      * @param int $id
      * @param ResponseAccountDTO $accountDTO
-     * @return mixed|null
+     * @return array|ResponseTransactionDTO[]
      */
-    public function getOrderTransaction(int $id, ResponseAccountDTO $accountDTO)
+    public function getOrderTransaction(int $id, ResponseAccountDTO $accountDTO): array
     {
         $url = $this->parseUrlParams(self::GET_ORDER_TRANSACTION_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
-        return $this->get($url, $params);
+        $responseData = $this->get($url, $params);
+        return array_map(fn(array $transactionData) => ResponseTransactionDTO::fromArray($transactionData), $responseData);
     }
 
     /**
      * @param array $data
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseOrderDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function createOrder(array $data, ResponseAccountDTO $accountDTO)
+    public function createOrder(array $data, ResponseAccountDTO $accountDTO): ResponseOrderDTO
     {
         $orderDTO = StoreOrderDTO::fromArray($data);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
@@ -102,8 +114,12 @@ class CashbackClient extends HttpClient
      * @param array $data
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseOrderDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function updateOrderPrice(int $id, array $data, ResponseAccountDTO $accountDTO)
+    public function updateOrderPrice(int $id, array $data, ResponseAccountDTO $accountDTO): ResponseOrderDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ORDER_PRICE_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
@@ -118,8 +134,14 @@ class CashbackClient extends HttpClient
      * @param array $data
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseOrderDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function updateOrderPaidByCacheBackAmount(int $id, array $data, ResponseAccountDTO $accountDTO)
+    public function updateOrderPaidByCacheBackAmount(
+        int $id, array $data, ResponseAccountDTO $accountDTO
+    ): ResponseOrderDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
@@ -133,8 +155,12 @@ class CashbackClient extends HttpClient
      * @param int $id
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseOrderDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function finishOrder(int $id, ResponseAccountDTO $accountDTO)
+    public function finishOrder(int $id, ResponseAccountDTO $accountDTO): ResponseOrderDTO
     {
         $url = $this->parseUrlParams(self::FINISH_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
@@ -146,8 +172,12 @@ class CashbackClient extends HttpClient
      * @param int $id
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseOrderDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function canselOrder(int $id, ResponseAccountDTO $accountDTO)
+    public function cancelOrder(int $id, ResponseAccountDTO $accountDTO): ResponseOrderDTO
     {
         $url = $this->parseUrlParams(self::CANSEL_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
@@ -155,26 +185,25 @@ class CashbackClient extends HttpClient
         return ResponseOrderDTO::fromArray($responseData);
     }
 
-    /**
-     * @param string $phone
-     * @param ResponseAccountDTO $accountDTO
-     * @return mixed|null
-     */
-    public function getTransaction(string $phone, ResponseAccountDTO $accountDTO)
+    public function getTransaction(string $phone, ResponseAccountDTO $accountDTO): ResponseTransactionDTO
     {
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['query'] = [
             'phone' => $phone
         ];
-        return $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
+        return ResponseTransactionDTO::fromArray($this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params));
     }
 
     /**
      * @param array $data
      * @param ResponseAccountDTO $accountDTO
      * @return ResponseTransactionDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function createTransaction(array $data, ResponseAccountDTO $accountDTO)
+    public function createTransaction(array $data, ResponseAccountDTO $accountDTO): ResponseTransactionDTO
     {
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
@@ -187,16 +216,22 @@ class CashbackClient extends HttpClient
      * @param string $id
      * @param array $data
      * @param ResponseAccountDTO $accountDTO
-     * @return ResponseTransactionNoteDTO
+     * @return ResponseTransactionDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
      */
-    public function updateTransactionNote(string $id, array $data, ResponseAccountDTO $accountDTO)
+    public function updateTransactionNote(
+        string $id, array $data, ResponseAccountDTO $accountDTO
+    ): ResponseTransactionDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_TRANSACTION_NOTE_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
         $transactionNoteDTO = UpdateTransactionNoteDTO::fromArray($data);
         $responseData = $this->patch($url, $transactionNoteDTO->toArray(), $params);
-        return ResponseTransactionNoteDTO::fromArray($responseData);
+        return ResponseTransactionDTO::fromArray($responseData);
     }
 
     public function parseUrlParams(string $url, array $data): string

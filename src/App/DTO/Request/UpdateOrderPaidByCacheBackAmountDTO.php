@@ -26,9 +26,6 @@ class UpdateOrderPaidByCacheBackAmountDTO
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -36,9 +33,6 @@ class UpdateOrderPaidByCacheBackAmountDTO
         ];
     }
 
-    /**
-     * @return int
-     */
     public function getPaidByCacheBackAmount(): int
     {
         return $this->paid_by_cash_back_amount;

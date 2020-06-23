@@ -8,7 +8,6 @@
 namespace App\DTO\Response;
 
 
-use App\DTO\Request\UpdateTransactionNoteDTO;
 
 class ResponseOrderDTO
 {
@@ -42,10 +41,6 @@ class ResponseOrderDTO
         $this->order_status = $order_status;
     }
 
-    /**
-     * @param array $data
-     * @return ResponseOrderDTO
-     */
     public static function fromArray(array $data): ResponseOrderDTO
     {
         return new self(
@@ -60,9 +55,6 @@ class ResponseOrderDTO
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -77,65 +69,41 @@ class ResponseOrderDTO
         ];
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
     public function getAccountId(): int
     {
         return $this->account_id;
     }
 
-    /**
-     * @return int
-     */
     public function getUserId(): int
     {
         return $this->user_id;
     }
 
-    /**
-     * @return int
-     */
     public function getDeliveryType(): int
     {
         return $this->delivery_type;
     }
 
-    /**
-     * @return int
-     */
     public function getPrice(): int
     {
         return $this->price;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
-    /**
-     * @return int
-     */
     public function getStatus(): int
     {
         return $this->status;
     }
 
-    /**
-     * @return int
-     */
     public function getOrderStatus(): int
     {
         return $this->order_status;

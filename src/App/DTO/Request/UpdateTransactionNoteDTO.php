@@ -17,10 +17,6 @@ class UpdateTransactionNoteDTO
         $this->note = $note;
     }
 
-    /**
-     * @param array $data
-     * @return UpdateTransactionNoteDTO
-     */
     public static function fromArray(array $data): UpdateTransactionNoteDTO
     {
         return new self(
@@ -28,9 +24,6 @@ class UpdateTransactionNoteDTO
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -38,9 +31,6 @@ class UpdateTransactionNoteDTO
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getNote(): string
     {
         return $this->note;

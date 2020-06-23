@@ -13,20 +13,12 @@ use App\Http\Exception\UnprocessableEntityException;
 use \GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use App\Http\Exception\NotFoundException;
-use Illuminate\Support\Facades\Config;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class HttpClient
 {
-    /**
-     * @var string
-     */
-    protected $serviceHost;
-
-    /**
-     * @var GuzzleClient
-     */
-    protected $client;
+    protected string $serviceHost;
+    protected GuzzleClient $client;
 
     /**
      * HttpClient constructor.
@@ -36,10 +28,7 @@ abstract class HttpClient
         $this->serviceHost = config('cashback.cashback-server.url');
     }
 
-    /**
-     * @return GuzzleClient
-     */
-    protected function makeClient()
+    protected function makeClient(): GuzzleClient
     {
         if (!$this->client) {
             $this->client = new GuzzleClient(
@@ -55,35 +44,33 @@ abstract class HttpClient
         return $this->client;
     }
 
-    protected function get($uri, $params = [])
+    protected function get($uri, $params = []): ?array
     {
         $client = $this->makeClient();
-        /** @var ResponseInterface $response */
         $response = $client->get($uri, $params);
         $statusCode = $response->getStatusCode();
         if ($statusCode == 404) {
             return null;
         }
-        $responseBody = json_decode((string)$response->getBody(), true);
-
-        return $responseBody;
+        return json_decode((string)$response->getBody(), true);
     }
 
-    protected function post($uri, $body = null, $params = [])
+    /**
+     * @param string $uri
+     * @param array|null $body
+     * @param array $params
+     * @return array|null
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    protected function post(string $uri, array $body = null, $params = []): ?array
     {
         $client = $this->makeClient();
-        if (!is_null($body)) {
-            if (!empty($params['multipart'])) {
-                $params['multipart'] = $body;
-            } else if (!empty($params['json'])) {
-                $params['json'] = $body;
-            } else {
-                $params['form_params'] = $body;
-            }
-        }
+        $params = $this->prepareRequestBody($body, $params);
 
         try {
-            /** @var ResponseInterface $response */
             $response = $client->post($uri, $params);
         } catch (ClientException $e) {
             $this->parseResponseStatus($e->getResponse());
@@ -92,7 +79,17 @@ abstract class HttpClient
         return json_decode($responseBody, true);
     }
 
-    protected function patch($uri, $body = null, $params = [])
+    /**
+     * @param string $uri
+     * @param array|null $body
+     * @param array $params
+     * @return array|null
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    protected function patch(string $uri, array $body = null, $params = []): ?array
     {
         $client = $this->makeClient();
 
@@ -102,28 +99,32 @@ abstract class HttpClient
             }
         }
 
-        /** @var ResponseInterface $response */
-        $response = $client->patch($uri, $params);
+        try {
+            $response = $client->post($uri, $params);
+        } catch (ClientException $e) {
+            $this->parseResponseStatus($e->getResponse());
+        }
 
         $responseBody = (string)$response->getBody();
         return json_decode($responseBody, true);
     }
 
-    protected function put($uri, $body = null, $params = [])
+    /**
+     * @param string $uri
+     * @param array|null $body
+     * @param array $params
+     * @return array|null
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    protected function put(string $uri, array $body = null, $params = []): ?array
     {
         $client = $this->makeClient();
+        $params = $this->prepareRequestBody($body, $params);
 
-        if (!is_null($body)) {
-            if (!empty($params['multipart'])) {
-                $params['multipart'] = $body;
-            }  else if (!empty($params['json'])) {
-                $params['json'] = $body;
-            } else {
-                $params['form_params'] = $body;
-            }
-        }
         try {
-            /** @var ResponseInterface $response */
             $response = $client->put($uri, $params);
         } catch (ClientException $e) {
             $response = $e->getResponse();
@@ -131,10 +132,17 @@ abstract class HttpClient
 
         $this->parseResponseStatus($response);
 
-        $responseBody = (string) $response->getBody(true);
+        $responseBody = (string) $response->getBody();
         return json_decode($responseBody, true);
     }
 
+    /**
+     * @param ResponseInterface $response
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
     protected function parseResponseStatus(ResponseInterface $response)
     {
         if ($response->getStatusCode() < 400) {
@@ -153,6 +161,25 @@ abstract class HttpClient
             throw new InvalidParamsDataException(json_decode($response->getBody(), true));
         }
         throw new ServerErrorException(json_decode($response->getBody(), true));
+    }
+
+    /**
+     * @param array|null $body
+     * @param array $params
+     * @return array
+     */
+    private function prepareRequestBody(?array $body, array $params): array
+    {
+        if (!is_null($body)) {
+            if (!empty($params['multipart'])) {
+                $params['multipart'] = $body;
+            } else if (!empty($params['json'])) {
+                $params['json'] = $body;
+            } else {
+                $params['form_params'] = $body;
+            }
+        }
+        return $params;
     }
 
 }

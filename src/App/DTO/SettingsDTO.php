@@ -34,10 +34,6 @@ class SettingsDTO
         $this->minChargeAmount = $minChargeAmount;
     }
 
-    /**
-     * @param array $data
-     * @return SettingsDTO
-     */
     public static function fromArray(array $data): SettingsDTO
     {
         return new self(
@@ -62,49 +58,31 @@ class SettingsDTO
         ];
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentDelivery(): float
     {
         return $this->cashBackPercentDelivery;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentPickup(): float
     {
         return $this->cashBackPercentPickup;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentBooking(): float
     {
         return $this->cashBackPercentBooking;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentDeliveryInner(): float
     {
         return $this->cashBackPercentDeliveryInner;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentDeliveryInnerToDoor(): float
     {
         return $this->cashBackPercentDeliveryInnerToDoor;
     }
 
-    /**
-     * @return float
-     */
     public function getMinChargeAmount(): float
     {
         return $this->minChargeAmount;

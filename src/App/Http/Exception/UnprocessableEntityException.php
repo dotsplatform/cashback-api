@@ -10,7 +10,7 @@ namespace App\Http\Exception;
 
 class UnprocessableEntityException extends HttpClientException
 {
-    protected $errors;
+    protected array $errors;
 
     public function __construct($errors)
     {

@@ -13,13 +13,13 @@ use App\DTO\SettingsDTO;
 class ResponseAccountDTO
 {
     private int $id;
-    private ?array $settings;
+    private SettingsDTO $settings;
     private string $name;
     private string $external_key;
 
     private function __construct(
         int $id,
-        ?array $settings,
+        SettingsDTO $settings,
         string $name,
         string $external_key
     )
@@ -30,63 +30,41 @@ class ResponseAccountDTO
         $this->external_key = $external_key;
     }
 
-    /**
-     * @param array $data
-     * @return ResponseAccountDTO
-     */
     public static function fromArray(array $data): ResponseAccountDTO
     {
         return new self(
             $data['id'] ?? 0,
-            $data['settings'] ?? null,
+            SettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',
             $data['external_key'] ?? ''
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
-        $settings = array_map(function (SettingsDTO $settingsDTO) {
-            return $settingsDTO->toArray();
-        }, $this->getSettings());
         return [
             'id' => $this->getId(),
-            'settings' => $settings,
+            'settings' => $this->getSettings(),
             'name' => $this->getName(),
             'external_key' => $this->getExternalKey(),
         ];
     }
 
-    /**
-     * @return array|SettingsDTO[]
-     */
-    public function getSettings(): array
+    public function getSettings(): SettingsDTO
     {
         return $this->settings;
     }
 
-    /**
-     * @return string
-     */
     public function getExternalKey(): string
     {
         return $this->external_key;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;

@@ -26,9 +26,6 @@ class UpdateOrderPriceDTO
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -36,9 +33,6 @@ class UpdateOrderPriceDTO
         ];
     }
 
-    /**
-     * @return int
-     */
     public function getPrice(): int
     {
         return $this->price;
