@@ -7,6 +7,9 @@
 
 namespace App\Http\Exception;
 
-class HttpClientException extends \Exception
+use Exception;
+
+class HttpClientException extends Exception
 {
+
 }

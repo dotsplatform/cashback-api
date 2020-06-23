@@ -16,6 +16,8 @@ class SettingsDTO
     private float $cashBackPercentDeliveryInner;
     private float $cashBackPercentDeliveryInnerToDoor;
     private float $minChargeAmount;
+    private string $livesiteCallbackUrl;
+    private string $paymentsCallbackUrl;
 
     private function __construct(
         float $cashBackPercentDelivery,
@@ -23,7 +25,9 @@ class SettingsDTO
         float $cashBackPercentBooking,
         float $cashBackPercentDeliveryInner,
         float $cashBackPercentDeliveryInnerToDoor,
-        float $minChargeAmount
+        float $minChargeAmount,
+        string $livesiteCallbackUrl,
+        string $paymentsCallbackUrl
     )
     {
         $this->cashBackPercentDelivery = $cashBackPercentDelivery;
@@ -32,12 +36,10 @@ class SettingsDTO
         $this->cashBackPercentDeliveryInner = $cashBackPercentDeliveryInner;
         $this->cashBackPercentDeliveryInnerToDoor = $cashBackPercentDeliveryInnerToDoor;
         $this->minChargeAmount = $minChargeAmount;
+        $this->livesiteCallbackUrl = $livesiteCallbackUrl;
+        $this->paymentsCallbackUrl = $paymentsCallbackUrl;
     }
 
-    /**
-     * @param array $data
-     * @return SettingsDTO
-     */
     public static function fromArray(array $data): SettingsDTO
     {
         return new self(
@@ -46,7 +48,9 @@ class SettingsDTO
             $data['cashBackPercentBooking'] ?? 0,
             $data['cashBackPercentDeliveryInner'] ?? 0,
             $data['cashBackPercentDeliveryInnerToDoor'] ?? 0,
-            $data['minChargeAmount'] ?? 0
+            $data['minChargeAmount'] ?? 0,
+            $data['livesiteCallbackUrl'] ?? '',
+            $data['paymentsCallbackUrl'] ?? '',
         );
     }
 
@@ -59,55 +63,49 @@ class SettingsDTO
             'cashBackPercentDeliveryInner' => $this->getCashBackPercentDeliveryInner(),
             'cashBackPercentDeliveryInnerToDoor' => $this->getCashBackPercentDeliveryInnerToDoor(),
             'minChargeAmount' => $this->getMinChargeAmount(),
+            'livesiteCallbackUrl' => $this->getLivesiteCallbackUrl(),
+            'paymentsCallbackUrl' => $this->getPaymentsCallbackUrl(),
         ];
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentDelivery(): float
     {
         return $this->cashBackPercentDelivery;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentPickup(): float
     {
         return $this->cashBackPercentPickup;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentBooking(): float
     {
         return $this->cashBackPercentBooking;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentDeliveryInner(): float
     {
         return $this->cashBackPercentDeliveryInner;
     }
 
-    /**
-     * @return float
-     */
     public function getCashBackPercentDeliveryInnerToDoor(): float
     {
         return $this->cashBackPercentDeliveryInnerToDoor;
     }
 
-    /**
-     * @return float
-     */
     public function getMinChargeAmount(): float
     {
         return $this->minChargeAmount;
+    }
+
+    public function getLivesiteCallbackUrl(): string
+    {
+        return $this->livesiteCallbackUrl;
+    }
+
+    public function getPaymentsCallbackUrl(): string
+    {
+        return $this->paymentsCallbackUrl;
     }
 
 }

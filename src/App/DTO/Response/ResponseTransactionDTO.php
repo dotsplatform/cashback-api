@@ -40,10 +40,6 @@ class ResponseTransactionDTO
         $this->completed_time = $completed_time;
     }
 
-    /**
-     * @param array $data
-     * @return ResponseTransactionDTO
-     */
     public static function fromArray(array $data): ResponseTransactionDTO
     {
         return new self(
@@ -58,9 +54,6 @@ class ResponseTransactionDTO
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
 
@@ -76,65 +69,41 @@ class ResponseTransactionDTO
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
     public function getUserId(): int
     {
         return $this->user_id;
     }
 
-    /**
-     * @return int
-     */
     public function getOrderId(): int
     {
         return $this->order_id;
     }
 
-    /**
-     * @return string
-     */
     public function getNote(): string
     {
         return $this->note;
     }
 
-    /**
-     * @return int
-     */
     public function getAmount(): int
     {
         return $this->amount;
     }
 
-    /**
-     * @return int
-     */
     public function getStatus(): int
     {
         return $this->status;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
-    /**
-     * @return int
-     */
     public function getCompletedTime(): int
     {
         return $this->completed_time;

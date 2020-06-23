@@ -10,6 +10,8 @@ namespace App\Http\Exception;
 
 class NotFoundException extends HttpClientException
 {
+    protected array $errors;
+
     public function __construct($errors)
     {
         $this->errors = $errors;

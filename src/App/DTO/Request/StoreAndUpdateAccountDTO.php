@@ -12,12 +12,12 @@ use App\DTO\SettingsDTO;
 
 class StoreAndUpdateAccountDTO
 {
-    private ?array $settings;
+    private SettingsDTO $settings;
     private string $name;
     private string $external_key;
 
     private function __construct(
-        ?array $settings,
+        SettingsDTO $settings,
         string $name,
         string $external_key
     )
@@ -27,22 +27,15 @@ class StoreAndUpdateAccountDTO
         $this->external_key = $external_key;
     }
 
-    /**
-     * @param array $data
-     * @return StoreAndUpdateAccountDTO
-     */
     public static function fromArray(array $data): StoreAndUpdateAccountDTO
     {
         return new self(
-            $data['settings'] ?? [],
+            SettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',
             $data['external_key'] ?? ''
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -52,25 +45,16 @@ class StoreAndUpdateAccountDTO
         ];
     }
 
-    /**
-     * @return array|SettingsDTO[]
-     */
-    public function getSettings(): array
+    public function getSettings(): SettingsDTO
     {
         return $this->settings;
     }
 
-    /**
-     * @return string
-     */
     public function getExternalKey(): string
     {
         return $this->external_key;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

@@ -29,10 +29,6 @@ class StoreOrderDTO
         $this->paid_by_cash_back_amount = $paid_by_cash_back_amount;
     }
 
-    /**
-     * @param array $data
-     * @return StoreOrderDTO
-     */
     public static function fromArray(array $data): StoreOrderDTO
     {
         return new self(
@@ -43,9 +39,6 @@ class StoreOrderDTO
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -56,33 +49,21 @@ class StoreOrderDTO
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getPhone(): string
     {
         return $this->phone;
     }
 
-    /**
-     * @return int
-     */
     public function getDeliveryType(): int
     {
         return $this->delivery_type;
     }
 
-    /**
-     * @return int
-     */
     public function getPrice(): int
     {
         return $this->price;
     }
 
-    /**
-     * @return int
-     */
     public function getPaidByCashBackAmount(): int
     {
         return $this->paid_by_cash_back_amount;

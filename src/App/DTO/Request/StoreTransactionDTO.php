@@ -25,10 +25,6 @@ class StoreTransactionDTO
         $this->note = $note;
     }
 
-    /**
-     * @param array $data
-     * @return StoreTransactionDTO
-     */
     public static function fromArray(array $data): StoreTransactionDTO
     {
         return new self(
@@ -38,9 +34,6 @@ class StoreTransactionDTO
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -50,25 +43,16 @@ class StoreTransactionDTO
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getPhone(): string
     {
         return $this->phone;
     }
 
-    /**
-     * @return int
-     */
     public function getAmount(): int
     {
         return $this->amount;
     }
 
-    /**
-     * @return string
-     */
     public function getNote(): string
     {
         return $this->note;
