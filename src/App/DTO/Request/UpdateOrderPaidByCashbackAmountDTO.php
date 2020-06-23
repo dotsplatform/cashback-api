@@ -8,7 +8,7 @@
 namespace App\DTO\Request;
 
 
-class UpdateOrderPaidByCacheBackAmountDTO
+class UpdateOrderPaidByCashbackAmountDTO
 {
     private int $paid_by_cash_back_amount;
 
@@ -19,7 +19,7 @@ class UpdateOrderPaidByCacheBackAmountDTO
         $this->paid_by_cash_back_amount = $paid_by_cash_back_amount;
     }
 
-    public static function fromArray(array $data): UpdateOrderPaidByCacheBackAmountDTO
+    public static function fromArray(array $data): UpdateOrderPaidByCashbackAmountDTO
     {
         return new self(
             $data['paid_by_cash_back_amount'] ?? 0

@@ -10,7 +10,7 @@ namespace App;
 use App\DTO\Request\StoreTransactionDTO;
 use App\DTO\Request\StoreAndUpdateAccountDTO;
 use App\DTO\Request\StoreOrderDTO;
-use App\DTO\Request\UpdateOrderPaidByCacheBackAmountDTO;
+use App\DTO\Request\UpdateOrderPaidByCashbackAmountDTO;
 use App\DTO\Request\UpdateOrderPriceDTO;
 use App\DTO\Request\UpdateTransactionNoteDTO;
 use App\DTO\Response\ResponseAccountDTO;
@@ -30,9 +30,9 @@ class CashbackClient extends HttpClient
     const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     const CREATE_ORDER_URL_TEMPLATE = '/orders';
     const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
-    const UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE = '/orders/{id}/paid-by-cash-back-amount';
+    const UPDATE_ORDER_PAID_BY_CASHBACK_AMOUNT_URL_TEMPLATE = '/orders/{id}/paid-by-cash-back-amount';
     const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
-    const CANSEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
+    const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
@@ -139,15 +139,15 @@ class CashbackClient extends HttpClient
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function updateOrderPaidByCacheBackAmount(
+    public function updateOrderPaidByCashBackAmount(
         int $id, array $data, ResponseAccountDTO $accountDTO
     ): ResponseOrderDTO
     {
-        $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CACHE_BACK_AMOUNT_URL_TEMPLATE, ['id' => $id]);
+        $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CASHBACK_AMOUNT_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $params['json'] = true;
-        $orderPaidByCacheBackAmountDTO = UpdateOrderPaidByCacheBackAmountDTO::fromArray($data);
-        $responseData = $this->patch($url, $orderPaidByCacheBackAmountDTO->toArray(), $params);
+        $orderPaidByCashbackAmountDTO = UpdateOrderPaidByCashbackAmountDTO::fromArray($data);
+        $responseData = $this->patch($url, $orderPaidByCashbackAmountDTO->toArray(), $params);
         return ResponseOrderDTO::fromArray($responseData);
     }
 
@@ -179,7 +179,7 @@ class CashbackClient extends HttpClient
      */
     public function cancelOrder(int $id, ResponseAccountDTO $accountDTO): ResponseOrderDTO
     {
-        $url = $this->parseUrlParams(self::CANSEL_ORDER_URL_TEMPLATE, ['id' => $id]);
+        $url = $this->parseUrlParams(self::CANCEL_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountDTO->getExternalKey());
         $responseData = $this->patch($url, null, $params);
         return ResponseOrderDTO::fromArray($responseData);
