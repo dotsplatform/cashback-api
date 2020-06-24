@@ -23,6 +23,6 @@ class CashbackApiServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/cashback.php' => config_path('cashback.php'),
-        ]);
+        ], 'config');
     }
 }
