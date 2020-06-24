@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Dotsplatform\\CashbackApi\\ServiceProvider"
+                "Dotsplatform\\CashbackApi\\CashbackApiServiceProvider"
             ]
         }
     }
