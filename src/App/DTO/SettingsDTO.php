@@ -15,6 +15,7 @@ class SettingsDTO
     private float $cashBackPercentBooking;
     private float $cashBackPercentDeliveryInner;
     private float $cashBackPercentDeliveryInnerToDoor;
+    private float $cashBackPercentDeliveryPost;
     private float $minChargeAmount;
     private string $livesiteCallbackUrl;
     private string $paymentsCallbackUrl;
@@ -25,6 +26,7 @@ class SettingsDTO
         float $cashBackPercentBooking,
         float $cashBackPercentDeliveryInner,
         float $cashBackPercentDeliveryInnerToDoor,
+        float $cashBackPercentDeliveryPost,
         float $minChargeAmount,
         string $livesiteCallbackUrl,
         string $paymentsCallbackUrl
@@ -35,6 +37,7 @@ class SettingsDTO
         $this->cashBackPercentBooking = $cashBackPercentBooking;
         $this->cashBackPercentDeliveryInner = $cashBackPercentDeliveryInner;
         $this->cashBackPercentDeliveryInnerToDoor = $cashBackPercentDeliveryInnerToDoor;
+        $this->cashBackPercentDeliveryPost = $cashBackPercentDeliveryPost;
         $this->minChargeAmount = $minChargeAmount;
         $this->livesiteCallbackUrl = $livesiteCallbackUrl;
         $this->paymentsCallbackUrl = $paymentsCallbackUrl;
@@ -48,6 +51,7 @@ class SettingsDTO
             $data['cashBackPercentBooking'] ?? 0,
             $data['cashBackPercentDeliveryInner'] ?? 0,
             $data['cashBackPercentDeliveryInnerToDoor'] ?? 0,
+            $data['cashBackPercentDeliveryPost'] ?? 0,
             $data['minChargeAmount'] ?? 0,
             $data['livesiteCallbackUrl'] ?? '',
             $data['paymentsCallbackUrl'] ?? '',
@@ -62,6 +66,7 @@ class SettingsDTO
             'cashBackPercentBooking' => $this->getCashBackPercentBooking(),
             'cashBackPercentDeliveryInner' => $this->getCashBackPercentDeliveryInner(),
             'cashBackPercentDeliveryInnerToDoor' => $this->getCashBackPercentDeliveryInnerToDoor(),
+            'cashBackPercentDeliveryPost' => $this->getCashBackPercentDeliveryPost(),
             'minChargeAmount' => $this->getMinChargeAmount(),
             'livesiteCallbackUrl' => $this->getLivesiteCallbackUrl(),
             'paymentsCallbackUrl' => $this->getPaymentsCallbackUrl(),
@@ -91,6 +96,11 @@ class SettingsDTO
     public function getCashBackPercentDeliveryInnerToDoor(): float
     {
         return $this->cashBackPercentDeliveryInnerToDoor;
+    }
+
+    public function getCashBackPercentDeliveryPost(): float
+    {
+        return $this->cashBackPercentDeliveryPost;
     }
 
     public function getMinChargeAmount(): float
