@@ -5,10 +5,12 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App;
+namespace Dotsplatform\CashbackApi;
 
 
-class ServiceProvider extends \Illuminate\Support\ServiceProvider
+use \Illuminate\Support\ServiceProvider;
+
+class CashbackApiServiceProvider extends ServiceProvider
 {
     public function register()
     {

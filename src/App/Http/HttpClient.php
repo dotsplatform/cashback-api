@@ -5,14 +5,14 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App\Http;
+namespace Dotsplatform\CashbackApi\Http;
 
-use App\Http\Exception\InvalidParamsDataException;
-use App\Http\Exception\ServerErrorException;
-use App\Http\Exception\UnprocessableEntityException;
+use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
+use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
+use Dotsplatform\CashbackApi\Http\Exception\UnprocessableEntityException;
 use \GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
-use App\Http\Exception\NotFoundException;
+use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class HttpClient

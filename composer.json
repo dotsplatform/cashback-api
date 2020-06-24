@@ -16,10 +16,14 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/App"
-        },
-        "files": [
-            "src/App/helpers.php"
-        ]
+            "Dotsplatform\\CashbackApi\\": "src/App"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dotsplatform\\CashbackApi\\ServiceProvider"
+            ]
+        }
     }
 }
