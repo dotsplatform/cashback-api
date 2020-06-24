@@ -5,7 +5,7 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App\DTO\Request;
+namespace Dotsplatform\CashbackApi\DTO\Request;
 
 
 class StoreOrderDTO

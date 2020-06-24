@@ -5,22 +5,22 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App;
+namespace Dotsplatform\CashbackApi;
 
-use App\DTO\Request\StoreTransactionDTO;
-use App\DTO\Request\StoreAndUpdateAccountDTO;
-use App\DTO\Request\StoreOrderDTO;
-use App\DTO\Request\UpdateOrderPaidByCashbackAmountDTO;
-use App\DTO\Request\UpdateOrderPriceDTO;
-use App\DTO\Request\UpdateTransactionNoteDTO;
-use App\DTO\Response\ResponseAccountDTO;
-use App\DTO\Response\ResponseOrderDTO;
-use App\DTO\Response\ResponseTransactionDTO;
-use App\Http\Exception\InvalidParamsDataException;
-use App\Http\Exception\NotFoundException;
-use App\Http\Exception\ServerErrorException;
-use App\Http\Exception\UnprocessableEntityException;
-use App\Http\HttpClient;
+use Dotsplatform\CashbackApi\DTO\Request\StoreTransactionDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreAndUpdateAccountDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
+use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPaidByCashbackAmountDTO;
+use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
+use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
+use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
+use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
+use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
+use Dotsplatform\CashbackApi\Http\Exception\UnprocessableEntityException;
+use Dotsplatform\CashbackApi\Http\HttpClient;
 
 class CashbackClient extends HttpClient
 {

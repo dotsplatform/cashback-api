@@ -5,7 +5,7 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App\Http\Exception;
+namespace Dotsplatform\CashbackApi\Http\Exception;
 
 
 class ServerErrorException extends HttpClientException

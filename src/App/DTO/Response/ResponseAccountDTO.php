@@ -5,10 +5,10 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace App\DTO\Response;
+namespace Dotsplatform\CashbackApi\DTO\Response;
 
 
-use App\DTO\SettingsDTO;
+use Dotsplatform\CashbackApi\DTO\SettingsDTO;
 
 class ResponseAccountDTO
 {
