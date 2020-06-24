@@ -2,6 +2,6 @@
 
 return [
     'cashback-server' => [
-       'url' => env('EXTERNAL_SERVICE_CASHBACK_URL', 'http://cashback.test.mister.am/')
+       'url' => env('RESOURCES_CASHBACK_EXTERNAL_HOST', 'http://cashback.misteram.com.ua/')
     ]
 ];
