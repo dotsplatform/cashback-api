@@ -39,7 +39,7 @@ class StoreAndUpdateAccountDTO
     public function toArray(): array
     {
         return [
-            'settings' => $this->getSettings(),
+            'settings' => $this->getSettings()->toArray(),
             'name' => $this->getName(),
             'external_key' => $this->getExternalKey(),
         ];

@@ -36,6 +36,7 @@ class CashbackClient extends HttpClient
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
+    const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/transactions/resolve-receiving-amount';
 
     public function getAccount(int $id): ResponseAccountDTO
     {
@@ -234,7 +235,21 @@ class CashbackClient extends HttpClient
         return ResponseTransactionDTO::fromArray($responseData);
     }
 
-    public function parseUrlParams(string $url, array $data): string
+    public function resolveReceivingAmount(
+        string $accountKey, int $orderPrice, int $deliveryType
+    ): int
+    {
+        $params = $this->getRequestHeaders($accountKey);
+        $params['query'] = [
+            'order_price' => $orderPrice,
+            'delivery_type' => $deliveryType,
+        ];
+
+        $responseData = $this->get(self::RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE, $params);
+        return $responseData['receiving_amount'];
+    }
+
+    private function parseUrlParams(string $url, array $data): string
     {
         foreach ($data as $name => $value) {
             $url = str_replace("{{$name}}", $value, $url);

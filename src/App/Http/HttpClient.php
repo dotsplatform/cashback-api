@@ -30,7 +30,7 @@ abstract class HttpClient
 
     protected function makeClient(): GuzzleClient
     {
-        if (!$this->client) {
+        if (!isset($this->client)) {
             $this->client = new GuzzleClient(
                 [
                     'base_uri' => $this->serviceHost,
