@@ -100,7 +100,7 @@ abstract class HttpClient
         }
 
         try {
-            $response = $client->post($uri, $params);
+            $response = $client->patch($uri, $params);
         } catch (ClientException $e) {
             $this->parseResponseStatus($e->getResponse());
         }
