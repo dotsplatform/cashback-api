@@ -19,7 +19,7 @@ class ResponseTransactionDTO
     private ?array $data;
     private int $completed_time;
 
-    private function __construct(
+    protected function __construct(
         string $id,
         int $user_id,
         int $order_id,

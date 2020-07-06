@@ -16,6 +16,7 @@ use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionWithOrderDataDTO;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
 use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
 use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
@@ -187,7 +188,7 @@ class CashbackClient extends HttpClient
     /**
      * @param string $externalAccountKey
      * @param string $phone
-     * @return ResponseTransactionDTO[]|array
+     * @return ResponseTransactionWithOrderDataDTO[]|array
      */
     public function getUserTransactions(string $externalAccountKey, string $phone): array
     {
@@ -196,7 +197,9 @@ class CashbackClient extends HttpClient
             'phone' => $phone
         ];
         $response = $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
-        return array_map(fn(array $transactionData) => ResponseTransactionDTO::fromArray($transactionData), $response);
+        return array_map(function (array $transactionData) {
+            return ResponseTransactionWithOrderDataDTO::fromArray($transactionData);
+        }, $response);
     }
 
     /**

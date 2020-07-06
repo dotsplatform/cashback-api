@@ -19,6 +19,7 @@ class ResponseOrderDTO
     private ?array $data;
     private int $status;
     private int $order_status;
+    private ?int $external_id;
 
     private function __construct(
         int $id,
@@ -28,7 +29,8 @@ class ResponseOrderDTO
         int $price,
         ?array $data,
         int $status,
-        int $order_status
+        int $order_status,
+        ?int $external_id
     )
     {
         $this->id = $id;
@@ -39,6 +41,7 @@ class ResponseOrderDTO
         $this->data = $data;
         $this->status = $status;
         $this->order_status = $order_status;
+        $this->external_id = $external_id;
     }
 
     public static function fromArray(array $data): ResponseOrderDTO
@@ -51,7 +54,8 @@ class ResponseOrderDTO
             $data['price'] ?? 0,
             $data['data'] ?? null,
             $data['status'] ?? 0,
-            $data['order_status'] ?? 0
+            $data['order_status'] ?? 0,
+            $data['external_id'] ?? null,
         );
     }
 
@@ -66,6 +70,7 @@ class ResponseOrderDTO
             'data' => $this->getData(),
             'status' => $this->getStatus(),
             'order_status' => $this->getOrderStatus(),
+            'external_id' => $this->getExternalId(),
         ];
     }
 
@@ -107,5 +112,10 @@ class ResponseOrderDTO
     public function getOrderStatus(): int
     {
         return $this->order_status;
+    }
+
+    public function getExternalId(): ?int
+    {
+        return $this->external_id;
     }
 }
