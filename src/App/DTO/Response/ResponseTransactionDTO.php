@@ -12,7 +12,7 @@ class ResponseTransactionDTO
 {
     private string $id;
     private int $user_id;
-    private int $order_id;
+    private ?int $order_id;
     private string $note;
     private int $amount;
     private int $status;
@@ -22,7 +22,7 @@ class ResponseTransactionDTO
     protected function __construct(
         string $id,
         int $user_id,
-        int $order_id,
+        ?int $order_id,
         string $note,
         int $amount,
         int $status,
@@ -45,7 +45,7 @@ class ResponseTransactionDTO
         return new self(
             $data['id'] ?? '',
             $data['user_id'] ?? 0,
-            $data['order_id'] ?? 0,
+            $data['order_id'] ?? null,
             $data['note'] ?? '',
             $data['amount'] ?? 0,
             $data['status'] ?? 0,
@@ -79,7 +79,7 @@ class ResponseTransactionDTO
         return $this->user_id;
     }
 
-    public function getOrderId(): int
+    public function getOrderId(): ?int
     {
         return $this->order_id;
     }
