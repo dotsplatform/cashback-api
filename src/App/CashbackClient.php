@@ -10,7 +10,6 @@ namespace Dotsplatform\CashbackApi;
 use Dotsplatform\CashbackApi\DTO\Request\StoreTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreAndUpdateAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
-use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPaidByCashbackAmountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
@@ -31,7 +30,6 @@ class CashbackClient extends HttpClient
     const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     const CREATE_ORDER_URL_TEMPLATE = '/orders';
     const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
-    const UPDATE_ORDER_PAID_BY_CASHBACK_AMOUNT_URL_TEMPLATE = '/orders/{id}/paid-by-cash-back-amount';
     const FINISH_ORDER_URL_TEMPLATE = '/orders/{external_id}/finish-by-external-id';
     const CANCEL_ORDER_URL_TEMPLATE = '/orders/{external_id}/cancel-by-external-id';
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
@@ -128,26 +126,6 @@ class CashbackClient extends HttpClient
         $params['json'] = true;
         $orderPriceDTO = UpdateOrderPriceDTO::fromArray($data);
         $responseData = $this->patch($url, $orderPriceDTO->toArray(), $params);
-        return ResponseOrderDTO::fromArray($responseData);
-    }
-
-    /**
-     * @param int $id
-     * @param string $externalAccountKey
-     * @param array $data
-     * @return ResponseOrderDTO
-     * @throws InvalidParamsDataException
-     * @throws NotFoundException
-     * @throws ServerErrorException
-     * @throws UnprocessableEntityException
-     */
-    public function updateOrderPaidByCashBackAmount(int $id, string $externalAccountKey, array $data): ResponseOrderDTO
-    {
-        $url = $this->parseUrlParams(self::UPDATE_ORDER_PAID_BY_CASHBACK_AMOUNT_URL_TEMPLATE, ['id' => $id]);
-        $params = $this->getRequestHeaders($externalAccountKey);
-        $params['json'] = true;
-        $orderPaidByCashbackAmountDTO = UpdateOrderPaidByCashbackAmountDTO::fromArray($data);
-        $responseData = $this->patch($url, $orderPaidByCashbackAmountDTO->toArray(), $params);
         return ResponseOrderDTO::fromArray($responseData);
     }
 
