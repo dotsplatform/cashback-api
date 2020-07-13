@@ -30,8 +30,8 @@ class CashbackClient extends HttpClient
     const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     const CREATE_ORDER_URL_TEMPLATE = '/orders';
     const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
-    const FINISH_ORDER_URL_TEMPLATE = '/orders/{external_id}/finish-by-external-id';
-    const CANCEL_ORDER_URL_TEMPLATE = '/orders/{external_id}/cancel-by-external-id';
+    const FINISH_ORDER_URL_TEMPLATE = '/orders/{external_id}/finish';
+    const CANCEL_ORDER_URL_TEMPLATE = '/orders/{external_id}/cancel';
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
@@ -130,7 +130,7 @@ class CashbackClient extends HttpClient
     }
 
     /**
-     * @param int $externalId
+     * @param int $id
      * @param string $externalAccountKey
      * @return ResponseOrderDTO
      * @throws InvalidParamsDataException
@@ -138,16 +138,16 @@ class CashbackClient extends HttpClient
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function finishOrder(int $externalId, string $externalAccountKey): ResponseOrderDTO
+    public function finishOrder(int $id, string $externalAccountKey): ResponseOrderDTO
     {
-        $url = $this->parseUrlParams(self::FINISH_ORDER_URL_TEMPLATE, ['external_id' => $externalId]);
+        $url = $this->parseUrlParams(self::FINISH_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($externalAccountKey);
         $responseData = $this->patch($url, null, $params);
         return ResponseOrderDTO::fromArray($responseData);
     }
 
     /**
-     * @param int $externalId
+     * @param int $id
      * @param string $externalAccountKey
      * @return ResponseOrderDTO
      * @throws InvalidParamsDataException
@@ -155,9 +155,9 @@ class CashbackClient extends HttpClient
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function cancelOrder(int $externalId, string $externalAccountKey): ResponseOrderDTO
+    public function cancelOrder(int $id, string $externalAccountKey): ResponseOrderDTO
     {
-        $url = $this->parseUrlParams(self::CANCEL_ORDER_URL_TEMPLATE, ['external_id' => $externalId]);
+        $url = $this->parseUrlParams(self::CANCEL_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($externalAccountKey);
         $responseData = $this->patch($url, null, $params);
         return ResponseOrderDTO::fromArray($responseData);
