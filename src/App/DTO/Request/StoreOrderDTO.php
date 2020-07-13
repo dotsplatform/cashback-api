@@ -13,21 +13,24 @@ class StoreOrderDTO
     private string $phone;
     private int $delivery_type;
     private int $price;
-    private int $paid_by_cash_back_amount;
+    private int $paidByCashBackAmount;
+    private ?int $externalId;
     private array $data;
 
     private function __construct(
         string $phone,
         int $delivery_type,
         int $price,
-        int $paid_by_cash_back_amount,
+        int $paidByCashBackAmount,
+        ?int $externalId,
         array $data
     )
     {
         $this->phone = $phone;
         $this->delivery_type = $delivery_type;
         $this->price = $price;
-        $this->paid_by_cash_back_amount = $paid_by_cash_back_amount;
+        $this->paidByCashBackAmount = $paidByCashBackAmount;
+        $this->externalId = $externalId;
         $this->data = $data;
     }
 
@@ -38,6 +41,7 @@ class StoreOrderDTO
             $data['delivery_type'] ?? 0,
             $data['price'] ?? 0,
             $data['paid_by_cash_back_amount'] ?? 0,
+            $data['external_id'] ?? null,
             $data['data'] ?? [],
         );
     }
@@ -49,6 +53,7 @@ class StoreOrderDTO
             'delivery_type' => $this->getDeliveryType(),
             'price' => $this->getPrice(),
             'paid_by_cash_back_amount' => $this->getPaidByCashBackAmount(),
+            'external_id' => $this->getExternalId(),
             'data' => $this->getData(),
         ];
     }
@@ -70,7 +75,12 @@ class StoreOrderDTO
 
     public function getPaidByCashBackAmount(): int
     {
-        return $this->paid_by_cash_back_amount;
+        return $this->paidByCashBackAmount;
+    }
+
+    public function getExternalId(): ?int
+    {
+        return $this->externalId;
     }
 
     public function getData(): array
