@@ -17,8 +17,7 @@ class SettingsDTO
     private float $cashBackPercentDeliveryInnerToDoor;
     private float $cashBackPercentDeliveryPost;
     private float $minChargeAmount;
-    private string $livesiteCallbackUrl;
-    private string $paymentsCallbackUrl;
+    private string $callbackUrl;
 
     private function __construct(
         float $cashBackPercentDelivery,
@@ -28,8 +27,7 @@ class SettingsDTO
         float $cashBackPercentDeliveryInnerToDoor,
         float $cashBackPercentDeliveryPost,
         float $minChargeAmount,
-        string $livesiteCallbackUrl,
-        string $paymentsCallbackUrl
+        string $callbackUrl
     )
     {
         $this->cashBackPercentDelivery = $cashBackPercentDelivery;
@@ -39,8 +37,7 @@ class SettingsDTO
         $this->cashBackPercentDeliveryInnerToDoor = $cashBackPercentDeliveryInnerToDoor;
         $this->cashBackPercentDeliveryPost = $cashBackPercentDeliveryPost;
         $this->minChargeAmount = $minChargeAmount;
-        $this->livesiteCallbackUrl = $livesiteCallbackUrl;
-        $this->paymentsCallbackUrl = $paymentsCallbackUrl;
+        $this->callbackUrl = $callbackUrl;
     }
 
     public static function fromArray(array $data): SettingsDTO
@@ -53,8 +50,7 @@ class SettingsDTO
             $data['cashBackPercentDeliveryInnerToDoor'] ?? 0,
             $data['cashBackPercentDeliveryPost'] ?? 0,
             $data['minChargeAmount'] ?? 0,
-            $data['livesiteCallbackUrl'] ?? '',
-            $data['paymentsCallbackUrl'] ?? '',
+            $data['callbackUrl'] ?? '',
         );
     }
 
@@ -68,8 +64,7 @@ class SettingsDTO
             'cashBackPercentDeliveryInnerToDoor' => $this->getCashBackPercentDeliveryInnerToDoor(),
             'cashBackPercentDeliveryPost' => $this->getCashBackPercentDeliveryPost(),
             'minChargeAmount' => $this->getMinChargeAmount(),
-            'livesiteCallbackUrl' => $this->getLivesiteCallbackUrl(),
-            'paymentsCallbackUrl' => $this->getPaymentsCallbackUrl(),
+            'callbackUrl' => $this->getCallbackUrl(),
         ];
     }
 
@@ -108,14 +103,8 @@ class SettingsDTO
         return $this->minChargeAmount;
     }
 
-    public function getLivesiteCallbackUrl(): string
+    public function getCallbackUrl(): string
     {
-        return $this->livesiteCallbackUrl;
+        return $this->callbackUrl;
     }
-
-    public function getPaymentsCallbackUrl(): string
-    {
-        return $this->paymentsCallbackUrl;
-    }
-
 }
