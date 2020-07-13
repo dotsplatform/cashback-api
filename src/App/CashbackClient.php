@@ -30,8 +30,8 @@ class CashbackClient extends HttpClient
     const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     const CREATE_ORDER_URL_TEMPLATE = '/orders';
     const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
-    const FINISH_ORDER_URL_TEMPLATE = '/orders/{external_id}/finish';
-    const CANCEL_ORDER_URL_TEMPLATE = '/orders/{external_id}/cancel';
+    const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
+    const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
