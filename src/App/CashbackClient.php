@@ -15,7 +15,6 @@ use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
-use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionWithOrderDataDTO;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
 use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
 use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
@@ -35,7 +34,7 @@ class CashbackClient extends HttpClient
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
-    const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/transactions/resolve-receiving-amount';
+    const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
 
     public function getAccount(int $id): ResponseAccountDTO
     {
@@ -166,18 +165,16 @@ class CashbackClient extends HttpClient
     /**
      * @param string $externalAccountKey
      * @param string $phone
-     * @return ResponseTransactionWithOrderDataDTO[]|array
+     * @param array $queryParams
+     * @return array
      */
-    public function getUserTransactions(string $externalAccountKey, string $phone): array
+    public function getUserTransactions(string $externalAccountKey, string $phone, array $queryParams = []): array
     {
         $params = $this->getRequestHeaders($externalAccountKey);
-        $params['query'] = [
+        $params['query'] = array_merge([
             'phone' => $phone
-        ];
-        $response = $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
-        return array_map(function (array $transactionData) {
-            return ResponseTransactionWithOrderDataDTO::fromArray($transactionData);
-        }, $response);
+        ], $queryParams);
+        return $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
     }
 
     /**
