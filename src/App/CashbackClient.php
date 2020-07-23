@@ -31,6 +31,7 @@ class CashbackClient extends HttpClient
     const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
     const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
     const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
+    const REOPEN_ORDER_URL_TEMPLATE = '/orders/{id}/reopen';
     const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
@@ -157,6 +158,23 @@ class CashbackClient extends HttpClient
     public function cancelOrder(int $id, string $externalAccountKey): ResponseOrderDTO
     {
         $url = $this->parseUrlParams(self::CANCEL_ORDER_URL_TEMPLATE, ['id' => $id]);
+        $params = $this->getRequestHeaders($externalAccountKey);
+        $responseData = $this->patch($url, null, $params);
+        return ResponseOrderDTO::fromArray($responseData);
+    }
+
+    /**
+     * @param int $id
+     * @param string $externalAccountKey
+     * @return ResponseOrderDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    public function reopenOrder(int $id, string $externalAccountKey): ResponseOrderDTO
+    {
+        $url = $this->parseUrlParams(self::REOPEN_ORDER_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($externalAccountKey);
         $responseData = $this->patch($url, null, $params);
         return ResponseOrderDTO::fromArray($responseData);
