@@ -36,7 +36,7 @@ class StoreOrderDTO
 
     public static function fromArray(array $data): StoreOrderDTO
     {
-        return new self(
+        return new static(
             $data['phone'] ?? '',
             $data['delivery_type'] ?? 0,
             $data['price'] ?? 0,

@@ -27,7 +27,7 @@ class StoreTransactionDTO
 
     public static function fromArray(array $data): StoreTransactionDTO
     {
-        return new self(
+        return new static(
             $data['phone'] ?? '',
             $data['amount'] ?? 0,
             $data['note'] ?? ''

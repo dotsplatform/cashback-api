@@ -24,7 +24,7 @@ class UpdateOrderPriceDTO
 
     public static function fromArray(array $data): UpdateOrderPriceDTO
     {
-        return new self(
+        return new static(
             $data['price'] ?? 0,
             $data['paid_by_cashback_amount'] ?? 0,
         );

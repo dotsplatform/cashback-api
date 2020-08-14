@@ -32,7 +32,7 @@ class ResponseAccountDTO
 
     public static function fromArray(array $data): ResponseAccountDTO
     {
-        return new self(
+        return new static(
             $data['id'] ?? 0,
             SettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',

@@ -30,7 +30,7 @@ class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
 
     public static function fromArray(array $data): ResponseTransactionWithOrderDataDTO
     {
-        return new self(
+        return new static(
             $data['id'] ?? '',
             $data['user_id'] ?? 0,
             $data['order_id'] ?? 0,
