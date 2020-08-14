@@ -29,7 +29,7 @@ class StoreAndUpdateAccountDTO
 
     public static function fromArray(array $data): StoreAndUpdateAccountDTO
     {
-        return new self(
+        return new static(
             SettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',
             $data['external_key'] ?? ''

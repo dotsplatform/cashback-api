@@ -46,7 +46,7 @@ class ResponseOrderDTO
 
     public static function fromArray(array $data): ResponseOrderDTO
     {
-        return new self(
+        return new static(
             $data['id'] ?? 0,
             $data['account_id'] ?? 0,
             $data['user_id'] ?? 0,

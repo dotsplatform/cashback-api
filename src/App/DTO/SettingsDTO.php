@@ -42,7 +42,7 @@ class SettingsDTO
 
     public static function fromArray(array $data): SettingsDTO
     {
-        return new self(
+        return new static(
             $data['cashBackPercentDelivery'] ?? 0,
             $data['cashBackPercentPickup'] ?? 0,
             $data['cashBackPercentBooking'] ?? 0,

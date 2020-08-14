@@ -19,7 +19,7 @@ class UpdateTransactionNoteDTO
 
     public static function fromArray(array $data): UpdateTransactionNoteDTO
     {
-        return new self(
+        return new static(
             $data['note'] ?? ''
         );
     }
