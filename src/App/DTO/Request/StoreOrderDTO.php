@@ -17,7 +17,7 @@ class StoreOrderDTO
     private ?int $externalId;
     private array $data;
 
-    private function __construct(
+    protected function __construct(
         string $phone,
         int $delivery_type,
         int $price,
@@ -34,7 +34,7 @@ class StoreOrderDTO
         $this->data = $data;
     }
 
-    public static function fromArray(array $data): StoreOrderDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             $data['phone'] ?? '',

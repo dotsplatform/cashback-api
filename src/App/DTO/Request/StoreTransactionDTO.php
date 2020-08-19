@@ -14,7 +14,7 @@ class StoreTransactionDTO
     private int $amount;
     private string $note;
 
-    private function __construct(
+    protected function __construct(
         string $phone,
         int $amount,
         string $note
@@ -25,7 +25,7 @@ class StoreTransactionDTO
         $this->note = $note;
     }
 
-    public static function fromArray(array $data): StoreTransactionDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             $data['phone'] ?? '',
