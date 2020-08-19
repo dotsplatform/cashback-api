@@ -14,7 +14,7 @@ class StoreTransactionDTO
     private int $amount;
     private string $note;
 
-    private function __construct(
+    protected function __construct(
         string $phone,
         int $amount,
         string $note

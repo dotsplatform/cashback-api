@@ -13,7 +13,7 @@ class UpdateOrderPriceDTO
     private int $price;
     private int $paidByCashbackAmount;
 
-    private function __construct(
+    protected function __construct(
         int $price,
         int $paidByCashbackAmount
     )

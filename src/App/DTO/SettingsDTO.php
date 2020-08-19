@@ -19,7 +19,7 @@ class SettingsDTO
     private float $minChargeAmount;
     private string $callbackUrl;
 
-    private function __construct(
+    protected function __construct(
         float $cashBackPercentDelivery,
         float $cashBackPercentPickup,
         float $cashBackPercentBooking,

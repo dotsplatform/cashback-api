@@ -16,7 +16,7 @@ class StoreAndUpdateAccountDTO
     private string $name;
     private string $external_key;
 
-    private function __construct(
+    protected function __construct(
         SettingsDTO $settings,
         string $name,
         string $external_key

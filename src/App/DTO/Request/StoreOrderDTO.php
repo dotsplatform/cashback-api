@@ -17,7 +17,7 @@ class StoreOrderDTO
     private ?int $externalId;
     private array $data;
 
-    private function __construct(
+    protected function __construct(
         string $phone,
         int $delivery_type,
         int $price,
