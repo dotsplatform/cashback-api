@@ -34,7 +34,7 @@ class StoreOrderDTO
         $this->data = $data;
     }
 
-    public static function fromArray(array $data): StoreOrderDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             $data['phone'] ?? '',

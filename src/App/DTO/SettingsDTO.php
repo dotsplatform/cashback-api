@@ -40,7 +40,7 @@ class SettingsDTO
         $this->callbackUrl = $callbackUrl;
     }
 
-    public static function fromArray(array $data): SettingsDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             $data['cashBackPercentDelivery'] ?? 0,

@@ -25,7 +25,7 @@ class StoreTransactionDTO
         $this->note = $note;
     }
 
-    public static function fromArray(array $data): StoreTransactionDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             $data['phone'] ?? '',

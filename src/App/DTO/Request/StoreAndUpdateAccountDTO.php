@@ -27,7 +27,7 @@ class StoreAndUpdateAccountDTO
         $this->external_key = $external_key;
     }
 
-    public static function fromArray(array $data): StoreAndUpdateAccountDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             SettingsDTO::fromArray($data['settings'] ?? []),

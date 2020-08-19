@@ -22,7 +22,7 @@ class UpdateOrderPriceDTO
         $this->paidByCashbackAmount = $paidByCashbackAmount;
     }
 
-    public static function fromArray(array $data): UpdateOrderPriceDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             $data['price'] ?? 0,
