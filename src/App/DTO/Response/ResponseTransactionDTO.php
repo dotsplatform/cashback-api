@@ -40,7 +40,7 @@ class ResponseTransactionDTO
         $this->completed_time = $completed_time;
     }
 
-    public static function fromArray(array $data): ResponseTransactionDTO
+    public static function fromArray(array $data): self
     {
         return new static(
             $data['id'] ?? '',
