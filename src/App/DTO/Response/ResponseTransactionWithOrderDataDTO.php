@@ -21,11 +21,12 @@ class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
         int $status,
         ?array $data,
         int $completed_time,
+        int $created_at_time,
         ?ResponseOrderDTO $order
     )
     {
         $this->order = $order;
-        parent::__construct($id, $user_id, $order_id, $note, $amount, $status, $data, $completed_time);
+        parent::__construct($id, $user_id, $order_id, $note, $amount, $status, $data, $completed_time, $created_at_time);
     }
 
     public static function fromArray(array $data): self
@@ -39,6 +40,7 @@ class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
             $data['status'] ?? 0,
             $data['data'] ?? null,
             $data['completed_time'] ?? 0,
+            $data['created_at_time'] ?? 0,
             isset($data['order']) ? ResponseOrderDTO::fromArray($data['order']) : null,
         );
     }

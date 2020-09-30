@@ -18,6 +18,7 @@ class ResponseTransactionDTO
     private int $status;
     private ?array $data;
     private int $completed_time;
+    private int $created_at_time;
 
     protected function __construct(
         string $id,
@@ -27,7 +28,8 @@ class ResponseTransactionDTO
         int $amount,
         int $status,
         ?array $data,
-        int $completed_time
+        int $completed_time,
+        int $created_at_time
     )
     {
         $this->id = $id;
@@ -38,6 +40,7 @@ class ResponseTransactionDTO
         $this->status = $status;
         $this->data = $data;
         $this->completed_time = $completed_time;
+        $this->created_at_time = $created_at_time;
     }
 
     public static function fromArray(array $data): self
@@ -50,7 +53,8 @@ class ResponseTransactionDTO
             $data['amount'] ?? 0,
             $data['status'] ?? 0,
             $data['data'] ?? null,
-            $data['completed_time'] ?? 0
+            $data['completed_time'] ?? 0,
+            $data['created_at_time'] ?? 0,
         );
     }
 
@@ -66,6 +70,7 @@ class ResponseTransactionDTO
             'status' => $this->getStatus(),
             'data' => $this->getData(),
             'completed_time' => $this->getCompletedTime(),
+            'created_at_time' => $this->getCreatedAtTime(),
         ];
     }
 
@@ -107,5 +112,10 @@ class ResponseTransactionDTO
     public function getCompletedTime(): int
     {
         return $this->completed_time;
+    }
+
+    public function getCreatedAtTime(): int
+    {
+        return $this->created_at_time;
     }
 }
