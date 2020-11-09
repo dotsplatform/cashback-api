@@ -20,9 +20,6 @@ abstract class HttpClient
     protected string $serviceHost;
     protected GuzzleClient $client;
 
-    /**
-     * HttpClient constructor.
-     */
     public function __construct()
     {
         $this->serviceHost = config('cashback.cashback-server.url');
@@ -163,11 +160,6 @@ abstract class HttpClient
         throw new ServerErrorException(json_decode($response->getBody(), true));
     }
 
-    /**
-     * @param array|null $body
-     * @param array $params
-     * @return array
-     */
     private function prepareRequestBody(?array $body, array $params): array
     {
         if (!is_null($body)) {
