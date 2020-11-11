@@ -12,20 +12,20 @@ class ResponseUserDTO
 {
     private int $id;
     private int $accountId;
-    private string $phone;
+    private string $token;
     private int $availableBalance;
     private int $balance;
     private int $heldAmount;
     private int $receivingAmount;
 
     public function __construct(
-        int $id, int $accountId, string $phone, int $availableBalance, int $balance, int $heldAmount,
+        int $id, int $accountId, string $token, int $availableBalance, int $balance, int $heldAmount,
         int $receivingAmount
     )
     {
         $this->id = $id;
         $this->accountId = $accountId;
-        $this->phone = $phone;
+        $this->token = $token;
         $this->availableBalance = $availableBalance;
         $this->balance = $balance;
         $this->heldAmount = $heldAmount;
@@ -37,7 +37,7 @@ class ResponseUserDTO
         return new static(
             $data['id'],
             $data['accountId'],
-            $data['phone'],
+            $data['token'],
             $data['availableBalance'],
             $data['balance'],
             $data['heldAmount'],
@@ -62,9 +62,9 @@ class ResponseUserDTO
         return $this->accountId;
     }
 
-    public function getPhone(): string
+    public function getToken(): string
     {
-        return $this->phone;
+        return $this->token;
     }
 
     public function getAvailableBalance(): int

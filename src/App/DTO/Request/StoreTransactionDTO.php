@@ -10,17 +10,17 @@ namespace Dotsplatform\CashbackApi\DTO\Request;
 
 class StoreTransactionDTO
 {
-    private string $phone;
+    private string $token;
     private int $amount;
     private string $note;
 
     protected function __construct(
-        string $phone,
+        string $token,
         int $amount,
         string $note
     )
     {
-        $this->phone = $phone;
+        $this->token = $token;
         $this->amount = $amount;
         $this->note = $note;
     }
@@ -28,7 +28,7 @@ class StoreTransactionDTO
     public static function fromArray(array $data): self
     {
         return new static(
-            $data['phone'] ?? '',
+            $data['token'] ?? '',
             $data['amount'] ?? 0,
             $data['note'] ?? ''
         );
@@ -37,15 +37,15 @@ class StoreTransactionDTO
     public function toArray(): array
     {
         return [
-            'phone' => $this->getPhone(),
+            'token' => $this->getToken(),
             'amount' => $this->getAmount(),
             'note' => $this->getNote(),
         ];
     }
 
-    public function getPhone(): string
+    public function getToken(): string
     {
-        return $this->phone;
+        return $this->token;
     }
 
     public function getAmount(): int

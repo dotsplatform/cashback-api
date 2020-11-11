@@ -12,11 +12,9 @@ use Dotsplatform\CashbackApi\DTO\Request\StoreAndUpdateAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
-use Dotsplatform\CashbackApi\DTO\Request\UpdateUserPhoneDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
-use Dotsplatform\CashbackApi\DTO\Response\ResponseUserDTO;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
 use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
 use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
@@ -38,7 +36,6 @@ class CashbackClient extends HttpClient
     const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
     const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
     const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
-    const UPDATE_USER_PHONE_URL_TEMPLATE = '/users/{phone}/phone';
 
     public function getAccount(int $id): ResponseAccountDTO
     {
@@ -185,15 +182,15 @@ class CashbackClient extends HttpClient
 
     /**
      * @param string $externalAccountKey
-     * @param string $phone
+     * @param string $token
      * @param array $queryParams
      * @return array
      */
-    public function getUserTransactions(string $externalAccountKey, string $phone, array $queryParams = []): array
+    public function getUserTransactions(string $externalAccountKey, string $token, array $queryParams = []): array
     {
         $params = $this->getRequestHeaders($externalAccountKey);
         $params['query'] = array_merge([
-            'phone' => $phone
+            'token' => $token
         ], $queryParams);
         return $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
     }
@@ -246,16 +243,6 @@ class CashbackClient extends HttpClient
 
         $responseData = $this->get(self::RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE, $params);
         return $responseData['receiving_amount'];
-    }
-
-    public function updateUserPhone(string $externalAccountKey, string $phone, string $updatePhone): ResponseUserDTO
-    {
-        $url = $this->parseUrlParams(self::UPDATE_USER_PHONE_URL_TEMPLATE, ['phone' => $phone]);
-        $params = $this->getRequestHeaders($externalAccountKey);
-        $params['json'] = true;
-        $updateUserPhoneDTO = UpdateUserPhoneDTO::fromArray(['phone' => $updatePhone]);
-        $responseData = $this->patch($url, $updateUserPhoneDTO->toArray(), $params);
-        return ResponseUserDTO::fromArray($responseData);
     }
 
     private function parseUrlParams(string $url, array $data): string
