@@ -14,7 +14,7 @@ class StoreOrderDTO
     private int $delivery_type;
     private int $price;
     private int $paidByCashBackAmount;
-    private ?int $externalId;
+    private ?string $externalId;
     private array $data;
 
     protected function __construct(
@@ -22,7 +22,7 @@ class StoreOrderDTO
         int $delivery_type,
         int $price,
         int $paidByCashBackAmount,
-        ?int $externalId,
+        ?string $externalId,
         array $data
     )
     {
@@ -78,7 +78,7 @@ class StoreOrderDTO
         return $this->paidByCashBackAmount;
     }
 
-    public function getExternalId(): ?int
+    public function getExternalId(): ?string
     {
         return $this->externalId;
     }

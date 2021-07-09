@@ -19,7 +19,7 @@ class ResponseOrderDTO
     private ?array $data;
     private int $status;
     private int $order_status;
-    private ?int $external_id;
+    private ?string $external_id;
 
     private function __construct(
         int $id,
@@ -30,7 +30,7 @@ class ResponseOrderDTO
         ?array $data,
         int $status,
         int $order_status,
-        ?int $external_id
+        ?string $external_id
     )
     {
         $this->id = $id;
@@ -114,7 +114,7 @@ class ResponseOrderDTO
         return $this->order_status;
     }
 
-    public function getExternalId(): ?int
+    public function getExternalId(): ?string
     {
         return $this->external_id;
     }
