@@ -10,39 +10,39 @@ namespace Dotsplatform\CashbackApi\DTO\Request;
 
 class StoreOrderDTO
 {
-    private string $token;
+    private ?string $token;
     private int $delivery_type;
     private int $price;
     private int $paidByCashBackAmount;
-    private ?string $externalId;
     private array $data;
+    private ?string $userToken;
 
     protected function __construct(
-        string $token,
+        ?string $token,
         int $delivery_type,
         int $price,
         int $paidByCashBackAmount,
-        ?string $externalId,
-        array $data
+        array $data,
+        ?string $userToken
     )
     {
         $this->token = $token;
         $this->delivery_type = $delivery_type;
         $this->price = $price;
         $this->paidByCashBackAmount = $paidByCashBackAmount;
-        $this->externalId = $externalId;
         $this->data = $data;
+        $this->userToken = $userToken;
     }
 
     public static function fromArray(array $data): self
     {
         return new static(
-            $data['token'] ?? '',
+            $data['token'] ?? null,
             $data['delivery_type'] ?? 0,
             $data['price'] ?? 0,
             $data['paid_by_cash_back_amount'] ?? 0,
-            $data['external_id'] ?? null,
             $data['data'] ?? [],
+            $data['userToken'] ?? '',
         );
     }
 
@@ -53,12 +53,12 @@ class StoreOrderDTO
             'delivery_type' => $this->getDeliveryType(),
             'price' => $this->getPrice(),
             'paid_by_cash_back_amount' => $this->getPaidByCashBackAmount(),
-            'external_id' => $this->getExternalId(),
             'data' => $this->getData(),
+            'userToken' => $this->getUserToken(),
         ];
     }
 
-    public function getToken(): string
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -78,13 +78,13 @@ class StoreOrderDTO
         return $this->paidByCashBackAmount;
     }
 
-    public function getExternalId(): ?string
-    {
-        return $this->externalId;
-    }
-
     public function getData(): array
     {
         return $this->data;
+    }
+
+    public function getUserToken(): ?string
+    {
+        return $this->userToken;
     }
 }
