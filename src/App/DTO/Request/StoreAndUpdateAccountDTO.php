@@ -14,17 +14,17 @@ class StoreAndUpdateAccountDTO
 {
     private SettingsDTO $settings;
     private string $name;
-    private string $external_key;
+    private string $token;
 
     protected function __construct(
         SettingsDTO $settings,
         string $name,
-        string $external_key
+        string $token
     )
     {
         $this->settings = $settings;
         $this->name = $name;
-        $this->external_key = $external_key;
+        $this->token = $token;
     }
 
     public static function fromArray(array $data): self
@@ -32,7 +32,7 @@ class StoreAndUpdateAccountDTO
         return new static(
             SettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',
-            $data['external_key'] ?? ''
+            $data['token'] ?? ''
         );
     }
 
@@ -41,7 +41,7 @@ class StoreAndUpdateAccountDTO
         return [
             'settings' => $this->getSettings()->toArray(),
             'name' => $this->getName(),
-            'external_key' => $this->getExternalKey(),
+            'token' => $this->getToken(),
         ];
     }
 
@@ -50,9 +50,9 @@ class StoreAndUpdateAccountDTO
         return $this->settings;
     }
 
-    public function getExternalKey(): string
+    public function getToken(): string
     {
-        return $this->external_key;
+        return $this->token;
     }
 
     public function getName(): string

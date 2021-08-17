@@ -15,19 +15,19 @@ class ResponseAccountDTO
     private int $id;
     private SettingsDTO $settings;
     private string $name;
-    private string $external_key;
+    private string $token;
 
     private function __construct(
         int $id,
         SettingsDTO $settings,
         string $name,
-        string $external_key
+        string $token
     )
     {
         $this->id = $id;
         $this->settings = $settings;
         $this->name = $name;
-        $this->external_key = $external_key;
+        $this->token = $token;
     }
 
     public static function fromArray(array $data): ResponseAccountDTO
@@ -36,7 +36,7 @@ class ResponseAccountDTO
             $data['id'] ?? 0,
             SettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',
-            $data['external_key'] ?? ''
+            $data['token'] ?? ''
         );
     }
 
@@ -46,7 +46,7 @@ class ResponseAccountDTO
             'id' => $this->getId(),
             'settings' => $this->getSettings(),
             'name' => $this->getName(),
-            'external_key' => $this->getExternalKey(),
+            'token' => $this->getToken(),
         ];
     }
 
@@ -55,9 +55,9 @@ class ResponseAccountDTO
         return $this->settings;
     }
 
-    public function getExternalKey(): string
+    public function getToken(): string
     {
-        return $this->external_key;
+        return $this->token;
     }
 
     public function getName(): string
