@@ -10,37 +10,20 @@ namespace Dotsplatform\CashbackApi\DTO;
 
 class SettingsDTO
 {
-    private float $cashBackPercentDelivery;
-    private float $cashBackPercentPickup;
-    private float $cashBackPercentBooking;
-    private float $cashBackPercentDeliveryInner;
-    private float $cashBackPercentDeliveryInnerToDoor;
-    private float $cashBackPercentDeliveryPost;
-    private float $minChargeAmount;
-    private string $callbackUrl;
-
     protected function __construct(
-        float $cashBackPercentDelivery,
-        float $cashBackPercentPickup,
-        float $cashBackPercentBooking,
-        float $cashBackPercentDeliveryInner,
-        float $cashBackPercentDeliveryInnerToDoor,
-        float $cashBackPercentDeliveryPost,
-        float $minChargeAmount,
-        string $callbackUrl
+        private float $cashBackPercentDelivery,
+        private float $cashBackPercentPickup,
+        private float $cashBackPercentBooking,
+        private float $cashBackPercentDeliveryInner,
+        private float $cashBackPercentDeliveryInnerToDoor,
+        private float $cashBackPercentDeliveryPost,
+        private float $minChargeAmount,
+        private string $callbackUrl,
     )
     {
-        $this->cashBackPercentDelivery = $cashBackPercentDelivery;
-        $this->cashBackPercentPickup = $cashBackPercentPickup;
-        $this->cashBackPercentBooking = $cashBackPercentBooking;
-        $this->cashBackPercentDeliveryInner = $cashBackPercentDeliveryInner;
-        $this->cashBackPercentDeliveryInnerToDoor = $cashBackPercentDeliveryInnerToDoor;
-        $this->cashBackPercentDeliveryPost = $cashBackPercentDeliveryPost;
-        $this->minChargeAmount = $minChargeAmount;
-        $this->callbackUrl = $callbackUrl;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['cashBackPercentDelivery'] ?? 0,

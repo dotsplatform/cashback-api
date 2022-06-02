@@ -10,14 +10,11 @@ namespace Dotsplatform\CashbackApi\DTO\Request;
 
 class UpdateTransactionNoteDTO
 {
-    private string $note;
-
-    private function __construct(string $note)
+    private function __construct(private string $note)
     {
-        $this->note = $note;
     }
 
-    public static function fromArray(array $data): UpdateTransactionNoteDTO
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['note'] ?? ''

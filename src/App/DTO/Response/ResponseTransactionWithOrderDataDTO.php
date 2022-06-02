@@ -10,9 +10,7 @@ namespace Dotsplatform\CashbackApi\DTO\Response;
 
 class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
 {
-    private ?ResponseOrderDTO $order;
-
-    private function __construct(
+    protected function __construct(
         string $id,
         int $user_id,
         int $order_id,
@@ -22,14 +20,13 @@ class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
         ?array $data,
         int $completed_time,
         int $created_at_time,
-        ?ResponseOrderDTO $order
+        private ?ResponseOrderDTO $order,
     )
     {
-        $this->order = $order;
         parent::__construct($id, $user_id, $order_id, $note, $amount, $status, $data, $completed_time, $created_at_time);
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['id'] ?? '',
@@ -48,7 +45,7 @@ class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
-            'order' => $this->getOrder()->toArray(),
+            'order' => $this->getOrder()?->toArray(),
         ]);
     }
 

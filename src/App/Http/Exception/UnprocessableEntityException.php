@@ -15,6 +15,6 @@ class UnprocessableEntityException extends HttpClientException
     public function __construct($errors)
     {
         $this->errors = $errors;
-        return parent::__construct('Unprocessable Entity');
+        parent::__construct('Unprocessable Entity');
     }
 }

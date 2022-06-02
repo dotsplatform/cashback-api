@@ -12,25 +12,16 @@ use Dotsplatform\CashbackApi\DTO\SettingsDTO;
 
 class ResponseAccountDTO
 {
-    private int $id;
-    private SettingsDTO $settings;
-    private string $name;
-    private string $token;
-
     private function __construct(
-        int $id,
-        SettingsDTO $settings,
-        string $name,
-        string $token
+        private int $id,
+        private SettingsDTO $settings,
+        private string $name,
+        private string $token,
     )
     {
-        $this->id = $id;
-        $this->settings = $settings;
-        $this->name = $name;
-        $this->token = $token;
     }
 
-    public static function fromArray(array $data): ResponseAccountDTO
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['id'] ?? 0,

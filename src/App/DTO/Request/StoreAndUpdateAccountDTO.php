@@ -12,22 +12,15 @@ use Dotsplatform\CashbackApi\DTO\SettingsDTO;
 
 class StoreAndUpdateAccountDTO
 {
-    private SettingsDTO $settings;
-    private string $name;
-    private string $token;
-
     protected function __construct(
-        SettingsDTO $settings,
-        string $name,
-        string $token
+        private SettingsDTO $settings,
+        private string $name,
+        private string $token,
     )
     {
-        $this->settings = $settings;
-        $this->name = $name;
-        $this->token = $token;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new static(
             SettingsDTO::fromArray($data['settings'] ?? []),

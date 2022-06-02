@@ -2,6 +2,6 @@
 
 return [
     'cashback-server' => [
-       'url' => env('RESOURCES_CASHBACK_EXTERNAL_HOST', 'http://cashback.misteram.com.ua/')
+       'url' => env('RESOURCES_CASHBACK_EXTERNAL_HOST', 'https://admin.dots.live/')
     ]
 ];
