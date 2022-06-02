@@ -10,40 +10,21 @@ namespace Dotsplatform\CashbackApi\DTO\Response;
 
 class ResponseTransactionDTO
 {
-    private string $id;
-    private int $user_id;
-    private ?int $order_id;
-    private string $note;
-    private int $amount;
-    private int $status;
-    private ?array $data;
-    private int $completed_time;
-    private int $created_at_time;
-
     protected function __construct(
-        string $id,
-        int $user_id,
-        ?int $order_id,
-        string $note,
-        int $amount,
-        int $status,
-        ?array $data,
-        int $completed_time,
-        int $created_at_time
+        private string $id,
+        private int $user_id,
+        private ?int $order_id,
+        private string $note,
+        private int $amount,
+        private int $status,
+        private ?array $data,
+        private int $completed_time,
+        private int $created_at_time,
     )
     {
-        $this->id = $id;
-        $this->user_id = $user_id;
-        $this->order_id = $order_id;
-        $this->note = $note;
-        $this->amount = $amount;
-        $this->status = $status;
-        $this->data = $data;
-        $this->completed_time = $completed_time;
-        $this->created_at_time = $created_at_time;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['id'] ?? '',

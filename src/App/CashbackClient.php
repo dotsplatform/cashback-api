@@ -15,6 +15,7 @@ use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseUserDTO;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
 use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
 use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
@@ -23,19 +24,20 @@ use Dotsplatform\CashbackApi\Http\HttpClient;
 
 class CashbackClient extends HttpClient
 {
-    const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
-    const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
-    const UPDATE_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
-    const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
-    const CREATE_ORDER_URL_TEMPLATE = '/orders';
-    const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
-    const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
-    const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
-    const REOPEN_ORDER_URL_TEMPLATE = '/orders/{id}/reopen';
-    const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
-    const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
-    const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
-    const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
+    private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
+    private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
+    private const UPDATE_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
+    private const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
+    private const CREATE_ORDER_URL_TEMPLATE = '/orders';
+    private const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
+    private const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
+    private const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
+    private const REOPEN_ORDER_URL_TEMPLATE = '/orders/{id}/reopen';
+    private const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
+    private const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
+    private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
+    private const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
+    private const GET_USER_URL_TEMPLATE = '/users/{id}';
 
     public function getAccount(int $id): ResponseAccountDTO
     {
@@ -245,6 +247,17 @@ class CashbackClient extends HttpClient
         return $responseData['receiving_amount'];
     }
 
+    public function getUser(string $accountToken, string $userToken): ResponseUserDTO
+    {
+        $params = $this->getRequestHeaders($accountToken);
+        $url = $this->parseUrlParams(self::GET_USER_URL_TEMPLATE, [
+            'id' => $userToken,
+        ]);
+
+        $responseData = $this->get($url, $params);
+        return ResponseUserDTO::fromArray($responseData);
+    }
+
     private function parseUrlParams(string $url, array $data): string
     {
         foreach ($data as $name => $value) {
@@ -253,7 +266,7 @@ class CashbackClient extends HttpClient
         return $url;
     }
 
-    private function getRequestHeaders(string $accountToken)
+    private function getRequestHeaders(string $accountToken): array
     {
         return ['headers' => ['Account-Token' => $accountToken]];
     }

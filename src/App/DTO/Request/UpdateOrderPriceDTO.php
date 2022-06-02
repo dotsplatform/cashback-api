@@ -10,19 +10,14 @@ namespace Dotsplatform\CashbackApi\DTO\Request;
 
 class UpdateOrderPriceDTO
 {
-    private int $price;
-    private int $paidByCashbackAmount;
-
     protected function __construct(
-        int $price,
-        int $paidByCashbackAmount
+        private int $price,
+        private int $paidByCashbackAmount,
     )
     {
-        $this->price = $price;
-        $this->paidByCashbackAmount = $paidByCashbackAmount;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['price'] ?? 0,

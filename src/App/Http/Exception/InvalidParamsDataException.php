@@ -15,6 +15,6 @@ class InvalidParamsDataException extends HttpClientException
     public function __construct($errors)
     {
         $this->errors = $errors;
-        return parent::__construct('Invalid Params');
+        parent::__construct('Invalid Params');
     }
 }

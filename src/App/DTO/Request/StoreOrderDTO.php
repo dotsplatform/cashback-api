@@ -10,31 +10,18 @@ namespace Dotsplatform\CashbackApi\DTO\Request;
 
 class StoreOrderDTO
 {
-    private ?string $token;
-    private int $delivery_type;
-    private int $price;
-    private int $paidByCashBackAmount;
-    private array $data;
-    private ?string $userToken;
-
     protected function __construct(
-        ?string $token,
-        int $delivery_type,
-        int $price,
-        int $paidByCashBackAmount,
-        array $data,
-        ?string $userToken
+        private ?string $token,
+        private int $delivery_type,
+        private int $price,
+        private int $paidByCashBackAmount,
+        private array $data,
+        private ?string $userToken,
     )
     {
-        $this->token = $token;
-        $this->delivery_type = $delivery_type;
-        $this->price = $price;
-        $this->paidByCashBackAmount = $paidByCashBackAmount;
-        $this->data = $data;
-        $this->userToken = $userToken;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['token'] ?? null,

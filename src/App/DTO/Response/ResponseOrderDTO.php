@@ -8,43 +8,23 @@
 namespace Dotsplatform\CashbackApi\DTO\Response;
 
 
-
 class ResponseOrderDTO
 {
-    private int $id;
-    private int $account_id;
-    private int $user_id;
-    private int $delivery_type;
-    private int $price;
-    private ?array $data;
-    private int $status;
-    private int $order_status;
-    private ?string $token;
-
     private function __construct(
-        int $id,
-        int $account_id,
-        int $user_id,
-        int $delivery_type,
-        int $price,
-        ?array $data,
-        int $status,
-        int $order_status,
-        ?string $token
+        private int $id,
+        private int $account_id,
+        private int $user_id,
+        private int $delivery_type,
+        private int $price,
+        private ?array $data,
+        private int $status,
+        private int $order_status,
+        private ?string $token,
     )
     {
-        $this->id = $id;
-        $this->account_id = $account_id;
-        $this->user_id = $user_id;
-        $this->delivery_type = $delivery_type;
-        $this->price = $price;
-        $this->data = $data;
-        $this->status = $status;
-        $this->order_status = $order_status;
-        $this->token = $token;
     }
 
-    public static function fromArray(array $data): ResponseOrderDTO
+    public static function fromArray(array $data): static
     {
         return new static(
             $data['id'] ?? 0,
