@@ -19,8 +19,9 @@ class SettingsDTO
         private float $cashBackPercentDeliveryPost,
         private float $minChargeAmount,
         private string $callbackUrl,
-    )
-    {
+        private ?float $maxChargeAmount,
+        private ?float $maxChargePercent,
+    ) {
     }
 
     public static function fromArray(array $data): static
@@ -34,6 +35,8 @@ class SettingsDTO
             $data['cashBackPercentDeliveryPost'] ?? 0,
             $data['minChargeAmount'] ?? 0,
             $data['callbackUrl'] ?? '',
+            $data['maxChargeAmount'] ?? null,
+            $data['maxChargePercent'] ?? null,
         );
     }
 
@@ -48,6 +51,8 @@ class SettingsDTO
             'cashBackPercentDeliveryPost' => $this->getCashBackPercentDeliveryPost(),
             'minChargeAmount' => $this->getMinChargeAmount(),
             'callbackUrl' => $this->getCallbackUrl(),
+            'maxChargeAmount' => $this->getMaxChargeAmount(),
+            'maxChargePercent' => $this->getMaxChargePercent(),
         ];
     }
 
@@ -89,5 +94,15 @@ class SettingsDTO
     public function getCallbackUrl(): string
     {
         return $this->callbackUrl;
+    }
+
+    public function getMaxChargeAmount(): ?float
+    {
+        return $this->maxChargeAmount;
+    }
+
+    public function getMaxChargePercent(): ?float
+    {
+        return $this->maxChargePercent;
     }
 }
