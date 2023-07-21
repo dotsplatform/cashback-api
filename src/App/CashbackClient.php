@@ -35,7 +35,7 @@ class CashbackClient extends HttpClient
     private const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
     private const REOPEN_ORDER_URL_TEMPLATE = '/orders/{id}/reopen';
     private const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
-    private consCREATE_TRANSACTIONS_URL_TEMPLATE = '/transactions';
+    private const CREATE_TRANSACTIONS_URL_TEMPLATE = '/transactions';
     private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
     private const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
@@ -200,18 +200,18 @@ class CashbackClient extends HttpClient
 
     /**
      * @param string $accountToken
-     * @param array $data
-     * @return ResponseTransactionDTO
+     * @param StoreUserTransactions $list
+     * @return void
      * @throws InvalidParamsDataException
      * @throws NotFoundException
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function createTransactions(string $accountToken, StoreUserTransactions $data): void
+    public function createTransactions(string $accountToken, StoreUserTransactions $list): void
     {
         $params = $this->getRequestHeaders($accountToken);
         $params['json'] = true;
-        $this->post(self::CREATE_TRANSACTIONS_URL_TEMPLATE, $data->toArray(), $params);
+        $this->post(self::CREATE_TRANSACTIONS_URL_TEMPLATE, $list->toArray(), $params);
     }
 
     /**
