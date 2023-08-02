@@ -10,6 +10,7 @@ namespace Dotsplatform\CashbackApi;
 use Dotsplatform\CashbackApi\DTO\Request\StoreTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreAndUpdateAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreUserTransactions;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
@@ -34,7 +35,7 @@ class CashbackClient extends HttpClient
     private const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
     private const REOPEN_ORDER_URL_TEMPLATE = '/orders/{id}/reopen';
     private const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
-    private const CREATE_TRANSACTION_URL_TEMPLATE = '/transactions';
+    private const CREATE_TRANSACTIONS_URL_TEMPLATE = '/transactions';
     private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
     private const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
@@ -199,20 +200,18 @@ class CashbackClient extends HttpClient
 
     /**
      * @param string $accountToken
-     * @param array $data
-     * @return ResponseTransactionDTO
+     * @param StoreUserTransactions $list
+     * @return void
      * @throws InvalidParamsDataException
      * @throws NotFoundException
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function createTransaction(string $accountToken, array $data): ResponseTransactionDTO
+    public function createTransactions(string $accountToken, StoreUserTransactions $list): void
     {
         $params = $this->getRequestHeaders($accountToken);
         $params['json'] = true;
-        $transactionDTO = StoreTransactionDTO::fromArray($data);
-        $responseData = $this->post(self::CREATE_TRANSACTION_URL_TEMPLATE, $transactionDTO->toArray(), $params);
-        return ResponseTransactionDTO::fromArray($responseData);
+        $this->post(self::CREATE_TRANSACTIONS_URL_TEMPLATE, $list->toArray(), $params);
     }
 
     /**
