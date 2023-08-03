@@ -10,7 +10,7 @@ namespace Dotsplatform\CashbackApi\DTO\Request;
 
 use Illuminate\Support\Collection;
 
-class StoreUserTransactions extends Collection
+class StoreUserTransactionsList extends Collection
 {
     public static function fromArray(array $data): static
     {

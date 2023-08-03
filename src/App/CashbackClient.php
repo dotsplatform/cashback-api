@@ -7,10 +7,9 @@
 
 namespace Dotsplatform\CashbackApi;
 
-use Dotsplatform\CashbackApi\DTO\Request\StoreTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreAndUpdateAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
-use Dotsplatform\CashbackApi\DTO\Request\StoreUserTransactions;
+use Dotsplatform\CashbackApi\DTO\Request\StoreUsersTransactionParamsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
@@ -198,20 +197,15 @@ class CashbackClient extends HttpClient
         return $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
     }
 
-    /**
-     * @param string $accountToken
-     * @param StoreUserTransactions $list
-     * @return void
-     * @throws InvalidParamsDataException
-     * @throws NotFoundException
-     * @throws ServerErrorException
-     * @throws UnprocessableEntityException
-     */
-    public function createTransactions(string $accountToken, StoreUserTransactions $list): void
+    public function createTransactions(StoreUsersTransactionParamsDTO $dto): void
     {
-        $params = $this->getRequestHeaders($accountToken);
+        $params = $this->getRequestHeaders($dto->getAccount());
+        $data = [
+            'transactions' => $dto->getTransactions()->toArray(),
+            'applyType' => $dto->getApplyType(),
+        ];
         $params['json'] = true;
-        $this->post(self::CREATE_TRANSACTIONS_URL_TEMPLATE, $list->toArray(), $params);
+        $this->post(self::CREATE_TRANSACTIONS_URL_TEMPLATE, $data, $params);
     }
 
     /**
