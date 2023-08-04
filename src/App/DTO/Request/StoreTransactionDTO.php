@@ -8,7 +8,9 @@
 namespace Dotsplatform\CashbackApi\DTO\Request;
 
 
-class StoreTransactionDTO
+use Illuminate\Contracts\Support\Arrayable;
+
+class StoreTransactionDTO implements Arrayable
 {
     protected function __construct(
         private ?string $userToken,
