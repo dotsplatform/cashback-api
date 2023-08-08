@@ -21,6 +21,9 @@ class SettingsDTO
         private string $callbackUrl,
         private ?float $maxChargeAmount,
         private ?float $maxChargePercent,
+        private ?int $cashbackExpirationInterval,
+        private array $cashbackExpirationNotifyDays,
+        private ?string $lang,
     ) {
     }
 
@@ -37,6 +40,9 @@ class SettingsDTO
             $data['callbackUrl'] ?? '',
             $data['maxChargeAmount'] ?? null,
             $data['maxChargePercent'] ?? null,
+            $data['cashbackExpirationInterval'] ?? null,
+            $data['cashbackExpirationNotifyDays'] ?? [],
+            $data['lang'] ?? null,
         );
     }
 
@@ -53,6 +59,9 @@ class SettingsDTO
             'callbackUrl' => $this->getCallbackUrl(),
             'maxChargeAmount' => $this->getMaxChargeAmount(),
             'maxChargePercent' => $this->getMaxChargePercent(),
+            'cashbackExpirationInterval' => $this->getCashbackExpirationInterval(),
+            'cashbackExpirationNotifyDays' => $this->getCashbackExpirationNotifyDays(),
+            'lang' => $this->getLang(),
         ];
     }
 
@@ -104,5 +113,20 @@ class SettingsDTO
     public function getMaxChargePercent(): ?float
     {
         return $this->maxChargePercent;
+    }
+
+    public function getCashbackExpirationInterval(): ?int
+    {
+        return $this->cashbackExpirationInterval;
+    }
+
+    public function getCashbackExpirationNotifyDays(): array
+    {
+        return $this->cashbackExpirationNotifyDays;
+    }
+
+    public function getLang(): ?string
+    {
+        return $this->lang;
     }
 }
