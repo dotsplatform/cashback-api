@@ -24,6 +24,7 @@ class SettingsDTO
         private ?int $cashbackExpirationInterval,
         private array $cashbackExpirationNotifyDays,
         private ?string $lang,
+        private ?string $cashbackExpirationPeriod,
     ) {
     }
 
@@ -43,6 +44,7 @@ class SettingsDTO
             $data['cashbackExpirationInterval'] ?? null,
             $data['cashbackExpirationNotifyDays'] ?? [],
             $data['lang'] ?? null,
+            $data['cashbackExpirationPeriod'] ?? null,
         );
     }
 
@@ -62,6 +64,7 @@ class SettingsDTO
             'cashbackExpirationInterval' => $this->getCashbackExpirationInterval(),
             'cashbackExpirationNotifyDays' => $this->getCashbackExpirationNotifyDays(),
             'lang' => $this->getLang(),
+            'cashbackExpirationPeriod' => $this->getCashbackExpirationPeriod(),
         ];
     }
 
@@ -128,5 +131,10 @@ class SettingsDTO
     public function getLang(): ?string
     {
         return $this->lang;
+    }
+
+    public function getCashbackExpirationPeriod(): ?string
+    {
+        return $this->cashbackExpirationPeriod;
     }
 }
