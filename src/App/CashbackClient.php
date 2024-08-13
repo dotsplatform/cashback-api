@@ -9,11 +9,15 @@ namespace Dotsplatform\CashbackApi;
 
 use Dotsplatform\CashbackApi\DTO\Request\StoreAndUpdateAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreOrdersSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreReviewsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreUsersTransactionParamsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseOrdersSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseReviewsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseUserDTO;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
@@ -27,6 +31,9 @@ class CashbackClient extends HttpClient
     private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
     private const UPDATE_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
+    private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/orders-settings';
+    private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/reviews-settings';
+
     private const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     private const CREATE_ORDER_URL_TEMPLATE = '/orders';
     private const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
@@ -77,6 +84,42 @@ class CashbackClient extends HttpClient
         $accountDTO = StoreAndUpdateAccountDTO::fromArray($data);
         $responseData = $this->put($url, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return ResponseOrdersSettingsDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    public function storeOrdersSettings(int $id, array $data): ResponseOrdersSettingsDTO
+    {
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        $params['json'] = true;
+        $settings = StoreOrdersSettingsDTO::fromArray($data);
+        $responseData = $this->put($url, $settings->toArray(), $params);
+        return ResponseOrdersSettingsDTO::fromArray($responseData);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return ResponseReviewsSettingsDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    public function storeReviewsSettings(int $id, array $data): ResponseReviewsSettingsDTO
+    {
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        $params['json'] = true;
+        $settings = StoreReviewsSettingsDTO::fromArray($data);
+        $responseData = $this->put($url, $settings->toArray(), $params);
+        return ResponseReviewsSettingsDTO::fromArray($responseData);
     }
 
     /**
