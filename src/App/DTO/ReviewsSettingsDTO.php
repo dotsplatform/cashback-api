@@ -11,8 +11,8 @@ class ReviewsSettingsDTO
 {
     protected function __construct(
         private float $reviewsCashbackLimit,
-        private float $cashBackAmount,
-        private float $cashBackPercent,
+        private string $reviewsCashbackType,
+        private float $reviewsCashback,
     ) {
     }
 
@@ -20,8 +20,8 @@ class ReviewsSettingsDTO
     {
         return new static(
             $data['reviewsCashbackLimit'] ?? 0,
-            $data['cashBackAmount'] ?? 0,
-            $data['cashBackPercent'] ?? 0,
+            $data['reviewsCashbackType'] ?? CashbackType::PERCENT->value,
+            $data['reviewsCashback'] ?? 0,
         );
     }
 
@@ -29,8 +29,8 @@ class ReviewsSettingsDTO
     {
         return [
             'reviewsCashbackLimit' => $this->getReviewsCashbackLimit(),
-            'cashBackAmount' => $this->getCashBackAmount(),
-            'cashBackPercent' => $this->getCashBackPercent(),
+            'reviewsCashbackType' => $this->getReviewsCashbackType(),
+            'reviewsCashback' => $this->getReviewsCashback(),
         ];
     }
 
@@ -39,13 +39,13 @@ class ReviewsSettingsDTO
         return $this->reviewsCashbackLimit;
     }
 
-    public function getCashBackAmount(): float
+    public function getReviewsCashbackType(): string
     {
-        return $this->cashBackAmount;
+        return $this->reviewsCashbackType;
     }
 
-    public function getCashBackPercent(): float
+    public function getReviewsCashback(): float
     {
-        return $this->cashBackPercent;
+        return $this->reviewsCashback;
     }
 }
