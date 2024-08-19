@@ -12,10 +12,8 @@ use Dotsplatform\CashbackApi\DTO\OrdersSettingsDTO;
 class ResponseOrdersSettingsDTO
 {
     private function __construct(
-        private int $id,
-        private OrdersSettingsDTO $settings,
-        private string $name,
-        private string $token,
+        private readonly int $id,
+        private readonly OrdersSettingsDTO $settings,
     )
     {
     }
@@ -24,9 +22,7 @@ class ResponseOrdersSettingsDTO
     {
         return new static(
             $data['id'] ?? 0,
-                OrdersSettingsDTO::fromArray($data['settings'] ?? []),
-            $data['name'] ?? '',
-            $data['token'] ?? ''
+            OrdersSettingsDTO::fromArray($data['settings'] ?? []),
         );
     }
 
@@ -35,24 +31,12 @@ class ResponseOrdersSettingsDTO
         return [
             'id' => $this->getId(),
             'settings' => $this->getSettings(),
-            'name' => $this->getName(),
-            'token' => $this->getToken(),
         ];
     }
 
     public function getSettings(): OrdersSettingsDTO
     {
         return $this->settings;
-    }
-
-    public function getToken(): string
-    {
-        return $this->token;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function getId(): int

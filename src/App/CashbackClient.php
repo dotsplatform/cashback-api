@@ -29,6 +29,9 @@ use Dotsplatform\CashbackApi\Http\HttpClient;
 class CashbackClient extends HttpClient
 {
     private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
+    private const GET_ACCOUNT_ORDERS_SETTINGS__URL_TEMPLATE = '/accounts/{id}/orders-settings';
+    private const GET_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/reviews-settings';
+
     private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
     private const UPDATE_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/orders-settings';
@@ -50,6 +53,18 @@ class CashbackClient extends HttpClient
     {
         $url = $this->parseUrlParams(self::GET_ACCOUNT_URL_TEMPLATE, ['id' => $id]);
         return ResponseAccountDTO::fromArray($this->get($url));
+    }
+
+    public function getAccountOrdersSettings(int $id): ResponseOrdersSettingsDTO
+    {
+        $url = $this->parseUrlParams(self::GET_ACCOUNT_ORDERS_SETTINGS__URL_TEMPLATE, ['id' => $id]);
+        return ResponseOrdersSettingsDTO::fromArray($this->get($url));
+    }
+
+    public function getAccountReviewsSettings(int $id): ResponseReviewsSettingsDTO
+    {
+        $url = $this->parseUrlParams(self::GET_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        return ResponseReviewsSettingsDTO::fromArray($this->get($url));
     }
 
     /**
@@ -95,7 +110,7 @@ class CashbackClient extends HttpClient
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function storeOrdersSettings(int $id, array $data): ResponseOrdersSettingsDTO
+    public function storeAccountOrdersSettings(int $id, array $data): ResponseOrdersSettingsDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
@@ -113,7 +128,7 @@ class CashbackClient extends HttpClient
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function storeReviewsSettings(int $id, array $data): ResponseReviewsSettingsDTO
+    public function storeAccountReviewsSettings(int $id, array $data): ResponseReviewsSettingsDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;

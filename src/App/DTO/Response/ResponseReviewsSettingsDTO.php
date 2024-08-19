@@ -12,10 +12,8 @@ use Dotsplatform\CashbackApi\DTO\ReviewsSettingsDTO;
 class ResponseReviewsSettingsDTO
 {
     private function __construct(
-        private int $id,
-        private ReviewsSettingsDTO $settings,
-        private string $name,
-        private string $token,
+        private readonly int $id,
+        private readonly ReviewsSettingsDTO $settings,
     )
     {
     }
@@ -25,8 +23,6 @@ class ResponseReviewsSettingsDTO
         return new static(
             $data['id'] ?? 0,
                 ReviewsSettingsDTO::fromArray($data['settings'] ?? []),
-            $data['name'] ?? '',
-            $data['token'] ?? ''
         );
     }
 
@@ -35,24 +31,12 @@ class ResponseReviewsSettingsDTO
         return [
             'id' => $this->getId(),
             'settings' => $this->getSettings(),
-            'name' => $this->getName(),
-            'token' => $this->getToken(),
         ];
     }
 
     public function getSettings(): ReviewsSettingsDTO
     {
         return $this->settings;
-    }
-
-    public function getToken(): string
-    {
-        return $this->token;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function getId(): int
