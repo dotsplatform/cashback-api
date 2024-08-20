@@ -36,13 +36,14 @@ class CashbackClient extends HttpClient
     private const UPDATE_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/orders-settings';
     private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/reviews-settings';
-
     private const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     private const CREATE_ORDER_URL_TEMPLATE = '/orders';
     private const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
     private const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
     private const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
     private const REOPEN_ORDER_URL_TEMPLATE = '/orders/{id}/reopen';
+    private const ORDER_REVIEW_APPROVED_URL_TEMPLATE = '/orders/{id}/review-approved';
+
     private const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     private const CREATE_TRANSACTIONS_URL_TEMPLATE = '/transactions';
     private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
@@ -135,6 +136,13 @@ class CashbackClient extends HttpClient
         $settings = StoreReviewsSettingsDTO::fromArray($data);
         $responseData = $this->put($url, $settings->toArray(), $params);
         return ResponseReviewsSettingsDTO::fromArray($responseData);
+    }
+
+    public function reviewApproved(int $id, string $accountToken): void
+    {
+        $url = $this->parseUrlParams(self::ORDER_REVIEW_APPROVED_URL_TEMPLATE, ['id' => $id]);
+        $params = $this->getRequestHeaders($accountToken);
+        $this->patch($url, null, $params);
     }
 
     /**
