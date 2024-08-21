@@ -8,13 +8,13 @@
 namespace Dotsplatform\CashbackApi\DTO\Response;
 
 
-use Dotsplatform\CashbackApi\DTO\SettingsDTO;
+use Dotsplatform\CashbackApi\DTO\AccountSettingsDTO;
 
 class ResponseAccountDTO
 {
     private function __construct(
         private int $id,
-        private SettingsDTO $settings,
+        private AccountSettingsDTO $settings,
         private string $name,
         private string $token,
     )
@@ -25,7 +25,7 @@ class ResponseAccountDTO
     {
         return new static(
             $data['id'] ?? 0,
-            SettingsDTO::fromArray($data['settings'] ?? []),
+            AccountSettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',
             $data['token'] ?? ''
         );
@@ -41,7 +41,7 @@ class ResponseAccountDTO
         ];
     }
 
-    public function getSettings(): SettingsDTO
+    public function getSettings(): AccountSettingsDTO
     {
         return $this->settings;
     }
