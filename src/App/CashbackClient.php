@@ -31,7 +31,6 @@ class CashbackClient extends HttpClient
     private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const GET_ACCOUNT_ORDERS_SETTINGS__URL_TEMPLATE = '/accounts/{id}/orders-settings';
     private const GET_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/reviews-settings';
-
     private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
     private const UPDATE_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/orders-settings';

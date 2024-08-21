@@ -10,42 +10,50 @@ namespace Dotsplatform\CashbackApi\DTO;
 class ReviewsSettingsDTO
 {
     protected function __construct(
-        private float $reviewsCashbackLimit,
-        private string $reviewsCashbackType,
-        private float $reviewsCashback,
+        private bool $available,
+        private float $limit,
+        private string $type,
+        private float $amount,
     ) {
     }
 
     public static function fromArray(array $data): static
     {
         return new static(
-            $data['reviewsCashbackLimit'] ?? 0,
-            $data['reviewsCashbackType'] ?? CashbackType::PERCENT->value,
-            $data['reviewsCashback'] ?? 0,
+            $data['available'] ?? false,
+            $data['limit'] ?? 0,
+            $data['type'] ?? CashbackType::PERCENT->value,
+            $data['amount'] ?? 0,
         );
     }
 
     public function toArray(): array
     {
         return [
-            'reviewsCashbackLimit' => $this->getReviewsCashbackLimit(),
-            'reviewsCashbackType' => $this->getReviewsCashbackType(),
-            'reviewsCashback' => $this->getReviewsCashback(),
+            'available' => $this->isAvailable(),
+            'limit' => $this->getLimit(),
+            'type' => $this->getType(),
+            'amount' => $this->getAmount(),
         ];
     }
 
-    public function getReviewsCashbackLimit(): float
+    public function isAvailable(): bool
     {
-        return $this->reviewsCashbackLimit;
+        return $this->available;
     }
 
-    public function getReviewsCashbackType(): string
+    public function getLimit(): float
     {
-        return $this->reviewsCashbackType;
+        return $this->limit;
     }
 
-    public function getReviewsCashback(): float
+    public function getType(): string
     {
-        return $this->reviewsCashback;
+        return $this->type;
+    }
+
+    public function getAmount(): float
+    {
+        return $this->amount;
     }
 }
