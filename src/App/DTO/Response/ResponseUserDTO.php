@@ -8,7 +8,7 @@
 namespace Dotsplatform\CashbackApi\DTO\Response;
 
 
-use Dotsplatform\CashbackApi\DTO\SettingsDTO;
+use Dotsplatform\CashbackApi\DTO\AccountSettingsDTO;
 
 class ResponseUserDTO
 {

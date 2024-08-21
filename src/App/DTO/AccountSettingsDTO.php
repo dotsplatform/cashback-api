@@ -7,7 +7,7 @@
 
 namespace Dotsplatform\CashbackApi\DTO;
 
-class SettingsDTO
+class AccountSettingsDTO
 {
     protected function __construct(
         private float $minChargeAmount,
