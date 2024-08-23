@@ -19,9 +19,9 @@ class SettingsDTO
     public static function fromArray(array $data): static
     {
         return new static(
-            $data['accountSettings'] ?? AccountSettingsDTO::fromArray([]),
-            $data['ordersSettings'] ?? OrdersSettingsDTO::fromArray([]),
-            $data['reviewSettings'] ?? ReviewsSettingsDTO::fromArray([]),
+            AccountSettingsDTO::fromArray($data['accountSettings'] ?? []),
+            OrdersSettingsDTO::fromArray($data['ordersSettings'] ?? []),
+            ReviewsSettingsDTO::fromArray($data['reviewsSettings'] ?? []),
         );
     }
 
