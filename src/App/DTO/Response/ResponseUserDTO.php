@@ -8,8 +8,6 @@
 namespace Dotsplatform\CashbackApi\DTO\Response;
 
 
-use Dotsplatform\CashbackApi\DTO\AccountSettingsDTO;
-
 class ResponseUserDTO
 {
     private function __construct(
