@@ -8,6 +8,7 @@
 namespace Dotsplatform\CashbackApi;
 
 use Dotsplatform\CashbackApi\DTO\Request\StoreAccountDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreAccountSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrdersSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreReviewsSettingsDTO;
@@ -80,7 +81,7 @@ class CashbackClient extends HttpClient
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
-        $accountDTO = StoreAccountDTO::fromArray($data);
+        $accountDTO = StoreAccountSettingsDTO::fromArray($data);
         $responseData = $this->put($url, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
     }
