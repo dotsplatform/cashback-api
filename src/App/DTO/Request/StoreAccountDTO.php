@@ -7,13 +7,9 @@
 
 namespace Dotsplatform\CashbackApi\DTO\Request;
 
-
-use Dotsplatform\CashbackApi\DTO\AccountSettingsDTO;
-
-class StoreAndUpdateAccountDTO
+class StoreAccountDTO
 {
     protected function __construct(
-        private AccountSettingsDTO $settings,
         private string $name,
         private string $token,
     )
@@ -23,7 +19,6 @@ class StoreAndUpdateAccountDTO
     public static function fromArray(array $data): static
     {
         return new static(
-            AccountSettingsDTO::fromArray($data['settings'] ?? []),
             $data['name'] ?? '',
             $data['token'] ?? ''
         );
@@ -32,15 +27,9 @@ class StoreAndUpdateAccountDTO
     public function toArray(): array
     {
         return [
-            'settings' => $this->getSettings()->toArray(),
             'name' => $this->getName(),
             'token' => $this->getToken(),
         ];
-    }
-
-    public function getSettings(): AccountSettingsDTO
-    {
-        return $this->settings;
     }
 
     public function getToken(): string
@@ -52,5 +41,4 @@ class StoreAndUpdateAccountDTO
     {
         return $this->name;
     }
-
 }

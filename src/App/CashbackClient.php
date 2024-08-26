@@ -7,7 +7,7 @@
 
 namespace Dotsplatform\CashbackApi;
 
-use Dotsplatform\CashbackApi\DTO\Request\StoreAndUpdateAccountDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrdersSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreReviewsSettingsDTO;
@@ -28,9 +28,9 @@ class CashbackClient extends HttpClient
 {
     private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
-    private const UPDATE_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
-    private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/orders-settings';
-    private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/reviews-settings';
+    private const UPDATE_ACCOUNT_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/account';
+    private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/orders';
+    private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/reviews';
     private const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     private const CREATE_ORDER_URL_TEMPLATE = '/orders';
     private const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
@@ -61,7 +61,7 @@ class CashbackClient extends HttpClient
      */
     public function createAccount(array $data): ResponseAccountDTO
     {
-        $accountDTO = StoreAndUpdateAccountDTO::fromArray($data);
+        $accountDTO = StoreAccountDTO::fromArray($data);
         $params['json'] = true;
         $responseData = $this->post(self::CREATE_ACCOUNT_URL_TEMPLATE, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
@@ -76,11 +76,11 @@ class CashbackClient extends HttpClient
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function updateAccount(int $id, array $data): ResponseAccountDTO
+    public function storeAccountSettings(int $id, array $data): ResponseAccountDTO
     {
-        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_URL_TEMPLATE, ['id' => $id]);
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
-        $accountDTO = StoreAndUpdateAccountDTO::fromArray($data);
+        $accountDTO = StoreAccountDTO::fromArray($data);
         $responseData = $this->put($url, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
     }
@@ -88,33 +88,37 @@ class CashbackClient extends HttpClient
     /**
      * @param int $id
      * @param array $data
+     * @return ResponseAccountDTO
      * @throws InvalidParamsDataException
      * @throws NotFoundException
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function storeAccountOrdersSettings(int $id, array $data): void
+    public function storeAccountOrdersSettings(int $id, array $data): ResponseAccountDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
         $settings = StoreOrdersSettingsDTO::fromArray($data);
-        $this->put($url, $settings->toArray(), $params);
+        $responseData = $this->put($url, $settings->toArray(), $params);
+        return ResponseAccountDTO::fromArray($responseData);
     }
 
     /**
      * @param int $id
      * @param array $data
+     * @return ResponseAccountDTO
      * @throws InvalidParamsDataException
      * @throws NotFoundException
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function storeAccountReviewsSettings(int $id, array $data): void
+    public function storeAccountReviewsSettings(int $id, array $data): ResponseAccountDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
         $settings = StoreReviewsSettingsDTO::fromArray($data);
-        $this->put($url, $settings->toArray(), $params);
+        $responseData = $this->put($url, $settings->toArray(), $params);
+        return ResponseAccountDTO::fromArray($responseData);
     }
 
     public function reviewApproved(int $id, string $accountToken): void
