@@ -10,9 +10,9 @@ namespace Dotsplatform\CashbackApi\DTO;
 class SettingsDTO
 {
     protected function __construct(
-        private AccountSettingsDTO $accountSettings,
-        private OrdersSettingsDTO $ordersSettings,
-        private ReviewsSettingsDTO $reviewsSettings,
+        private readonly AccountSettingsDTO $accountSettings,
+        private readonly OrdersSettingsDTO $ordersSettings,
+        private readonly ReviewsSettingsDTO $reviewsSettings,
     ) {
     }
 
