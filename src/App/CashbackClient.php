@@ -38,8 +38,7 @@ class CashbackClient extends HttpClient
     private const FINISH_ORDER_URL_TEMPLATE = '/orders/{id}/finish';
     private const CANCEL_ORDER_URL_TEMPLATE = '/orders/{id}/cancel';
     private const REOPEN_ORDER_URL_TEMPLATE = '/orders/{id}/reopen';
-    private const ORDER_REVIEW_APPROVED_URL_TEMPLATE = '/orders/{id}/review-approved';
-
+    private const STORE_ORDER_REVIEW_CASHBACK_URL_TEMPLATE = '/orders/{id}/store-order-review-cashback';
     private const GET_TRANSACTION_URL_TEMPLATE = '/transactions';
     private const CREATE_TRANSACTIONS_URL_TEMPLATE = '/transactions';
     private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
@@ -122,9 +121,15 @@ class CashbackClient extends HttpClient
         return ResponseAccountDTO::fromArray($responseData);
     }
 
-    public function reviewApproved(int $id, string $accountToken): void
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function storeOrderReviewCashback(int $id, string $accountToken): void
     {
-        $url = $this->parseUrlParams(self::ORDER_REVIEW_APPROVED_URL_TEMPLATE, ['id' => $id]);
+        $url = $this->parseUrlParams(self::STORE_ORDER_REVIEW_CASHBACK_URL_TEMPLATE, ['id' => $id]);
         $params = $this->getRequestHeaders($accountToken);
         $this->patch($url, null, $params);
     }
