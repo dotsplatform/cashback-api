@@ -17,7 +17,7 @@ class OrdersSettingsDTO
         private float $cashBackPercentBooking,
         private float $cashBackPercentDeliveryInner,
         private float $cashBackPercentDeliveryInnerToDoor,
-        private float $firstOrdersLimit,
+        private float $firstOrdersCountLimit,
         private string $firstOrdersCashbackType,
         private float $firstOrdersCashbackAmount,
     ) {
@@ -33,7 +33,7 @@ class OrdersSettingsDTO
             $data['cashBackPercentBooking'] ?? 0,
             $data['cashBackPercentDeliveryInner'] ?? 0,
             $data['cashBackPercentDeliveryInnerToDoor'] ?? 0,
-            $data['firstOrdersLimit'] ?? 0,
+            $data['firstOrdersCountLimit'] ?? 0,
             $data['firstOrdersCashbackType'] ?? CashbackType::PERCENT->value,
             $data['firstOrdersCashbackAmount'] ?? 0,
         );
@@ -49,7 +49,7 @@ class OrdersSettingsDTO
             'cashBackPercentBooking' => $this->getCashBackPercentBooking(),
             'cashBackPercentDeliveryInner' => $this->getCashBackPercentDeliveryInner(),
             'cashBackPercentDeliveryInnerToDoor' => $this->getCashBackPercentDeliveryInnerToDoor(),
-            'firstOrdersLimit' => $this->getFirstOrdersLimit(),
+            'firstOrdersCountLimit' => $this->getFirstOrdersCountLimit(),
             'firstOrdersCashbackType' => $this->getFirstOrdersCashbackType(),
             'firstOrdersCashbackAmount' => $this->getFirstOrdersCashbackAmount(),
         ];
@@ -65,9 +65,9 @@ class OrdersSettingsDTO
         return $this->firstOrdersCashbackAvailable;
     }
 
-    public function getFirstOrdersLimit(): float
+    public function getFirstOrdersCountLimit(): float
     {
-        return $this->firstOrdersLimit;
+        return $this->firstOrdersCountLimit;
     }
 
     public function getCashBackPercentDelivery(): float
