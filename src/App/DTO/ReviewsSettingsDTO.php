@@ -11,7 +11,7 @@ class ReviewsSettingsDTO
 {
     protected function __construct(
         private bool $available,
-        private float $limit,
+        private ?float $limit,
         private string $type,
         private float $amount,
     ) {
@@ -42,7 +42,7 @@ class ReviewsSettingsDTO
         return $this->available;
     }
 
-    public function getLimit(): float
+    public function getLimit(): ?float
     {
         return $this->limit;
     }
