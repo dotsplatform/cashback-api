@@ -21,7 +21,7 @@ class ReviewsSettingsDTO
     {
         return new static(
             $data['available'] ?? false,
-            $data['limit'] ?? 0,
+            $data['limit'] ?? null,
             $data['type'] ?? CashbackType::PERCENT->value,
             $data['amount'] ?? 0,
         );
