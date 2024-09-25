@@ -7,7 +7,6 @@
 
 namespace Dotsplatform\CashbackApi\DTO\Response;
 
-
 class ResponseTransactionDTO
 {
     protected function __construct(
@@ -17,6 +16,7 @@ class ResponseTransactionDTO
         private string $note,
         private int $amount,
         private int $status,
+        private int $type,
         private ?array $data,
         private int $completed_time,
         private int $created_at_time,
@@ -33,6 +33,7 @@ class ResponseTransactionDTO
             $data['note'] ?? '',
             $data['amount'] ?? 0,
             $data['status'] ?? 0,
+            $data['type'] ?? 0,
             $data['data'] ?? null,
             $data['completed_time'] ?? 0,
             $data['created_at_time'] ?? 0,
@@ -49,6 +50,7 @@ class ResponseTransactionDTO
             'note' => $this->getNote(),
             'amount' => $this->getAmount(),
             'status' => $this->getStatus(),
+            'type' => $this->type,
             'data' => $this->getData(),
             'completed_time' => $this->getCompletedTime(),
             'created_at_time' => $this->getCreatedAtTime(),
@@ -83,6 +85,11 @@ class ResponseTransactionDTO
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    public function getType(): int
+    {
+        return $this->type;
     }
 
     public function getData(): ?array
