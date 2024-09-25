@@ -16,6 +16,7 @@ class StoreTransactionDTO implements Arrayable
         private ?string $userToken,
         private int $amount,
         private string $note,
+        private int $type,
     )
     {
     }
@@ -25,7 +26,8 @@ class StoreTransactionDTO implements Arrayable
         return new static(
             $data['userToken'] ?? null,
             $data['amount'] ?? 0,
-            $data['note'] ?? ''
+            $data['note'] ?? '',
+            $data['type'] ?? 0,
         );
     }
 
@@ -35,6 +37,7 @@ class StoreTransactionDTO implements Arrayable
             'userToken' => $this->getUserToken(),
             'amount' => $this->getAmount(),
             'note' => $this->getNote(),
+            'type' => $this->getType(),
         ];
     }
 
@@ -51,5 +54,10 @@ class StoreTransactionDTO implements Arrayable
     public function getNote(): string
     {
         return $this->note;
+    }
+
+    public function getType(): int
+    {
+        return $this->type;
     }
 }
