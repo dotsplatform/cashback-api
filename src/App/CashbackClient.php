@@ -10,11 +10,13 @@ namespace Dotsplatform\CashbackApi;
 use Dotsplatform\CashbackApi\DTO\Request\StoreAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreAccountSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StorePosterAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrdersSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreReviewsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreUsersTransactionParamsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
+use Dotsplatform\CashbackApi\DTO\Response\PosterAccountResponse;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
@@ -44,6 +46,9 @@ class CashbackClient extends HttpClient
     private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
     private const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
+    private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
+    private const STORE_POSTER_ACCOUNT = '/accounts/{account}/poster/accounts';
+    private const POSTER_WEBHOOKS = '/web-hooks/poster';
 
     public function getAccount(int $id): ResponseAccountDTO
     {
@@ -304,6 +309,42 @@ class CashbackClient extends HttpClient
 
         $responseData = $this->get($url, $params);
         return ResponseUserDTO::fromArray($responseData);
+    }
+
+    public function showPosterAccount(StorePosterAccountRequestDTO $dto): ?PosterAccountResponse
+    {
+        $url = $this->parseUrlParams(self::SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT, [
+            'account' => $dto->getAccountId(),
+        ]);
+        $params['json'] = true;
+        $response = $this->get($url, $params);
+        if (empty($response)) {
+            return null;
+        }
+
+        return PosterAccountResponse::fromArray($response);
+    }
+
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function storePosterAccount(StorePosterAccountRequestDTO $dto): PosterAccountResponse
+    {
+        $url = $this->parseUrlParams(self::STORE_POSTER_ACCOUNT, ['account' => $dto->getAccountId()]);
+        $data = $dto->toArray();
+        $params['json'] = true;
+        $response = $this->post($url, $data, $params);
+
+        return PosterAccountResponse::fromArray($response ?? []);
+    }
+
+    public function posterWebhook(array $data): void
+    {
+        $params['json'] = true;
+        $this->post(self::POSTER_WEBHOOKS, $data, $params);
     }
 
     private function parseUrlParams(string $url, array $data): string
