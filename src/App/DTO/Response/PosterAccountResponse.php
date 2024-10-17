@@ -10,6 +10,9 @@ namespace Dotsplatform\CashbackApi\DTO\Response;
 
 class PosterAccountResponse
 {
+    public const STATUS_ACTIVE = 10;
+    public const STATUS_INACTIVE = 0;
+
     protected function __construct(
         private string $id,
         private string $accountId,
@@ -39,6 +42,11 @@ class PosterAccountResponse
             'posterAccount' => $this->posterAccount,
             'posterAccessToken' => $this->posterAccessToken,
         ];
+    }
+
+    public function isActive(): bool
+    {
+        return $this->getStatus() === self::STATUS_ACTIVE;
     }
 
     public function getId(): string

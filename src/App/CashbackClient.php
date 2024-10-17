@@ -26,6 +26,7 @@ use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
 use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
 use Dotsplatform\CashbackApi\Http\Exception\UnprocessableEntityException;
 use Dotsplatform\CashbackApi\Http\HttpClient;
+use Exception;
 
 class CashbackClient extends HttpClient
 {
@@ -311,13 +312,17 @@ class CashbackClient extends HttpClient
         return ResponseUserDTO::fromArray($responseData);
     }
 
-    public function showPosterAccount(StorePosterAccountRequestDTO $dto): ?PosterAccountResponse
+    public function showPosterAccount(int $accountId): ?PosterAccountResponse
     {
         $url = $this->parseUrlParams(self::SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT, [
-            'account' => $dto->getAccountId(),
+            'account' => $accountId,
         ]);
         $params['json'] = true;
-        $response = $this->get($url, $params);
+        try {
+            $response = $this->get($url, $params);
+        } catch (Exception) {
+            return null;
+        }
         if (empty($response)) {
             return null;
         }
