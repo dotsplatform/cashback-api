@@ -13,6 +13,7 @@ use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StorePosterAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrdersSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreReviewsSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StoreSyrveAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreUsersTransactionParamsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
@@ -21,6 +22,9 @@ use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseUserDTO;
+use Dotsplatform\CashbackApi\DTO\Response\Syrve\Loyalty\SyrveLoyaltyProgramOptionsList;
+use Dotsplatform\CashbackApi\DTO\Response\Syrve\Organizations\SyrveOrganizationOptionsList;
+use Dotsplatform\CashbackApi\DTO\Response\SyrveAccountResponse;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
 use Dotsplatform\CashbackApi\Http\Exception\NotFoundException;
 use Dotsplatform\CashbackApi\Http\Exception\ServerErrorException;
@@ -50,6 +54,13 @@ class CashbackClient extends HttpClient
     private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
     private const STORE_POSTER_ACCOUNT = '/accounts/{account}/poster/accounts';
     private const POSTER_WEBHOOKS = '/web-hooks/poster';
+    private const SHOW_CASHBACK_SYRVE_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/syrve/accounts/by-account';
+    private const STORE_SYRVE_ACCOUNT = '/accounts/{account}/syrve/accounts';
+    private const SYRVE_CUSTOMER_BONUS_BALANCE_CHANGED_WEBHOOKS = '/web-hooks/syrve/customers/bonuses/balance-changed';
+
+    private const SYRVE_ACCOUNT_ORGANIZATION_OPTIONS = '/accounts/{account}/syrve/organizations/options';
+    private const SYRVE_ACCOUNT_LOYALTY_PROGRAM_OPTIONS = '/accounts/{account}/syrve/loyalty/programs/options';
+
 
     public function getAccount(int $id): ResponseAccountDTO
     {
@@ -350,6 +361,82 @@ class CashbackClient extends HttpClient
     {
         $params['json'] = true;
         $this->post(self::POSTER_WEBHOOKS, $data, $params);
+    }
+
+    public function showSyrveAccount(int $accountId): ?SyrveAccountResponse
+    {
+        $url = $this->parseUrlParams(self::SHOW_CASHBACK_SYRVE_ACCOUNT_BY_ACCOUNT, [
+            'account' => $accountId,
+        ]);
+        $params['json'] = true;
+        try {
+            $response = $this->get($url, $params);
+        } catch (Exception) {
+            return null;
+        }
+        if (empty($response)) {
+            return null;
+        }
+
+        return SyrveAccountResponse::fromArray($response);
+    }
+
+    public function getSyrveAccountOrganizationOptions(int $accountId): SyrveOrganizationOptionsList
+    {
+        $url = $this->parseUrlParams(self::SYRVE_ACCOUNT_ORGANIZATION_OPTIONS, [
+            'account' => $accountId,
+        ]);
+        $params['json'] = true;
+        try {
+            $response = $this->get($url, $params);
+        } catch (Exception) {
+            return SyrveOrganizationOptionsList::empty();
+        }
+        if (empty($response)) {
+            return SyrveOrganizationOptionsList::empty();
+        }
+
+        return SyrveOrganizationOptionsList::fromArray($response);
+    }
+
+    public function getSyrveAccountLoyaltyProgramOptions(int $accountId): SyrveLoyaltyProgramOptionsList
+    {
+        $url = $this->parseUrlParams(self::SYRVE_ACCOUNT_LOYALTY_PROGRAM_OPTIONS, [
+            'account' => $accountId,
+        ]);
+        $params['json'] = true;
+        try {
+            $response = $this->get($url, $params);
+        } catch (Exception) {
+            return SyrveLoyaltyProgramOptionsList::empty();
+        }
+        if (empty($response)) {
+            return SyrveLoyaltyProgramOptionsList::empty();
+        }
+
+        return SyrveLoyaltyProgramOptionsList::fromArray($response);
+    }
+
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function storeSyrveAccount(StoreSyrveAccountRequestDTO $dto): SyrveAccountResponse
+    {
+        $url = $this->parseUrlParams(self::STORE_SYRVE_ACCOUNT, ['account' => $dto->getAccountId()]);
+        $data = $dto->toArray();
+        $params['json'] = true;
+        $response = $this->post($url, $data, $params);
+
+        return SyrveAccountResponse::fromArray($response ?? []);
+    }
+
+    public function syrveCustomerBonusesBalanceChangedWebhook(array $data): void
+    {
+        $params['json'] = true;
+        $this->post(self::SYRVE_CUSTOMER_BONUS_BALANCE_CHANGED_WEBHOOKS, $data, $params);
     }
 
     private function parseUrlParams(string $url, array $data): string
