@@ -15,6 +15,7 @@ class SyrveLoyaltyProgramOptionsListItem implements Arrayable
     protected function __construct(
         private string $id,
         private string $name,
+        private ?string $walletId,
     ) {
     }
 
@@ -23,6 +24,7 @@ class SyrveLoyaltyProgramOptionsListItem implements Arrayable
         return new static(
             $data['id'],
             $data['name'],
+            $data['walletId'] ?? null,
         );
     }
 
@@ -31,6 +33,7 @@ class SyrveLoyaltyProgramOptionsListItem implements Arrayable
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),
+            'walletId' => $this->getWalletId(),
         ];
     }
 
@@ -42,5 +45,10 @@ class SyrveLoyaltyProgramOptionsListItem implements Arrayable
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getWalletId(): ?string
+    {
+        return $this->walletId;
     }
 }
