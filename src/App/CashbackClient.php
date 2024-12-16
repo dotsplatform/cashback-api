@@ -10,18 +10,22 @@ namespace Dotsplatform\CashbackApi;
 use Dotsplatform\CashbackApi\DTO\Request\StoreAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreAccountSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrderDTO;
-use Dotsplatform\CashbackApi\DTO\Request\StorePosterAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreOrdersSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\StorePosterAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreReviewsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreSyrveAccountRequestDTO;
-use Dotsplatform\CashbackApi\DTO\Request\StoreUsersTransactionParamsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Transactions\StoreUsersTransactionParamsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Transactions\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UpdateOrderPriceDTO;
-use Dotsplatform\CashbackApi\DTO\Request\UpdateTransactionNoteDTO;
+use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupDTO;
+use Dotsplatform\CashbackApi\DTO\Request\UserGroups\UserGroupsFiltersDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Users\UsersFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Response\PosterAccountResponse;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Response\ResponseUserDTO;
+use Dotsplatform\CashbackApi\DTO\Response\ResponseUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Syrve\Loyalty\SyrveLoyaltyProgramOptionsList;
 use Dotsplatform\CashbackApi\DTO\Response\Syrve\Organizations\SyrveOrganizationOptionsList;
 use Dotsplatform\CashbackApi\DTO\Response\SyrveAccountResponse;
@@ -50,6 +54,10 @@ class CashbackClient extends HttpClient
     private const CREATE_TRANSACTIONS_URL_TEMPLATE = '/transactions';
     private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
     private const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
+    private const GET_USER_GROUPS_URL_TEMPLATE = '/users-groups';
+    private const GET_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
+    private const STORE_USER_GROUP_URL_TEMPLATE = '/users-groups';
+    private const GET_USERS_URL_TEMPLATE = '/users';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
     private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
     private const STORE_POSTER_ACCOUNT = '/accounts/{account}/poster/accounts';
@@ -162,7 +170,10 @@ class CashbackClient extends HttpClient
         $params = $this->getRequestHeaders($accountDTO->getToken());
         $params['json'] = true;
         $responseData = $this->get($url, $params);
-        return array_map(fn(array $transactionData) => ResponseTransactionDTO::fromArray($transactionData), $responseData);
+        return array_map(
+            fn(array $transactionData) => ResponseTransactionDTO::fromArray($transactionData),
+            $responseData,
+        );
     }
 
     /**
@@ -310,6 +321,66 @@ class CashbackClient extends HttpClient
 
         $responseData = $this->get(self::RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE, $params);
         return $responseData['receiving_amount'];
+    }
+
+    public function getUserGroups(string $accountToken, UserGroupsFiltersDTO $filtersDTO): array
+    {
+        $params = $this->getRequestHeaders($accountToken);
+        $url = $this->parseUrlParams(
+            self::GET_USER_GROUPS_URL_TEMPLATE,
+            $filtersDTO->toArray(),
+        );
+
+        $responseData = $this->get($url, $params);
+        return array_map(
+            fn(array $userGroupData) => ResponseUserGroupDTO::fromArray($userGroupData),
+            $responseData,
+        );
+    }
+
+    public function getUserGroup(string $accountToken, string $userGroupToken): ResponseUserGroupDTO
+    {
+        $params = $this->getRequestHeaders($accountToken);
+        $url = $this->parseUrlParams(self::GET_USER_GROUP_URL_TEMPLATE, [
+            'id' => $userGroupToken,
+        ]);
+
+        $responseData = $this->get($url, $params);
+        return ResponseUserGroupDTO::fromArray($responseData);
+    }
+
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function storeUserGroup(StoreUserGroupDTO $dto): ResponseUserGroupDTO
+    {
+        $data = $dto->toArray();
+        $params['json'] = true;
+        $response = $this->post(
+            self::STORE_USER_GROUP_URL_TEMPLATE,
+            $data,
+            $params,
+        );
+
+        return ResponseUserGroupDTO::fromArray($response ?? []);
+    }
+
+    public function getUsers(string $accountToken, UsersFiltersDTO $filtersDTO): array
+    {
+        $params = $this->getRequestHeaders($accountToken);
+        $url = $this->parseUrlParams(
+            self::GET_USERS_URL_TEMPLATE,
+            $filtersDTO->toArray(),
+        );
+
+        $responseData = $this->get($url, $params);
+        return array_map(
+            fn(array $userData) => ResponseUserDTO::fromArray($userData),
+            $responseData,
+        );
     }
 
     public function getUser(string $accountToken, string $userToken): ResponseUserDTO

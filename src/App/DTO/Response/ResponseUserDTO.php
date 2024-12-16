@@ -1,52 +1,35 @@
 <?php
 /**
- * Description of ResponseAccountDTO.php
+ * Description of ResponseUserDTO.php
  * @copyright Copyright (c) MISTER.AM, LLC
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
 namespace Dotsplatform\CashbackApi\DTO\Response;
 
+use Dots\Data\DTO;
 
-class ResponseUserDTO
+class ResponseUserDTO extends DTO
 {
-    private function __construct(
-        private int $id,
-        private string $token,
-        private int $account_id,
-        private int $available_balance,
-        private int $balance,
-        private int $receiving_amount,
-        private int $held_amount,
-    )
-    {
-    }
+    protected int $id;
 
-    public static function fromArray(array $data): static
-    {
-        return new static(
-            $data['id'],
-            $data['token'],
-            $data['account_id'],
-            $data['available_balance'],
-            $data['balance'],
-            $data['receiving_amount'],
-            $data['held_amount'],
-        );
-    }
+    protected string $token;
 
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->getId(),
-            'token' => $this->getToken(),
-            'account_id' => $this->getAccountId(),
-            'available_balance' => $this->getAvailableBalance(),
-            'balance' => $this->getBalance(),
-            'receiving_amount' => $this->getReceivingAmount(),
-            'held_amount' => $this->getHeldAmount(),
-        ];
-    }
+    protected int $account_id;
+
+    protected string $account_token;
+
+    protected int $available_balance;
+
+    protected int $balance;
+
+    protected int $receiving_amount;
+
+    protected int $held_amount;
+
+    protected string $user_group_id;
+
+    protected string $cashback_expiration_time;
 
     public function getId(): int
     {
@@ -61,6 +44,11 @@ class ResponseUserDTO
     public function getAccountId(): int
     {
         return $this->account_id;
+    }
+
+    public function getAccountToken(): string
+    {
+        return $this->account_token;
     }
 
     public function getAvailableBalance(): int
@@ -83,4 +71,13 @@ class ResponseUserDTO
         return $this->held_amount;
     }
 
+    public function getUserGroupId(): string
+    {
+        return $this->user_group_id;
+    }
+
+    public function getCashbackExpirationTime(): string
+    {
+        return $this->cashback_expiration_time;
+    }
 }
