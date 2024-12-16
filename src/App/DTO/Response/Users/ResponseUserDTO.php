@@ -5,7 +5,7 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace Dotsplatform\CashbackApi\DTO\Response;
+namespace Dotsplatform\CashbackApi\DTO\Response\Users;
 
 use Dots\Data\DTO;
 
