@@ -19,7 +19,7 @@ class SyrveAccountResponse
         private int $status,
         private ?string $apiLogin,
         private ?string $organizationId,
-        private ?string $cashbackLoyaltyProgramId,
+        private ?string $cashbackLoyaltyProgramWalletId,
     ) {
     }
 
@@ -31,7 +31,7 @@ class SyrveAccountResponse
             $data['status'],
             $data['apiLogin'] ?? null,
             $data['organizationId'] ?? null,
-            $data['cashbackLoyaltyProgramId'] ?? null,
+            $data['cashbackLoyaltyProgramWalletId'] ?? null,
 
         );
     }
@@ -44,7 +44,7 @@ class SyrveAccountResponse
             'status' => $this->status,
             'apiLogin' => $this->apiLogin,
             'organizationId' => $this->organizationId,
-            'cashbackLoyaltyProgramId' => $this->cashbackLoyaltyProgramId,
+            'cashbackLoyaltyProgramWalletId' => $this->cashbackLoyaltyProgramWalletId,
         ];
     }
 
@@ -64,7 +64,7 @@ class SyrveAccountResponse
             return false;
         }
 
-        return $this->getOrganizationId() && $this->getCashbackLoyaltyProgramId();
+        return $this->getOrganizationId() && $this->getCashbackLoyaltyProgramWalletId();
     }
 
     public function getId(): string
@@ -92,9 +92,9 @@ class SyrveAccountResponse
         return $this->organizationId;
     }
 
-    public function getCashbackLoyaltyProgramId(): ?string
+    public function getCashbackLoyaltyProgramWalletId(): ?string
     {
-        return $this->cashbackLoyaltyProgramId;
+        return $this->cashbackLoyaltyProgramWalletId;
     }
 
 }
