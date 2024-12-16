@@ -5,7 +5,7 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace Dotsplatform\CashbackApi\DTO\Request;
+namespace Dotsplatform\CashbackApi\DTO\Request\Transactions;
 
 
 class UpdateTransactionNoteDTO

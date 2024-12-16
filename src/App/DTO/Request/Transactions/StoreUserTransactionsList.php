@@ -5,7 +5,7 @@
  * @author    Oleksandr Polosmak <o.polosmak@dotsplatform.com>
  */
 
-namespace Dotsplatform\CashbackApi\DTO\Request;
+namespace Dotsplatform\CashbackApi\DTO\Request\Transactions;
 
 
 use Illuminate\Support\Collection;
