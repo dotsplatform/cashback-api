@@ -56,7 +56,7 @@ class CashbackClient extends HttpClient
     private const POSTER_WEBHOOKS = '/web-hooks/poster';
     private const SHOW_CASHBACK_SYRVE_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/syrve/accounts/by-account';
     private const STORE_SYRVE_ACCOUNT = '/accounts/{account}/syrve/accounts';
-    private const SYRVE_CUSTOMER_BONUS_BALANCE_CHANGED_WEBHOOKS = '/web-hooks/syrve/customers/bonuses/balance-changed';
+    private const SYRVE_CUSTOMER_BONUS_BALANCE_CHANGED_WEBHOOKS = '/web-hooks/syrve/organizations/{organization}/customers/bonuses/balance-changed';
 
     private const SYRVE_ACCOUNT_ORGANIZATION_OPTIONS = '/accounts/{account}/syrve/organizations/options';
     private const SYRVE_ACCOUNT_LOYALTY_PROGRAM_OPTIONS = '/accounts/{account}/syrve/loyalty/programs/options';
@@ -433,10 +433,11 @@ class CashbackClient extends HttpClient
         return SyrveAccountResponse::fromArray($response ?? []);
     }
 
-    public function syrveCustomerBonusesBalanceChangedWebhook(array $data): void
+    public function syrveCustomerBonusesBalanceChangedWebhook(string $organization, array $data): void
     {
+        $url = $this->parseUrlParams(self::SYRVE_CUSTOMER_BONUS_BALANCE_CHANGED_WEBHOOKS, ['organization' => $organization]);
         $params['json'] = true;
-        $this->post(self::SYRVE_CUSTOMER_BONUS_BALANCE_CHANGED_WEBHOOKS, $data, $params);
+        $this->post($url, $data, $params);
     }
 
     private function parseUrlParams(string $url, array $data): string
