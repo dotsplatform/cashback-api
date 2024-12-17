@@ -5,7 +5,9 @@
  * @author    Igor Abdrazakov <igor@mister.am>
  */
 
-namespace Dotsplatform\CashbackApi\DTO\Response;
+namespace Dotsplatform\CashbackApi\DTO\Response\Transactions;
+
+use Dotsplatform\CashbackApi\DTO\Response\Orders\ResponseOrderDTO;
 
 class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
 {
