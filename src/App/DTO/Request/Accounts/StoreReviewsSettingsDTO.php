@@ -5,14 +5,14 @@
  * @author    Bogdan Mamontov <bohdan.mamontov@dotsplatform.com>
  */
 
-namespace Dotsplatform\CashbackApi\DTO\Request;
+namespace Dotsplatform\CashbackApi\DTO\Request\Accounts;
 
-use Dotsplatform\CashbackApi\DTO\OrdersSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Accounts\ReviewsSettingsDTO;
 
-class StoreOrdersSettingsDTO
+class StoreReviewsSettingsDTO
 {
     protected function __construct(
-        private readonly OrdersSettingsDTO $settings,
+        private readonly ReviewsSettingsDTO $settings,
     )
     {
     }
@@ -20,7 +20,7 @@ class StoreOrdersSettingsDTO
     public static function fromArray(array $data): static
     {
         return new static(
-            OrdersSettingsDTO::fromArray($data['settings'] ?? []),
+            ReviewsSettingsDTO::fromArray($data['settings'] ?? []),
         );
     }
 
@@ -31,7 +31,7 @@ class StoreOrdersSettingsDTO
         ];
     }
 
-    public function getSettings(): OrdersSettingsDTO
+    public function getSettings(): ReviewsSettingsDTO
     {
         return $this->settings;
     }

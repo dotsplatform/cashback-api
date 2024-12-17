@@ -7,17 +7,18 @@
 
 namespace Dotsplatform\CashbackApi;
 
+use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreAccountDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreAccountSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreFirstOrdersSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreReviewsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Orders\StoreOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Orders\UpdateOrderPriceDTO;
-use Dotsplatform\CashbackApi\DTO\Request\StoreAccountDTO;
-use Dotsplatform\CashbackApi\DTO\Request\StoreAccountSettingsDTO;
-use Dotsplatform\CashbackApi\DTO\Request\StoreOrdersSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StorePosterAccountRequestDTO;
-use Dotsplatform\CashbackApi\DTO\Request\StoreReviewsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreSyrveAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Transactions\StoreUsersTransactionParamsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Transactions\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupDTO;
+use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupOrdersSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\UserGroupsFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Users\UsersFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Orders\ResponseOrderDTO;
@@ -58,6 +59,7 @@ class CashbackClient extends HttpClient
     private const GET_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const CREATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
     private const UPDATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
+    private const UPDATE_USER_GROUP_ORDERS_SETTINGS_URL_TEMPLATE = '/users-groups/{id}/settings/orders';
     private const GET_USERS_URL_TEMPLATE = '/users';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
     private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
@@ -124,7 +126,7 @@ class CashbackClient extends HttpClient
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
-        $settings = StoreOrdersSettingsDTO::fromArray($data);
+        $settings = StoreFirstOrdersSettingsDTO::fromArray($data);
         $responseData = $this->put($url, $settings->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
     }
@@ -376,7 +378,7 @@ class CashbackClient extends HttpClient
     {
         $data = $dto->toArray();
         $params['json'] = true;
-        $url = $this->parseUrlParams(self::GET_USER_GROUP_URL_TEMPLATE, [
+        $url = $this->parseUrlParams(self::UPDATE_USER_GROUP_URL_TEMPLATE, [
             'id' => $userGroupId,
         ]);
         $response = $this->put(
@@ -386,6 +388,24 @@ class CashbackClient extends HttpClient
         );
 
         return ResponseUserGroupDTO::fromArray($response);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return ResponseUserGroupDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    public function storeUserGroupOrdersSettings(int $id, array $data): ResponseUserGroupDTO
+    {
+        $url = $this->parseUrlParams(self::UPDATE_USER_GROUP_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        $params['json'] = true;
+        $settings = StoreUserGroupOrdersSettingsDTO::fromArray($data);
+        $responseData = $this->put($url, $settings->toArray(), $params);
+        return ResponseUserGroupDTO::fromArray($responseData);
     }
 
     public function getUsers(string $accountToken, UsersFiltersDTO $filtersDTO): array

@@ -29,6 +29,8 @@ class ResponseUserDTO extends DTO
 
     protected string $user_group_id;
 
+    protected int $user_group_auto_change;
+
     protected string $cashback_expiration_time;
 
     public function getId(): int
@@ -74,6 +76,11 @@ class ResponseUserDTO extends DTO
     public function getUserGroupId(): string
     {
         return $this->user_group_id;
+    }
+
+    public function getUserGroupAutoChange(): int
+    {
+        return $this->user_group_auto_change;
     }
 
     public function getCashbackExpirationTime(): string

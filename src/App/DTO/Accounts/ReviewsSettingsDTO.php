@@ -5,7 +5,9 @@
  * @author    Bogdan Mamontov <bohdan.mamontov@dotsplatform.com>
  */
 
-namespace Dotsplatform\CashbackApi\DTO;
+namespace Dotsplatform\CashbackApi\DTO\Accounts;
+
+use Dotsplatform\CashbackApi\DTO\CashbackType;
 
 class ReviewsSettingsDTO
 {
