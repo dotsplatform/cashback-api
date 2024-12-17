@@ -56,7 +56,8 @@ class CashbackClient extends HttpClient
     private const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
     private const GET_USER_GROUPS_URL_TEMPLATE = '/users-groups';
     private const GET_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
-    private const STORE_USER_GROUP_URL_TEMPLATE = '/users-groups';
+    private const CREATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
+    private const UPDATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
     private const GET_USERS_URL_TEMPLATE = '/users';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
     private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
@@ -335,11 +336,11 @@ class CashbackClient extends HttpClient
         );
     }
 
-    public function getUserGroup(string $accountToken, string $userGroupToken): ResponseUserGroupDTO
+    public function getUserGroup(string $accountToken, string $userGroupId): ResponseUserGroupDTO
     {
         $params = $this->getRequestHeaders($accountToken);
         $url = $this->parseUrlParams(self::GET_USER_GROUP_URL_TEMPLATE, [
-            'id' => $userGroupToken,
+            'id' => $userGroupId,
         ]);
 
         $responseData = $this->get($url, $params);
@@ -352,17 +353,39 @@ class CashbackClient extends HttpClient
      * @throws InvalidParamsDataException
      * @throws NotFoundException
      */
-    public function storeUserGroup(StoreUserGroupDTO $dto): ResponseUserGroupDTO
+    public function createUserGroup(StoreUserGroupDTO $dto): ResponseUserGroupDTO
     {
         $data = $dto->toArray();
         $params['json'] = true;
         $response = $this->post(
-            self::STORE_USER_GROUP_URL_TEMPLATE,
+            self::CREATE_USER_GROUP_URL_TEMPLATE,
             $data,
             $params,
         );
 
         return ResponseUserGroupDTO::fromArray($response ?? []);
+    }
+
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function updateUserGroup(string $userGroupId, StoreUserGroupDTO $dto): ResponseUserGroupDTO
+    {
+        $data = $dto->toArray();
+        $params['json'] = true;
+        $url = $this->parseUrlParams(self::GET_USER_GROUP_URL_TEMPLATE, [
+            'id' => $userGroupId,
+        ]);
+        $response = $this->put(
+            $url,
+            $data,
+            $params,
+        );
+
+        return ResponseUserGroupDTO::fromArray($response);
     }
 
     public function getUsers(string $accountToken, UsersFiltersDTO $filtersDTO): array
