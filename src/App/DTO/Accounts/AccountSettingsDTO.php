@@ -5,7 +5,7 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace Dotsplatform\CashbackApi\DTO;
+namespace Dotsplatform\CashbackApi\DTO\Accounts;
 
 class AccountSettingsDTO
 {

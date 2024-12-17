@@ -5,10 +5,10 @@
  * @author    Liuba Kalyta <kalyta@dotsplatform.com>
  */
 
-namespace Dotsplatform\CashbackApi\DTO\Request;
+namespace Dotsplatform\CashbackApi\DTO\Request\Accounts;
 
 
-use Dotsplatform\CashbackApi\DTO\AccountSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Accounts\AccountSettingsDTO;
 
 class StoreAccountSettingsDTO
 {
