@@ -11,7 +11,7 @@ class SettingsDTO
 {
     protected function __construct(
         private readonly AccountSettingsDTO $accountSettings,
-        private readonly FirstOrdersSettingsDTO $ordersSettings,
+        private readonly FirstOrdersSettingsDTO $firstOrdersSettings,
         private readonly ReviewsSettingsDTO $reviewsSettings,
     ) {
     }
@@ -20,7 +20,7 @@ class SettingsDTO
     {
         return new static(
             AccountSettingsDTO::fromArray($data['accountSettings'] ?? []),
-            FirstOrdersSettingsDTO::fromArray($data['ordersSettings'] ?? []),
+            FirstOrdersSettingsDTO::fromArray($data['firstOrdersSettings'] ?? []),
             ReviewsSettingsDTO::fromArray($data['reviewsSettings'] ?? []),
         );
     }
@@ -29,7 +29,7 @@ class SettingsDTO
     {
         return [
             'accountSettings' => $this->getAccountSettings()->toArray(),
-            'ordersSettings' => $this->getOrdersSettings()->toArray(),
+            'firstOrdersSettings' => $this->getFirstOrdersSettings()->toArray(),
             'reviewSettings' => $this->getReviewsSettings()->toArray(),
         ];
     }
@@ -39,9 +39,9 @@ class SettingsDTO
         return $this->accountSettings;
     }
 
-    public function getOrdersSettings(): FirstOrdersSettingsDTO
+    public function getFirstOrdersSettings(): FirstOrdersSettingsDTO
     {
-        return $this->ordersSettings;
+        return $this->firstOrdersSettings;
     }
 
     public function getReviewsSettings(): ReviewsSettingsDTO

@@ -8,6 +8,7 @@
 namespace Dotsplatform\CashbackApi\DTO\Response\UserGroups;
 
 use Dots\Data\DTO;
+use Dotsplatform\CashbackApi\DTO\UserGroups\UserGroupSettingsDTO;
 
 class ResponseUserGroupDTO extends DTO
 {
@@ -17,7 +18,14 @@ class ResponseUserGroupDTO extends DTO
 
     protected string $name;
 
-    protected ?array $settings;
+    protected UserGroupSettingsDTO $settings;
+
+    public static function fromArray(array $data): static
+    {
+        $data['settings'] = UserGroupSettingsDTO::fromArray($data['settings'] ?? []);
+
+        return parent::fromArray($data);
+    }
 
     public function getId(): string
     {
@@ -34,7 +42,7 @@ class ResponseUserGroupDTO extends DTO
         return $this->name;
     }
 
-    public function getSettings(): ?array
+    public function getSettings(): UserGroupSettingsDTO
     {
         return $this->settings;
     }

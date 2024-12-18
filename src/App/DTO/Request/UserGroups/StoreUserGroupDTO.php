@@ -15,8 +15,6 @@ class StoreUserGroupDTO extends DTO
 
     protected string $name;
 
-    protected ?array $settings;
-
     public function getName(): string
     {
         return $this->name;
@@ -25,10 +23,5 @@ class StoreUserGroupDTO extends DTO
     public function getAccountId(): int
     {
         return $this->accountId;
-    }
-
-    public function getSettings(): ?array
-    {
-        return $this->settings;
     }
 }
