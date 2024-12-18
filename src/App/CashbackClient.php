@@ -59,6 +59,7 @@ class CashbackClient extends HttpClient
     private const GET_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const CREATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
     private const UPDATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
+    private const DELETE_USER_GROUP_URL_TEMPLATE = '/users-group/{id}';
     private const UPDATE_USER_GROUP_ORDERS_SETTINGS_URL_TEMPLATE = '/users-groups/{id}/settings/orders';
     private const GET_USERS_URL_TEMPLATE = '/users';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
@@ -388,6 +389,25 @@ class CashbackClient extends HttpClient
         );
 
         return ResponseUserGroupDTO::fromArray($response);
+    }
+
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function deleteUserGroup(string $userGroupId, string $userGroupToTransitionId): void
+    {
+        $params['json'] = true;
+        $params['query'] = [
+            'userGroupToTransitionId' => $userGroupToTransitionId,
+        ];
+        $url = $this->parseUrlParams(self::DELETE_USER_GROUP_URL_TEMPLATE, [
+            'id' => $userGroupId,
+        ]);
+
+        $this->delete($url, $params);
     }
 
     /**

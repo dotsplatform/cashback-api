@@ -134,6 +134,26 @@ abstract class HttpClient
     }
 
     /**
+     * @param string $uri
+     * @param array $params
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    protected function delete(string $uri, array $params = []): void
+    {
+        $client = $this->makeClient();
+        try {
+            $response = $client->delete($uri, $params);
+        } catch (ClientException $e) {
+            $response = $e->getResponse();
+        }
+
+        $this->parseResponseStatus($response);
+    }
+
+    /**
      * @param ResponseInterface $response
      * @throws InvalidParamsDataException
      * @throws NotFoundException
