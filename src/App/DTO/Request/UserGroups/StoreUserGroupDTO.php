@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of UserGroupDTO.php
+ * Description of StoreUserGroupDTO.php
  * @copyright Copyright (c) DOTSPLATFORM, LLC
  * @author    Bogdan Mamontov <bohdan.mamontov@dotsplatform.com>
  */
@@ -15,13 +15,27 @@ class StoreUserGroupDTO extends DTO
 
     protected string $name;
 
+    protected ?int $priority = null;
+
+    protected ?int $transitionAmount = null;
+
+    public function getAccountId(): int
+    {
+        return $this->accountId;
+    }
+
     public function getName(): string
     {
         return $this->name;
     }
 
-    public function getAccountId(): int
+    public function getPriority(): ?int
     {
-        return $this->accountId;
+        return $this->priority;
+    }
+
+    public function getTransitionAmount(): ?int
+    {
+        return $this->transitionAmount;
     }
 }

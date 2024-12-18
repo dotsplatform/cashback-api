@@ -14,6 +14,7 @@ class AccountSettingsDTO
         private string $callbackUrl,
         private ?float $maxChargeAmount,
         private ?float $maxChargePercent,
+        private bool $groupsTransitionAvailable,
         private ?int $cashbackExpirationInterval,
         private array $cashbackExpirationNotifyTimes,
         private ?string $lang,
@@ -28,6 +29,7 @@ class AccountSettingsDTO
             $data['callbackUrl'] ?? '',
             $data['maxChargeAmount'] ?? null,
             $data['maxChargePercent'] ?? null,
+            $data['groupsTransitionAvailable'] ?? false,
             $data['cashbackExpirationInterval'] ?? null,
             $data['cashbackExpirationNotifyTimes'] ?? [],
             $data['lang'] ?? null,
@@ -42,6 +44,7 @@ class AccountSettingsDTO
             'callbackUrl' => $this->getCallbackUrl(),
             'maxChargeAmount' => $this->getMaxChargeAmount(),
             'maxChargePercent' => $this->getMaxChargePercent(),
+            'groupsTransitionAvailable' => $this->isGroupsTransitionAvailable(),
             'cashbackExpirationInterval' => $this->getCashbackExpirationInterval(),
             'cashbackExpirationNotifyTimes' => $this->getCashbackExpirationNotifyTimes(),
             'lang' => $this->getLang(),
@@ -67,6 +70,11 @@ class AccountSettingsDTO
     public function getMaxChargePercent(): ?float
     {
         return $this->maxChargePercent;
+    }
+
+    public function isGroupsTransitionAvailable(): bool
+    {
+        return $this->groupsTransitionAvailable;
     }
 
     public function getCashbackExpirationInterval(): ?int
