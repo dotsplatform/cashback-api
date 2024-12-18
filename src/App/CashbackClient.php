@@ -59,7 +59,7 @@ class CashbackClient extends HttpClient
     private const GET_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const CREATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
     private const UPDATE_USER_GROUP_URL_TEMPLATE = '/users-groups';
-    private const DELETE_USER_GROUP_URL_TEMPLATE = '/users-group/{id}';
+    private const DELETE_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const UPDATE_USER_GROUP_ORDERS_SETTINGS_URL_TEMPLATE = '/users-groups/{id}/settings/orders';
     private const GET_USERS_URL_TEMPLATE = '/users';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
