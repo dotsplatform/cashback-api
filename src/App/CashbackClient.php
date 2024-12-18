@@ -397,9 +397,12 @@ class CashbackClient extends HttpClient
      * @throws InvalidParamsDataException
      * @throws NotFoundException
      */
-    public function deleteUserGroup(string $userGroupId): void
+    public function deleteUserGroup(string $userGroupId, string $userGroupToTransitionId): void
     {
         $params['json'] = true;
+        $params['query'] = [
+            'userGroupToTransitionId' => $userGroupToTransitionId,
+        ];
         $url = $this->parseUrlParams(self::DELETE_USER_GROUP_URL_TEMPLATE, [
             'id' => $userGroupId,
         ]);
