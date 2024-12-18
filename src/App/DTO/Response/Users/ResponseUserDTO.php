@@ -31,7 +31,7 @@ class ResponseUserDTO extends DTO
 
     protected int $user_group_auto_change;
 
-    protected string $cashback_expiration_time;
+    protected ?int $cashback_expiration_time;
 
     public function getId(): int
     {
@@ -83,7 +83,7 @@ class ResponseUserDTO extends DTO
         return $this->user_group_auto_change;
     }
 
-    public function getCashbackExpirationTime(): string
+    public function getCashbackExpirationTime(): ?int
     {
         return $this->cashback_expiration_time;
     }
