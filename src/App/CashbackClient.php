@@ -411,7 +411,7 @@ class CashbackClient extends HttpClient
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @param array $data
      * @return ResponseUserGroupDTO
      * @throws InvalidParamsDataException
@@ -419,7 +419,7 @@ class CashbackClient extends HttpClient
      * @throws ServerErrorException
      * @throws UnprocessableEntityException
      */
-    public function storeUserGroupOrdersSettings(int $id, array $data): ResponseUserGroupDTO
+    public function storeUserGroupOrdersSettings(string $id, array $data): ResponseUserGroupDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_USER_GROUP_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
