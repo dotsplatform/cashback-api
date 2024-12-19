@@ -15,8 +15,6 @@ class StoreUserGroupDTO extends DTO
 
     protected string $name;
 
-    protected ?int $priority = null;
-
     protected ?int $transitionAmount = null;
 
     public function getAccountId(): int
@@ -27,11 +25,6 @@ class StoreUserGroupDTO extends DTO
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getPriority(): ?int
-    {
-        return $this->priority;
     }
 
     public function getTransitionAmount(): ?int

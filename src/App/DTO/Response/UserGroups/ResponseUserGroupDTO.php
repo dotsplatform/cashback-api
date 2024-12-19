@@ -18,8 +18,6 @@ class ResponseUserGroupDTO extends DTO
 
     protected string $name;
 
-    protected int $priority = 0;
-
     protected ?int $transitionAmount;
 
     protected UserGroupSettingsDTO $settings;
@@ -44,11 +42,6 @@ class ResponseUserGroupDTO extends DTO
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getPriority(): int
-    {
-        return $this->priority;
     }
 
     public function getTransitionAmount(): ?int
