@@ -11,39 +11,11 @@ use Dots\Data\DTO;
 
 class UpdateUserDTO extends DTO
 {
-    protected int $availableBalance;
-
-    protected int $balance;
-
-    protected int $receivingAmount;
-
-    protected int $heldAmount;
-
     protected string $userGroupId;
 
     protected int $userGroupAutoChange;
 
     protected ?int $cashbackExpirationTime = null;
-
-    public function getAvailableBalance(): int
-    {
-        return $this->availableBalance;
-    }
-
-    public function getBalance(): int
-    {
-        return $this->balance;
-    }
-
-    public function getReceivingAmount(): int
-    {
-        return $this->receivingAmount;
-    }
-
-    public function getHeldAmount(): int
-    {
-        return $this->heldAmount;
-    }
 
     public function getUserGroupId(): string
     {

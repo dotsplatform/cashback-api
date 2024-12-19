@@ -27,6 +27,8 @@ class ResponseUserDTO extends DTO
 
     protected int $held_amount;
 
+    protected int $total_orders_amount;
+
     protected string $user_group_id;
 
     protected int $user_group_auto_change;
@@ -71,6 +73,11 @@ class ResponseUserDTO extends DTO
     public function getHeldAmount(): int
     {
         return $this->held_amount;
+    }
+
+    public function getTotalOrdersAmount(): int
+    {
+        return $this->total_orders_amount;
     }
 
     public function getUserGroupId(): string
