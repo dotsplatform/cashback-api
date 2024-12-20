@@ -13,6 +13,10 @@ class UsersFiltersDTO extends DTO
 {
     protected string $accountId;
 
+    protected ?string $userGroupId = null;
+
+    protected ?array $userTokens = null;
+
     protected int $limit = 50;
 
     protected int $offset = 0;
@@ -20,6 +24,16 @@ class UsersFiltersDTO extends DTO
     public function getAccountId(): string
     {
         return $this->accountId;
+    }
+
+    public function getUserGroupId(): ?string
+    {
+        return $this->userGroupId;
+    }
+
+    public function getUserTokens(): ?array
+    {
+        return $this->userTokens;
     }
 
     public function getLimit(): int
