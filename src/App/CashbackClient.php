@@ -42,6 +42,7 @@ class CashbackClient extends HttpClient
 {
     private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
+    private const DELETE_ACCOUNT_USER_GROUPS_URL_TEMPLATE = '/accounts/{id}/user-groups';
     private const UPDATE_ACCOUNT_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/account';
     private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/orders';
     private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/reviews';
@@ -96,6 +97,22 @@ class CashbackClient extends HttpClient
         $params['json'] = true;
         $responseData = $this->post(self::CREATE_ACCOUNT_URL_TEMPLATE, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
+    }
+
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function deleteAccountUserGroups(int $accountId): void
+    {
+        $params['json'] = true;
+        $url = $this->parseUrlParams(self::DELETE_ACCOUNT_USER_GROUPS_URL_TEMPLATE, [
+            'id' => $accountId,
+        ]);
+
+        $this->delete($url, $params);
     }
 
     /**
