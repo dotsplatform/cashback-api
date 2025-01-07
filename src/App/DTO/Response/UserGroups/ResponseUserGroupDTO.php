@@ -20,6 +20,8 @@ class ResponseUserGroupDTO extends DTO
 
     protected ?int $transitionAmount;
 
+    protected int $usersCount = 0;
+
     protected UserGroupSettingsDTO $settings;
 
     public static function fromArray(array $data): static
@@ -47,6 +49,11 @@ class ResponseUserGroupDTO extends DTO
     public function getTransitionAmount(): ?int
     {
         return $this->transitionAmount;
+    }
+
+    public function getUsersCount(): int
+    {
+        return $this->usersCount;
     }
 
     public function getSettings(): UserGroupSettingsDTO
