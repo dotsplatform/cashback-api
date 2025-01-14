@@ -42,8 +42,6 @@ class CashbackClient extends HttpClient
 {
     private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
-    private const DELETE_ACCOUNT_USER_GROUPS_URL_TEMPLATE = '/accounts/{id}/user-groups';
-    private const DISTRIBUTE_ACCOUNT_USERS_BETWEEN_GROUPS_URL_TEMPLATE = '/accounts/{id}/user-groups/distribute';
     private const UPDATE_ACCOUNT_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/account';
     private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/orders';
     private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/reviews';
@@ -64,6 +62,8 @@ class CashbackClient extends HttpClient
     private const UPDATE_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const DELETE_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const UPDATE_USER_GROUP_ORDERS_SETTINGS_URL_TEMPLATE = '/users-groups/{id}/settings/orders';
+    private const DELETE_USER_GROUPS_URL_TEMPLATE = '/users-groups/accounts/{id}';
+    private const DISTRIBUTE_USERS_BETWEEN_GROUPS_URL_TEMPLATE = '/users-groups/accounts/{id}/distribute';
     private const GET_USERS_URL_TEMPLATE = '/users';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
     private const UPDATE_USER_URL_TEMPLATE = '/users/{id}';
@@ -98,37 +98,6 @@ class CashbackClient extends HttpClient
         $params['json'] = true;
         $responseData = $this->post(self::CREATE_ACCOUNT_URL_TEMPLATE, $accountDTO->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
-    }
-
-    /**
-     * @throws ServerErrorException
-     * @throws UnprocessableEntityException
-     * @throws InvalidParamsDataException
-     * @throws NotFoundException
-     */
-    public function deleteAccountUserGroups(int $accountId): void
-    {
-        $params['json'] = true;
-        $url = $this->parseUrlParams(self::DELETE_ACCOUNT_USER_GROUPS_URL_TEMPLATE, [
-            'id' => $accountId,
-        ]);
-
-        $this->delete($url, $params);
-    }
-
-    /**
-     * @param int $id
-     * @return void
-     * @throws InvalidParamsDataException
-     * @throws NotFoundException
-     * @throws ServerErrorException
-     * @throws UnprocessableEntityException
-     */
-    public function distributeUsersBetweenGroups(int $id): void
-    {
-        $url = $this->parseUrlParams(self::DISTRIBUTE_ACCOUNT_USERS_BETWEEN_GROUPS_URL_TEMPLATE, ['id' => $id]);
-        $params['json'] = true;
-        $this->put($url, [], $params);
     }
 
     /**
@@ -461,6 +430,37 @@ class CashbackClient extends HttpClient
         $settings = StoreUserGroupOrdersSettingsDTO::fromArray($data);
         $responseData = $this->put($url, $settings->toArray(), $params);
         return ResponseUserGroupDTO::fromArray($responseData);
+    }
+
+    /**
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     */
+    public function deleteUserGroups(int $accountId): void
+    {
+        $params['json'] = true;
+        $url = $this->parseUrlParams(self::DELETE_USER_GROUPS_URL_TEMPLATE, [
+            'id' => $accountId,
+        ]);
+
+        $this->delete($url, $params);
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    public function distributeUsersBetweenGroups(int $id): void
+    {
+        $url = $this->parseUrlParams(self::DISTRIBUTE_USERS_BETWEEN_GROUPS_URL_TEMPLATE, ['id' => $id]);
+        $params['json'] = true;
+        $this->put($url, [], $params);
     }
 
     public function getUsers(string $accountToken, UsersFiltersDTO $filtersDTO): array
