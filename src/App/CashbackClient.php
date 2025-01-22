@@ -43,7 +43,7 @@ class CashbackClient extends HttpClient
     private const GET_ACCOUNT_URL_TEMPLATE = '/accounts/{id}';
     private const CREATE_ACCOUNT_URL_TEMPLATE = '/accounts';
     private const UPDATE_ACCOUNT_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/account';
-    private const UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/orders';
+    private const UPDATE_ACCOUNT_FIRST_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/first-orders';
     private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/reviews';
     private const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     private const CREATE_ORDER_URL_TEMPLATE = '/orders';
@@ -129,7 +129,7 @@ class CashbackClient extends HttpClient
      */
     public function storeAccountOrdersSettings(int $id, array $data): ResponseAccountDTO
     {
-        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_FIRST_ORDERS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
         $settings = StoreFirstOrdersSettingsDTO::fromArray($data);
         $responseData = $this->put($url, $settings->toArray(), $params);
