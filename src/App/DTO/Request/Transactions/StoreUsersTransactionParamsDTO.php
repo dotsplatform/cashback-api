@@ -10,8 +10,8 @@ namespace Dotsplatform\CashbackApi\DTO\Request\Transactions;
 
 class StoreUsersTransactionParamsDTO
 {
-    public const APPLY_TYPE_ABSOLUTE = 10;
-    public const APPLY_TYPE_RELATIVE = 20;
+    public const int APPLY_TYPE_ABSOLUTE = 10;
+    public const int APPLY_TYPE_RELATIVE = 20;
 
     private string $account;
     private int $applyType;

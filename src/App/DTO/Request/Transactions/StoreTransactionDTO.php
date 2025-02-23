@@ -14,6 +14,7 @@ class StoreTransactionDTO implements Arrayable
 {
     protected function __construct(
         private ?string $userToken,
+        private ?string $userPhone,
         private int $amount,
         private string $note,
         private int $type,
@@ -25,6 +26,7 @@ class StoreTransactionDTO implements Arrayable
     {
         return new static(
             $data['userToken'] ?? null,
+            $data['userPhone'] ?? null,
             $data['amount'] ?? 0,
             $data['note'] ?? '',
             $data['type'] ?? 0,
@@ -35,6 +37,7 @@ class StoreTransactionDTO implements Arrayable
     {
         return [
             'userToken' => $this->getUserToken(),
+            'userPhone' => $this->getUserPhone(),
             'amount' => $this->getAmount(),
             'note' => $this->getNote(),
             'type' => $this->getType(),
@@ -44,6 +47,11 @@ class StoreTransactionDTO implements Arrayable
     public function getUserToken(): ?string
     {
         return $this->userToken;
+    }
+
+    public function getUserPhone(): ?string
+    {
+        return $this->userPhone;
     }
 
     public function getAmount(): int
