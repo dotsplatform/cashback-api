@@ -8,6 +8,7 @@
 namespace Dotsplatform\CashbackApi\DTO\Request\Transactions;
 
 
+use Dotsplatform\CashbackApi\DTO\Request\Transactions\Consts\TransactionSource;
 use Illuminate\Contracts\Support\Arrayable;
 
 class StoreTransactionDTO implements Arrayable
@@ -18,8 +19,8 @@ class StoreTransactionDTO implements Arrayable
         private int $amount,
         private string $note,
         private int $type,
-    )
-    {
+        private TransactionSource $transactionSource,
+    ) {
     }
 
     public static function fromArray(array $data): static
@@ -30,6 +31,9 @@ class StoreTransactionDTO implements Arrayable
             $data['amount'] ?? 0,
             $data['note'] ?? '',
             $data['type'] ?? 0,
+                TransactionSource::tryFrom($data['transactionSource'] ?? TransactionSource::SOURCE_DOTS->value)
+                ?? TransactionSource::SOURCE_DOTS,
+
         );
     }
 
@@ -41,6 +45,7 @@ class StoreTransactionDTO implements Arrayable
             'amount' => $this->getAmount(),
             'note' => $this->getNote(),
             'type' => $this->getType(),
+            'transactionSource' => $this->getTransactionSource()->value,
         ];
     }
 
@@ -67,5 +72,10 @@ class StoreTransactionDTO implements Arrayable
     public function getType(): int
     {
         return $this->type;
+    }
+
+    public function getTransactionSource(): TransactionSource
+    {
+        return $this->transactionSource;
     }
 }
