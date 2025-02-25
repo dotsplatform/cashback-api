@@ -9,24 +9,29 @@ namespace Dotsplatform\CashbackApi\DTO\Request\Transactions\Consts;
 
 enum TransactionSource: int
 {
-    case SOURCE_DOTS = 10;
+    case DOTS = 10;
 
-    case SOURCE_POSTER = 20;
+    case POSTER = 20;
 
-    case SOURCE_SYRVE = 30;
+    case SYRVE = 30;
 
-    public function isSourceDots(): bool
+    public function isDots(): bool
     {
-        return $this === self::SOURCE_DOTS;
+        return $this === self::DOTS;
     }
 
-    public function isSourcePoster(): bool
+    public function isPoster(): bool
     {
-        return $this === self::SOURCE_POSTER;
+        return $this === self::POSTER;
     }
 
-    public function isSourceSyrve(): bool
+    public function isSyrve(): bool
     {
-        return $this === self::SOURCE_SYRVE;
+        return $this === self::SYRVE;
+    }
+
+    public static function values(): array
+    {
+        return array_map(fn ($value) => $value->value, self::cases());
     }
 }

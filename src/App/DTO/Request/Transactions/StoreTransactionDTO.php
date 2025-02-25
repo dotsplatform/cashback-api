@@ -31,8 +31,8 @@ class StoreTransactionDTO implements Arrayable
             $data['amount'] ?? 0,
             $data['note'] ?? '',
             $data['type'] ?? 0,
-                TransactionSource::tryFrom($data['transactionSource'] ?? TransactionSource::SOURCE_DOTS->value)
-                ?? TransactionSource::SOURCE_DOTS,
+                TransactionSource::tryFrom($data['transactionSource'] ?? TransactionSource::DOTS->value)
+                ?? TransactionSource::DOTS,
 
         );
     }
