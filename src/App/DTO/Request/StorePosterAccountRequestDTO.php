@@ -15,6 +15,7 @@ class StorePosterAccountRequestDTO
         private int $status,
         private ?string $posterAccount,
         private ?string $posterAccessToken,
+        private ?string $defaultClientGroupsId,
     ) {
     }
 
@@ -25,6 +26,7 @@ class StorePosterAccountRequestDTO
             $data['status'],
             $data['posterAccount'] ?? null,
             $data['posterAccessToken'] ?? null,
+            $data['defaultClientGroupsId'] ?? null,
         );
     }
 
@@ -35,6 +37,7 @@ class StorePosterAccountRequestDTO
             'status' => $this->status,
             'posterAccount' => $this->posterAccount,
             'posterAccessToken' => $this->posterAccessToken,
+            'defaultClientGroupsId' => $this->defaultClientGroupsId,
         ];
     }
 
@@ -56,5 +59,10 @@ class StorePosterAccountRequestDTO
     public function getPosterAccessToken(): ?string
     {
         return $this->posterAccessToken;
+    }
+
+    public function getDefaultClientGroupsId(): ?string
+    {
+        return $this->defaultClientGroupsId;
     }
 }
