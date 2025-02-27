@@ -16,6 +16,7 @@ class StoreSyrveAccountRequestDTO
         private ?string $apiLogin,
         private ?string $organizationId,
         private ?string $cashbackLoyaltyProgramWalletId,
+        private bool $syncUsersToSyrveOnRegister,
     ) {
     }
 
@@ -27,6 +28,7 @@ class StoreSyrveAccountRequestDTO
             $data['apiLogin'] ?? null,
             $data['organizationId'] ?? null,
             $data['cashbackLoyaltyProgramWalletId'] ?? null,
+            $data['syncUsersToSyrveOnRegister'] ?? true,
         );
     }
 
@@ -38,6 +40,7 @@ class StoreSyrveAccountRequestDTO
             'apiLogin' => $this->apiLogin,
             'organizationId' => $this->organizationId,
             'cashbackLoyaltyProgramWalletId' => $this->cashbackLoyaltyProgramWalletId,
+            'syncUsersToSyrveOnRegister' => $this->syncUsersToSyrveOnRegister,
         ];
     }
 
@@ -64,5 +67,10 @@ class StoreSyrveAccountRequestDTO
     public function getCashbackLoyaltyProgramWalletId(): ?string
     {
         return $this->cashbackLoyaltyProgramWalletId;
+    }
+
+    public function isNeedToSyncUsersToSyrveOnRegister(): bool
+    {
+        return $this->syncUsersToSyrveOnRegister;
     }
 }

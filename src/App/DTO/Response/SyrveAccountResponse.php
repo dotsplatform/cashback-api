@@ -20,6 +20,7 @@ class SyrveAccountResponse
         private ?string $apiLogin,
         private ?string $organizationId,
         private ?string $cashbackLoyaltyProgramWalletId,
+        private bool $syncUsersToSyrveOnRegister,
     ) {
     }
 
@@ -32,7 +33,7 @@ class SyrveAccountResponse
             $data['apiLogin'] ?? null,
             $data['organizationId'] ?? null,
             $data['cashbackLoyaltyProgramWalletId'] ?? null,
-
+            $data['syncUsersToSyrveOnRegister'] ?? true,
         );
     }
 
@@ -45,6 +46,7 @@ class SyrveAccountResponse
             'apiLogin' => $this->apiLogin,
             'organizationId' => $this->organizationId,
             'cashbackLoyaltyProgramWalletId' => $this->cashbackLoyaltyProgramWalletId,
+            'syncUsersToSyrveOnRegister' => $this->syncUsersToSyrveOnRegister,
         ];
     }
 
@@ -97,4 +99,8 @@ class SyrveAccountResponse
         return $this->cashbackLoyaltyProgramWalletId;
     }
 
+    public function isNeedToSyncUsersToSyrveOnRegister(): bool
+    {
+        return $this->syncUsersToSyrveOnRegister;
+    }
 }
