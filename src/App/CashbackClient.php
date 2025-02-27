@@ -20,6 +20,7 @@ use Dotsplatform\CashbackApi\DTO\Request\Transactions\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupOrdersSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\UserGroupsFiltersDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Users\CreateUserDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Users\UpdateUserDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Users\UsersFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Orders\ResponseOrderDTO;
@@ -66,6 +67,7 @@ class CashbackClient extends HttpClient
     private const DISTRIBUTE_USERS_BETWEEN_GROUPS_URL_TEMPLATE = '/users-groups/accounts/{id}/distribute';
     private const GET_USERS_URL_TEMPLATE = '/users';
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
+    private const CREATE_USER_URL_TEMPLATE = '/users';
     private const UPDATE_USER_URL_TEMPLATE = '/users/{id}';
     private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
     private const STORE_POSTER_ACCOUNT = '/accounts/{account}/poster/accounts';
@@ -484,6 +486,19 @@ class CashbackClient extends HttpClient
 
         $responseData = $this->get($url, $params);
         return ResponseUserDTO::fromArray($responseData);
+    }
+
+    public function createUser(CreateUserDTO $dto): ResponseUserDTO
+    {
+        $data = $dto->toArray();
+        $params['json'] = true;
+        $response = $this->post(
+            self::CREATE_USER_URL_TEMPLATE,
+            $data,
+            $params,
+        );
+
+        return ResponseUserDTO::fromArray($response);
     }
 
     public function updateUser(string $userId, UpdateUserDTO $dto): ResponseUserDTO
