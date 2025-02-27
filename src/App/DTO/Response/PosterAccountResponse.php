@@ -19,6 +19,7 @@ class PosterAccountResponse
         private int $status,
         private ?string $posterAccount,
         private ?string $posterAccessToken,
+        private ?string $defaultClientGroupsId,
     ) {
     }
 
@@ -30,6 +31,7 @@ class PosterAccountResponse
             $data['status'],
             $data['posterAccount'] ?? null,
             $data['posterAccessToken'] ?? null,
+            $data['defaultClientGroupsId'] ?? null,
         );
     }
 
@@ -41,6 +43,7 @@ class PosterAccountResponse
             'status' => $this->status,
             'posterAccount' => $this->posterAccount,
             'posterAccessToken' => $this->posterAccessToken,
+            'defaultClientGroupsId' => $this->defaultClientGroupsId,
         ];
     }
 
@@ -72,5 +75,10 @@ class PosterAccountResponse
     public function getPosterAccessToken(): ?string
     {
         return $this->posterAccessToken;
+    }
+
+    public function getDefaultClientGroupsId(): ?string
+    {
+        return $this->defaultClientGroupsId;
     }
 }
