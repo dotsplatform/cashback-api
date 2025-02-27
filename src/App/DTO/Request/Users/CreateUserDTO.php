@@ -11,13 +11,20 @@ use Dots\Data\DTO;
 
 class CreateUserDTO extends DTO
 {
-    protected string $accountId;
+    protected string $accountToken;
+
+    protected string $token;
 
     protected string $phone;
 
-    public function getAccountId(): string
+    public function getAccountToken(): string
     {
-        return $this->accountId;
+        return $this->accountToken;
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
     }
 
     public function getPhone(): string
