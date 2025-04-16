@@ -69,6 +69,7 @@ class CashbackClient extends HttpClient
     private const GET_USER_URL_TEMPLATE = '/users/{id}';
     private const CREATE_USER_URL_TEMPLATE = '/users';
     private const UPDATE_USER_URL_TEMPLATE = '/users/{id}';
+    private const SYNC_WITH_POS_USER_URL_TEMPLATE = '/users/{id}/sync-with-pos';
     private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
     private const STORE_POSTER_ACCOUNT = '/accounts/{account}/poster/accounts';
     private const POSTER_WEBHOOKS = '/web-hooks/poster';
@@ -515,6 +516,14 @@ class CashbackClient extends HttpClient
         );
 
         return ResponseUserDTO::fromArray($response);
+    }
+
+    public function syncWithPOS(string $userId): void
+    {
+        $url = $this->parseUrlParams(self::SYNC_WITH_POS_USER_URL_TEMPLATE, [
+            'id' => $userId,
+        ]);
+        $this->post($url);
     }
 
     public function showPosterAccount(int $accountId): ?PosterAccountResponse
