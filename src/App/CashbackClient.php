@@ -10,6 +10,7 @@ namespace Dotsplatform\CashbackApi;
 use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreAccountDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreAccountSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreFirstOrdersSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreNotificationsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Accounts\StoreReviewsSettingsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Orders\StoreOrderDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Orders\UpdateOrderPriceDTO;
@@ -46,6 +47,7 @@ class CashbackClient extends HttpClient
     private const UPDATE_ACCOUNT_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/account';
     private const UPDATE_ACCOUNT_FIRST_ORDERS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/first-orders';
     private const UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/reviews';
+    private const UPDATE_ACCOUNT_NOTIFICATIONS_SETTINGS_URL_TEMPLATE = '/accounts/{id}/settings/notifications';
     private const GET_ORDER_TRANSACTION_URL_TEMPLATE = '/orders/{id}/transactions';
     private const CREATE_ORDER_URL_TEMPLATE = '/orders';
     private const UPDATE_ORDER_PRICE_URL_TEMPLATE = '/orders/{id}/price';
@@ -149,6 +151,24 @@ class CashbackClient extends HttpClient
      * @throws UnprocessableEntityException
      */
     public function storeAccountReviewsSettings(int $id, array $data): ResponseAccountDTO
+    {
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_NOTIFICATIONS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        $params['json'] = true;
+        $settings = StoreNotificationsSettingsDTO::fromArray($data);
+        $responseData = $this->put($url, $settings->toArray(), $params);
+        return ResponseAccountDTO::fromArray($responseData);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return ResponseAccountDTO
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    public function storeAccountNotificationsSettings(int $id, array $data): ResponseAccountDTO
     {
         $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
