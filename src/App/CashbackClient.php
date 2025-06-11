@@ -152,9 +152,9 @@ class CashbackClient extends HttpClient
      */
     public function storeAccountReviewsSettings(int $id, array $data): ResponseAccountDTO
     {
-        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_NOTIFICATIONS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
-        $settings = StoreNotificationsSettingsDTO::fromArray($data);
+        $settings = StoreReviewsSettingsDTO::fromArray($data);
         $responseData = $this->put($url, $settings->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
     }
@@ -170,9 +170,9 @@ class CashbackClient extends HttpClient
      */
     public function storeAccountNotificationsSettings(int $id, array $data): ResponseAccountDTO
     {
-        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_REVIEWS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
+        $url = $this->parseUrlParams(self::UPDATE_ACCOUNT_NOTIFICATIONS_SETTINGS_URL_TEMPLATE, ['id' => $id]);
         $params['json'] = true;
-        $settings = StoreReviewsSettingsDTO::fromArray($data);
+        $settings = StoreNotificationsSettingsDTO::fromArray($data);
         $responseData = $this->put($url, $settings->toArray(), $params);
         return ResponseAccountDTO::fromArray($responseData);
     }
