@@ -13,6 +13,7 @@ class SettingsDTO
         private readonly AccountSettingsDTO $accountSettings,
         private readonly FirstOrdersSettingsDTO $firstOrdersSettings,
         private readonly ReviewsSettingsDTO $reviewsSettings,
+        private readonly NotificationsSettingsDTO $notificationsSettingsDTO,
     ) {
     }
 
@@ -22,6 +23,7 @@ class SettingsDTO
             AccountSettingsDTO::fromArray($data['accountSettings'] ?? []),
             FirstOrdersSettingsDTO::fromArray($data['firstOrdersSettings'] ?? []),
             ReviewsSettingsDTO::fromArray($data['reviewsSettings'] ?? []),
+            NotificationsSettingsDTO::fromArray($data['notificationsSettings'] ?? []),
         );
     }
 
@@ -31,6 +33,7 @@ class SettingsDTO
             'accountSettings' => $this->getAccountSettings()->toArray(),
             'firstOrdersSettings' => $this->getFirstOrdersSettings()->toArray(),
             'reviewSettings' => $this->getReviewsSettings()->toArray(),
+            'notificationsSettings' => $this->getNotificationsSettings()->toArray(),
         ];
     }
 
@@ -47,5 +50,10 @@ class SettingsDTO
     public function getReviewsSettings(): ReviewsSettingsDTO
     {
         return $this->reviewsSettings;
+    }
+
+    public function getNotificationsSettings(): NotificationsSettingsDTO
+    {
+        return $this->notificationsSettingsDTO;
     }
 }

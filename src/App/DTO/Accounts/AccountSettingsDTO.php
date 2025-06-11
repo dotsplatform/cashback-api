@@ -17,8 +17,6 @@ class AccountSettingsDTO
         private ?string $defaultUserGroupId,
         private bool $groupsTransitionAvailable,
         private ?int $cashbackExpirationInterval,
-        private array $cashbackExpirationNotifyTimes,
-        private array $cashbackExpirationNotifyMethods,
         private ?string $lang,
         private ?string $cashbackExpirationPeriod,
     ) {
@@ -34,8 +32,6 @@ class AccountSettingsDTO
             $data['defaultUserGroupId'] ?? null,
             $data['groupsTransitionAvailable'] ?? false,
             $data['cashbackExpirationInterval'] ?? null,
-            $data['cashbackExpirationNotifyTimes'] ?? [],
-            $data['cashbackExpirationNotifyMethods'] ?? [],
             $data['lang'] ?? null,
             $data['cashbackExpirationPeriod'] ?? null,
         );
@@ -51,8 +47,6 @@ class AccountSettingsDTO
             'defaultUserGroupId' => $this->getDefaultUserGroupId(),
             'groupsTransitionAvailable' => $this->isGroupsTransitionAvailable(),
             'cashbackExpirationInterval' => $this->getCashbackExpirationInterval(),
-            'cashbackExpirationNotifyTimes' => $this->getCashbackExpirationNotifyTimes(),
-            'cashbackExpirationNotifyMethods' => $this->getCashbackExpirationNotifyMethods(),
             'lang' => $this->getLang(),
             'cashbackExpirationPeriod' => $this->getCashbackExpirationPeriod(),
         ];
@@ -91,16 +85,6 @@ class AccountSettingsDTO
     public function getCashbackExpirationInterval(): ?int
     {
         return $this->cashbackExpirationInterval;
-    }
-
-    public function getCashbackExpirationNotifyTimes(): array
-    {
-        return $this->cashbackExpirationNotifyTimes;
-    }
-
-    public function getCashbackExpirationNotifyMethods(): array
-    {
-        return $this->cashbackExpirationNotifyMethods;
     }
 
     public function getLang(): ?string
