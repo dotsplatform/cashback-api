@@ -12,8 +12,7 @@ class NotificationsSettingsDTO
     protected function __construct(
         private array $cashbackExpirationSMSNotifyTimes,
         private array $cashbackExpirationPushNotifyTimes,
-        private ?string $cashbackExpirationSMSPeriod,
-        private ?string $cashbackExpirationPushPeriod,
+        private ?string $cashbackExpirationNotifyPeriod,
         private array $cashbackExpirationNotifyMethods,
     ) {
     }
@@ -23,8 +22,7 @@ class NotificationsSettingsDTO
         return new static(
             $data['cashbackExpirationSMSNotifyTimes'] ?? [],
             $data['cashbackExpirationPushNotifyTimes'] ?? [],
-            $data['cashbackExpirationSMSPeriod'] ?? null,
-            $data['cashbackExpirationPushPeriod'] ?? null,
+            $data['cashbackExpirationNotifyPeriod'] ?? null,
             $data['cashbackExpirationNotifyMethods'] ?? [],
         );
     }
@@ -34,8 +32,7 @@ class NotificationsSettingsDTO
         return [
             'cashbackExpirationSMSNotifyTimes' => $this->getCashbackExpirationSMSNotifyTimes(),
             'cashbackExpirationPushNotifyTimes' => $this->getCashbackExpirationPushNotifyTimes(),
-            'cashbackExpirationSMSPeriod' => $this->getCashbackExpirationSMSPeriod(),
-            'cashbackExpirationPushPeriod' => $this->getCashbackExpirationPushPeriod(),
+            'cashbackExpirationNotifyPeriod' => $this->getCashbackExpirationNotifyPeriod(),
             'cashbackExpirationNotifyMethods' => $this->getCashbackExpirationNotifyMethods(),
         ];
     }
@@ -50,14 +47,9 @@ class NotificationsSettingsDTO
         return $this->cashbackExpirationPushNotifyTimes;
     }
 
-    public function getCashbackExpirationSMSPeriod(): ?string
+    public function getCashbackExpirationNotifyPeriod(): ?string
     {
-        return $this->cashbackExpirationSMSPeriod;
-    }
-
-    public function getCashbackExpirationPushPeriod(): ?string
-    {
-        return $this->cashbackExpirationPushPeriod;
+        return $this->cashbackExpirationNotifyPeriod;
     }
 
     public function getCashbackExpirationNotifyMethods(): array
