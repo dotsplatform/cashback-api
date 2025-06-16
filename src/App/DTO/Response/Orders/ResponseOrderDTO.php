@@ -15,6 +15,8 @@ class ResponseOrderDTO
         private int $account_id,
         private int $user_id,
         private int $delivery_type,
+        private int $ordering_type,
+        private int $payment_type,
         private int $price,
         private ?array $data,
         private int $status,
@@ -31,6 +33,8 @@ class ResponseOrderDTO
             $data['account_id'] ?? 0,
             $data['user_id'] ?? 0,
             $data['delivery_type'] ?? 0,
+            $data['ordering_type'] ?? 0,
+            $data['payment_type'] ?? 0,
             $data['price'] ?? 0,
             $data['data'] ?? null,
             $data['status'] ?? 0,
@@ -46,6 +50,8 @@ class ResponseOrderDTO
             'account_id' => $this->getAccountId(),
             'user_id' => $this->getUserId(),
             'delivery_type' => $this->getDeliveryType(),
+            'ordering_type' => $this->getOrderingType(),
+            'payment_type' => $this->getPaymentType(),
             'price' => $this->getPrice(),
             'data' => $this->getData(),
             'status' => $this->getStatus(),
@@ -72,6 +78,16 @@ class ResponseOrderDTO
     public function getDeliveryType(): int
     {
         return $this->delivery_type;
+    }
+
+    public function getOrderingType(): int
+    {
+        return $this->ordering_type;
+    }
+
+    public function getPaymentType(): int
+    {
+        return $this->payment_type;
     }
 
     public function getPrice(): int

@@ -13,6 +13,8 @@ class StoreOrderDTO
     protected function __construct(
         private ?string $token,
         private int $delivery_type,
+        private int $ordering_type,
+        private int $payment_type,
         private int $price,
         private int $paidByCashBackAmount,
         private array $data,
@@ -27,6 +29,8 @@ class StoreOrderDTO
         return new static(
             $data['token'] ?? null,
             $data['delivery_type'] ?? 0,
+            $data['ordering_type'] ?? 0,
+            $data['payment_type'] ?? 0,
             $data['price'] ?? 0,
             $data['paid_by_cash_back_amount'] ?? 0,
             $data['data'] ?? [],
@@ -40,6 +44,8 @@ class StoreOrderDTO
         return [
             'token' => $this->getToken(),
             'delivery_type' => $this->getDeliveryType(),
+            'ordering_type' => $this->getOrderingType(),
+            'payment_type' => $this->getPaymentType(),
             'price' => $this->getPrice(),
             'paid_by_cash_back_amount' => $this->getPaidByCashBackAmount(),
             'data' => $this->getData(),
@@ -56,6 +62,16 @@ class StoreOrderDTO
     public function getDeliveryType(): int
     {
         return $this->delivery_type;
+    }
+
+    public function getOrderingType(): int
+    {
+        return $this->ordering_type;
+    }
+
+    public function getPaymentType(): int
+    {
+        return $this->payment_type;
     }
 
     public function getPrice(): int
