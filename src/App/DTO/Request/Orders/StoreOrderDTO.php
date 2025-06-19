@@ -19,6 +19,7 @@ class StoreOrderDTO
         private int $paidByCashBackAmount,
         private array $data,
         private string $userToken,
+        private string $userName,
         private string $userPhone,
     )
     {
@@ -35,6 +36,7 @@ class StoreOrderDTO
             $data['paid_by_cash_back_amount'] ?? 0,
             $data['data'] ?? [],
             $data['userToken'] ?? '',
+            $data['userName'] ?? '',
             $data['userPhone'] ?? '',
         );
     }
@@ -50,6 +52,7 @@ class StoreOrderDTO
             'paid_by_cash_back_amount' => $this->getPaidByCashBackAmount(),
             'data' => $this->getData(),
             'userToken' => $this->getUserToken(),
+            'userName' => $this->getUserName(),
             'userPhone' => $this->getUserPhone(),
         ];
     }
@@ -92,6 +95,11 @@ class StoreOrderDTO
     public function getUserToken(): ?string
     {
         return $this->userToken;
+    }
+
+    public function getUserName(): string
+    {
+        return $this->userName;
     }
 
     public function getUserPhone(): string
