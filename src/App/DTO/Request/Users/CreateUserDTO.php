@@ -15,7 +15,7 @@ class CreateUserDTO extends DTO
 
     protected string $token;
 
-    protected string $name;
+    protected ?string $name;
 
     protected string $phone;
 
@@ -29,7 +29,7 @@ class CreateUserDTO extends DTO
         return $this->token;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
