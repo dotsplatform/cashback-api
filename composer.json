@@ -2,7 +2,7 @@
     "name": "dotsplatform/cashback-api",
     "description": "Client for contact with library cashback",
     "type": "library",
-    "license": "Apache License",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Yehor Herasymchuk",
