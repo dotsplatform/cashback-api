@@ -17,7 +17,7 @@ class CreateUserDTO extends DTO
 
     protected ?string $name;
 
-    protected string $phone;
+    protected ?string $phone;
 
     public function getAccountToken(): string
     {
@@ -34,7 +34,7 @@ class CreateUserDTO extends DTO
         return $this->name;
     }
 
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
