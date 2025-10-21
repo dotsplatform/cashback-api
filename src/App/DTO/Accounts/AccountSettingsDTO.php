@@ -14,6 +14,7 @@ class AccountSettingsDTO
         private string $callbackUrl,
         private ?float $maxChargeAmount,
         private ?float $maxChargePercent,
+        private bool $roundCashbackDown,
         private ?string $defaultUserGroupId,
         private bool $groupsTransitionAvailable,
         private ?int $cashbackExpirationInterval,
@@ -29,6 +30,7 @@ class AccountSettingsDTO
             $data['callbackUrl'] ?? '',
             $data['maxChargeAmount'] ?? null,
             $data['maxChargePercent'] ?? null,
+            $data['roundCashbackDown'] ?? false,
             $data['defaultUserGroupId'] ?? null,
             $data['groupsTransitionAvailable'] ?? false,
             $data['cashbackExpirationInterval'] ?? null,
@@ -44,6 +46,7 @@ class AccountSettingsDTO
             'callbackUrl' => $this->getCallbackUrl(),
             'maxChargeAmount' => $this->getMaxChargeAmount(),
             'maxChargePercent' => $this->getMaxChargePercent(),
+            'roundCashbackDown' => $this->isRoundCashbackDown(),
             'defaultUserGroupId' => $this->getDefaultUserGroupId(),
             'groupsTransitionAvailable' => $this->isGroupsTransitionAvailable(),
             'cashbackExpirationInterval' => $this->getCashbackExpirationInterval(),
@@ -70,6 +73,11 @@ class AccountSettingsDTO
     public function getMaxChargePercent(): ?float
     {
         return $this->maxChargePercent;
+    }
+
+    public function isRoundCashbackDown(): bool
+    {
+        return $this->roundCashbackDown;
     }
 
     public function getDefaultUserGroupId(): ?string
