@@ -73,6 +73,7 @@ class CashbackClient extends HttpClient
     private const UPDATE_USER_URL_TEMPLATE = '/users/{id}';
     private const SYNC_WITH_POS_USER_URL_TEMPLATE = '/users/{id}/sync-with-pos';
     private const SHOW_CASHBACK_POSTER_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/poster/accounts/by-account';
+    private const SHOW_CASHBACK_POSTER_CLIENT_GROUPS_BY_ACCOUNT = '/accounts/{account}/poster/clients-groups';
     private const STORE_POSTER_ACCOUNT = '/accounts/{account}/poster/accounts';
     private const POSTER_WEBHOOKS = '/web-hooks/poster';
     private const SHOW_CASHBACK_SYRVE_ACCOUNT_BY_ACCOUNT = '/accounts/{account}/syrve/accounts/by-account';
@@ -562,6 +563,24 @@ class CashbackClient extends HttpClient
         }
 
         return PosterAccountResponse::fromArray($response);
+    }
+
+    public function getPosterClientsGroups(int $accountId): array
+    {
+        $url = $this->parseUrlParams(self::SHOW_CASHBACK_POSTER_CLIENT_GROUPS_BY_ACCOUNT, [
+            'account' => $accountId,
+        ]);
+        $params['json'] = true;
+        try {
+            $response = $this->get($url, $params);
+        } catch (Exception) {
+            return [];
+        }
+        if (empty($response)) {
+            return [];
+        }
+
+        return $response;
     }
 
     /**
