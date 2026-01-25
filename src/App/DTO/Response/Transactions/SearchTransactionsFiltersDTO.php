@@ -12,9 +12,9 @@ use Dots\Data\DTO;
 
 class SearchTransactionsFiltersDTO extends DTO
 {
-    protected int $accountId;
+    protected string $accountId;
 
-    protected ?int $userId = null;
+    protected ?string $userId = null;
 
     protected ?array $periods = null;
 
