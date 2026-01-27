@@ -1,13 +1,16 @@
 <?php
 /**
- * Description of ResponseTransactionDTO.php
+ * Description of ResponseTransactionWithOrderAndUserDTO.php
  * @copyright Copyright (c) MISTER.AM, LLC
- * @author    Liuba Kalyta <kalyta@dotsplatform.com>
+ * @author    Bogdan Mamontov <bohdan.mamontov@dotsplatform.com>
  */
 
 namespace Dotsplatform\CashbackApi\DTO\Response\Transactions;
 
-class ResponseTransactionDTO
+use Dotsplatform\CashbackApi\DTO\Response\Orders\ResponseOrderDTO;
+use Dotsplatform\CashbackApi\DTO\Response\Users\ResponseUserDTO;
+
+class ResponseTransactionWithOrderAndUserDTO extends ResponseTransactionDTO
 {
     protected function __construct(
         private string $id,
@@ -20,7 +23,10 @@ class ResponseTransactionDTO
         private ?array $data,
         private int $completed_time,
         private int $created_at_time,
+        private ?ResponseOrderDTO $order,
+        private ResponseUserDTO $user,
     ) {
+        parent::__construct($id, $user_id, $order_id, $note, $amount, $status, $type, $data, $completed_time, $created_at_time);
     }
 
     public static function fromArray(array $data): static
@@ -36,6 +42,8 @@ class ResponseTransactionDTO
             $data['data'] ?? null,
             $data['completed_time'] ?? 0,
             $data['created_at_time'] ?? 0,
+            isset($data['order']) ? ResponseOrderDTO::fromArray($data['order']) : null,
+            ResponseUserDTO::fromArray($data['user'] ?? []),
         );
     }
 
@@ -53,6 +61,8 @@ class ResponseTransactionDTO
             'data' => $this->getData(),
             'completed_time' => $this->getCompletedTime(),
             'created_at_time' => $this->getCreatedAtTime(),
+            'order' => $this->getOrder()?->toArray(),
+            'user' => $this->getUser()->toArray(),
         ];
     }
 
@@ -104,5 +114,15 @@ class ResponseTransactionDTO
     public function getCreatedAtTime(): int
     {
         return $this->created_at_time;
+    }
+
+    public function getOrder(): ?ResponseOrderDTO
+    {
+        return $this->order;
+    }
+
+    public function getUser(): ResponseUserDTO
+    {
+        return $this->user;
     }
 }

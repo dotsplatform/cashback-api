@@ -25,7 +25,7 @@ class ResponseTransactionWithOrderDataDTO extends ResponseTransactionDTO
         private ?ResponseOrderDTO $order,
     )
     {
-        parent::__construct($id, $user_id, $order_id, $note, $amount, $status, $type, $data, $completed_time, $created_at_time);
+        parent::__construct($id, $user_id, $order_id, $note, $amount, $status, $type, $data, $completed_time, $created_at_time, $order, null);
     }
 
     public static function fromArray(array $data): static
