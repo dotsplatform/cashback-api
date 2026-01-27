@@ -35,6 +35,7 @@ use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactions;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionsWithOrderAndUser;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsFiltersDTO;
+use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsResponseDTO;
 use Dotsplatform\CashbackApi\DTO\Response\UserGroups\ResponseUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Users\ResponseUserDTO;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
@@ -349,7 +350,7 @@ class CashbackClient extends HttpClient
         return ResponseTransactionDTO::fromArray($responseData);
     }
 
-    public function searchTransactions(SearchTransactionsFiltersDTO $dto): ResponseTransactionsWithOrderAndUser
+    public function searchTransactions(SearchTransactionsFiltersDTO $dto): SearchTransactionsResponseDTO
     {
         $params['json'] = true;
 
@@ -359,7 +360,7 @@ class CashbackClient extends HttpClient
             $params,
         );
 
-        return ResponseTransactionsWithOrderAndUser::fromArray($responseData);
+        return SearchTransactionsResponseDTO::fromArray($responseData);
     }
 
     public function getTransactionsStatistics(SearchTransactionsFiltersDTO $dto): TransactionsStatisticsDTO
