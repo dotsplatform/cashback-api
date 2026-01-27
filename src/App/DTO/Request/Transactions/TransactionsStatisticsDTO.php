@@ -13,7 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
 class TransactionsStatisticsDTO implements Arrayable
 {
     protected function __construct(
-        private float $receivingAmountSum,
+        private float $withdrawalAmountSum,
         private float $depositAmountSum,
         private int $receivingCount,
         private int $depositCount,
@@ -23,9 +23,9 @@ class TransactionsStatisticsDTO implements Arrayable
     public static function fromArray(array $data): static
     {
         return new static(
-            $data['receivingAmountSum'] ?? 0,
+            $data['withdrawalAmountSum'] ?? 0,
             $data['depositAmountSum'] ?? 0,
-            $data['receivingCount'] ?? 0,
+            $data['withdrawalCount'] ?? 0,
             $data['depositCount'] ?? 0,
         );
     }
@@ -33,16 +33,16 @@ class TransactionsStatisticsDTO implements Arrayable
     public function toArray(): array
     {
         return [
-            'receivingAmountSum' => $this->getReceivingAmountSum(),
+            'withdrawalAmountSum' => $this->getWithdrawalAmountSum(),
             'depositAmountSum' => $this->getDepositAmountSum(),
-            'receivingCount' => $this->getReceivingCount(),
+            'withdrawalCount' => $this->getWithdrawalCount(),
             'depositCount' => $this->getDepositCount(),
         ];
     }
 
-    public function getReceivingAmountSum(): float
+    public function getWithdrawalAmountSum(): float
     {
-        return $this->receivingAmountSum;
+        return $this->withdrawalAmountSum;
     }
 
     public function getDepositAmountSum(): float
@@ -50,7 +50,7 @@ class TransactionsStatisticsDTO implements Arrayable
         return $this->depositAmountSum;
     }
 
-    public function getReceivingCount(): int
+    public function getWithdrawalCount(): int
     {
         return $this->receivingCount;
     }
