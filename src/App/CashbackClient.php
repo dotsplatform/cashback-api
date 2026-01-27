@@ -32,6 +32,7 @@ use Dotsplatform\CashbackApi\DTO\Response\Syrve\Organizations\SyrveOrganizationO
 use Dotsplatform\CashbackApi\DTO\Response\SyrveAccountResponse;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactions;
+use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionsWithOrderAndUser;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Response\UserGroups\ResponseUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Users\ResponseUserDTO;
@@ -346,7 +347,7 @@ class CashbackClient extends HttpClient
         return ResponseTransactionDTO::fromArray($responseData);
     }
 
-    public function searchTransactions(SearchTransactionsFiltersDTO $dto): ResponseTransactions
+    public function searchTransactions(SearchTransactionsFiltersDTO $dto): ResponseTransactionsWithOrderAndUser
     {
         $params['json'] = true;
 
@@ -356,7 +357,7 @@ class CashbackClient extends HttpClient
             $params,
         );
 
-        return ResponseTransactions::fromArray($responseData);
+        return ResponseTransactionsWithOrderAndUser::fromArray($responseData);
     }
 
     public function resolveReceivingAmount(string $accountToken, int $orderPrice, int $deliveryType): int
