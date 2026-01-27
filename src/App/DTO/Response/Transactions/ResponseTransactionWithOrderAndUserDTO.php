@@ -15,6 +15,7 @@ class ResponseTransactionWithOrderAndUserDTO extends ResponseTransactionDTO
     protected function __construct(
         private string $id,
         private int $user_id,
+        private ?string $created_by_user_token,
         private ?int $order_id,
         private string $note,
         private int $amount,
@@ -26,7 +27,7 @@ class ResponseTransactionWithOrderAndUserDTO extends ResponseTransactionDTO
         private ?ResponseOrderDTO $order,
         private ResponseUserDTO $user,
     ) {
-        parent::__construct($id, $user_id, $order_id, $note, $amount, $status, $type, $data, $completed_time, $created_at_time);
+        parent::__construct($id, $user_id, $created_by_user_token, $order_id, $note, $amount, $status, $type, $data, $completed_time, $created_at_time);
     }
 
     public static function fromArray(array $data): static
@@ -34,6 +35,7 @@ class ResponseTransactionWithOrderAndUserDTO extends ResponseTransactionDTO
         return new static(
             $data['id'] ?? '',
             $data['user_id'] ?? 0,
+            $data['created_by_user_token'] ?? null,
             $data['order_id'] ?? null,
             $data['note'] ?? '',
             $data['amount'] ?? 0,
@@ -53,6 +55,7 @@ class ResponseTransactionWithOrderAndUserDTO extends ResponseTransactionDTO
         return [
             'id' => $this->getId(),
             'user_id' => $this->getUserId(),
+            'created_by_user_token' => $this->getCreatedByUserToken(),
             'order_id' => $this->getOrderId(),
             'note' => $this->getNote(),
             'amount' => $this->getAmount(),
@@ -74,6 +77,11 @@ class ResponseTransactionWithOrderAndUserDTO extends ResponseTransactionDTO
     public function getUserId(): int
     {
         return $this->user_id;
+    }
+
+    public function getCreatedByUserToken(): ?string
+    {
+        return $this->created_by_user_token;
     }
 
     public function getOrderId(): ?int
