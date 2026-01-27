@@ -19,6 +19,7 @@ class StoreTransactionDTO implements Arrayable
         private int $amount,
         private string $note,
         private int $type,
+        private ?string $createdByUserToken,
         private TransactionSource $transactionSource,
     ) {
     }
@@ -31,6 +32,7 @@ class StoreTransactionDTO implements Arrayable
             $data['amount'] ?? 0,
             $data['note'] ?? '',
             $data['type'] ?? 0,
+            $data['createdByUserToken'] ?? null,
                 TransactionSource::tryFrom($data['transactionSource'] ?? TransactionSource::DOTS->value)
                 ?? TransactionSource::DOTS,
 
@@ -45,6 +47,7 @@ class StoreTransactionDTO implements Arrayable
             'amount' => $this->getAmount(),
             'note' => $this->getNote(),
             'type' => $this->getType(),
+            'createdByUserToken' => $this->getCreatedByUserToken(),
             'transactionSource' => $this->getTransactionSource()->value,
         ];
     }
@@ -72,6 +75,11 @@ class StoreTransactionDTO implements Arrayable
     public function getType(): int
     {
         return $this->type;
+    }
+
+    public function getCreatedByUserToken(): ?string
+    {
+        return $this->createdByUserToken;
     }
 
     public function getTransactionSource(): TransactionSource

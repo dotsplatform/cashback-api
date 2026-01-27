@@ -17,6 +17,7 @@ use Dotsplatform\CashbackApi\DTO\Request\Orders\UpdateOrderPriceDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StorePosterAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\StoreSyrveAccountRequestDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Transactions\StoreUsersTransactionParamsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\Transactions\TransactionsStatisticsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Transactions\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupOrdersSettingsDTO;
@@ -32,6 +33,7 @@ use Dotsplatform\CashbackApi\DTO\Response\Syrve\Organizations\SyrveOrganizationO
 use Dotsplatform\CashbackApi\DTO\Response\SyrveAccountResponse;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactions;
+use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionsWithOrderAndUser;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Response\UserGroups\ResponseUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Users\ResponseUserDTO;
@@ -61,6 +63,7 @@ class CashbackClient extends HttpClient
     private const CREATE_TRANSACTIONS_URL_TEMPLATE = '/transactions';
     private const UPDATE_TRANSACTION_NOTE_URL_TEMPLATE = '/transactions/{id}/note';
     private const SEARCH_TRANSACTIONS_URL_TEMPLATE = '/transactions/search';
+    private const GET_TRANSACTIONS_STATISTICS_URL_TEMPLATE = '/transactions/statistics';
     private const RESOLVE_RECEIVING_AMOUNT_URL_TEMPLATE = '/orders/resolve-receiving-amount';
     private const GET_USER_GROUPS_URL_TEMPLATE = '/users-groups';
     private const GET_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
@@ -346,7 +349,7 @@ class CashbackClient extends HttpClient
         return ResponseTransactionDTO::fromArray($responseData);
     }
 
-    public function searchTransactions(SearchTransactionsFiltersDTO $dto): ResponseTransactions
+    public function searchTransactions(SearchTransactionsFiltersDTO $dto): ResponseTransactionsWithOrderAndUser
     {
         $params['json'] = true;
 
@@ -356,7 +359,20 @@ class CashbackClient extends HttpClient
             $params,
         );
 
-        return ResponseTransactions::fromArray($responseData);
+        return ResponseTransactionsWithOrderAndUser::fromArray($responseData);
+    }
+
+    public function getTransactionsStatistics(SearchTransactionsFiltersDTO $dto): TransactionsStatisticsDTO
+    {
+        $params['json'] = true;
+
+        $responseData = $this->post(
+            self::GET_TRANSACTIONS_STATISTICS_URL_TEMPLATE,
+            $dto->toArray(),
+            $params,
+        );
+
+        return TransactionsStatisticsDTO::fromArray($responseData);
     }
 
     public function resolveReceivingAmount(string $accountToken, int $orderPrice, int $deliveryType): int
