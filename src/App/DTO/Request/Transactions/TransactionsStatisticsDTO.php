@@ -17,7 +17,7 @@ class TransactionsStatisticsDTO implements Arrayable
         private float $depositAmountSum,
         private int $receivingCount,
         private int $depositCount,
-        private float $usersAvailableBalance,
+        private float $totalUsersBalance,
     ) {
     }
 
@@ -28,7 +28,7 @@ class TransactionsStatisticsDTO implements Arrayable
             $data['depositAmountSum'] ?? 0,
             $data['withdrawalCount'] ?? 0,
             $data['depositCount'] ?? 0,
-            $data['usersAvailableBalance'] ?? 0,
+            $data['totalUsersBalance'] ?? 0,
         );
     }
 
@@ -39,7 +39,7 @@ class TransactionsStatisticsDTO implements Arrayable
             'depositAmountSum' => $this->getDepositAmountSum(),
             'withdrawalCount' => $this->getWithdrawalCount(),
             'depositCount' => $this->getDepositCount(),
-            'usersAvailableBalance' => $this->getUsersAvailableBalance(),
+            'totalUsersBalance' => $this->getTotalUsersBalance(),
         ];
     }
 
@@ -63,8 +63,8 @@ class TransactionsStatisticsDTO implements Arrayable
         return $this->depositCount;
     }
 
-    public function getUsersAvailableBalance(): float
+    public function getTotalUsersBalance(): float
     {
-        return $this->usersAvailableBalance;
+        return $this->totalUsersBalance;
     }
 }
