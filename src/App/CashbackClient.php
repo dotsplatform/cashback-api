@@ -32,8 +32,6 @@ use Dotsplatform\CashbackApi\DTO\Response\Syrve\Loyalty\SyrveLoyaltyProgramOptio
 use Dotsplatform\CashbackApi\DTO\Response\Syrve\Organizations\SyrveOrganizationOptionsList;
 use Dotsplatform\CashbackApi\DTO\Response\SyrveAccountResponse;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionDTO;
-use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactions;
-use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionsWithOrderAndUser;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsResponseDTO;
 use Dotsplatform\CashbackApi\DTO\Response\UserGroups\ResponseUserGroupDTO;

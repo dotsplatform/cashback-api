@@ -16,7 +16,9 @@ class SearchTransactionsFiltersDTO extends DTO
 
     protected ?string $userId = null;
 
-    protected ?array $periods = null;
+    protected ?int $startTimestamp = null;
+
+    protected ?int $endTimestamp = null;
 
     protected ?int $type = null;
 
@@ -46,13 +48,14 @@ class SearchTransactionsFiltersDTO extends DTO
         return $this->status;
     }
 
-    public function getPeriods(): ?array
+    public function getStartTimestamp(): ?int
     {
-        if (empty($this->periods)) {
-            return null;
-        }
+        return $this->startTimestamp;
+    }
 
-        return $this->periods;
+    public function getEndTimestamp(): ?int
+    {
+        return $this->endTimestamp;
     }
 
     public function getLimit(): int
