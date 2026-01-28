@@ -349,11 +349,10 @@ class CashbackClient extends HttpClient
 
     public function searchTransactions(SearchTransactionsFiltersDTO $dto): SearchTransactionsResponseDTO
     {
-        $params['json'] = true;
+        $params['query'] = $dto->toArray();
 
-        $responseData = $this->post(
+        $responseData = $this->get(
             self::SEARCH_TRANSACTIONS_URL_TEMPLATE,
-            $dto->toArray(),
             $params,
         );
 
