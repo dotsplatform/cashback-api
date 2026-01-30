@@ -20,6 +20,8 @@ class SearchTransactionsFiltersDTO extends DTO
 
     protected ?int $endTimestamp = null;
 
+    protected ?string $timezone = null;
+
     protected ?int $type = null;
 
     protected ?int $status = null;
@@ -56,6 +58,11 @@ class SearchTransactionsFiltersDTO extends DTO
     public function getEndTimestamp(): ?int
     {
         return $this->endTimestamp;
+    }
+
+    public function getTimezone(): ?string
+    {
+        return $this->timezone;
     }
 
     public function getLimit(): int
