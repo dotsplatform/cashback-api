@@ -10,8 +10,12 @@ namespace Dotsplatform\CashbackApi\DTO;
 enum OrdersCashbackReceivingType: string
 {
     case DELIVERY_TYPE = 'delivery';
+
     case ORDERING_TYPE = 'ordering';
+
     case PAYMENT_TYPE = 'payment';
+
+    case DELIVERY_ORDERING_TYPE = 'delivery_ordering';
 
     public static function values(): array
     {

@@ -42,6 +42,56 @@ class UserGroupOrdersSettingsDTO extends DTO
 
     protected float $cashBackPercentTerminal = 0;
 
+    protected float $cashBackPercentDeliveryIOS = 0;
+
+    protected float $cashBackPercentDeliveryAndroid = 0;
+
+    protected float $cashBackPercentDeliveryWeb = 0;
+
+    protected float $cashBackPercentDeliveryByCompany = 0;
+
+    protected float $cashBackPercentDeliveryOther = 0;
+
+    protected float $cashBackPercentPickupIOS = 0;
+
+    protected float $cashBackPercentPickupAndroid = 0;
+
+    protected float $cashBackPercentPickupWeb = 0;
+
+    protected float $cashBackPercentPickupByCompany = 0;
+
+    protected float $cashBackPercentPickupOther = 0;
+
+    protected float $cashBackPercentBookingIOS = 0;
+
+    protected float $cashBackPercentBookingAndroid = 0;
+
+    protected float $cashBackPercentBookingWeb = 0;
+
+    protected float $cashBackPercentBookingByCompany = 0;
+
+    protected float $cashBackPercentBookingOther = 0;
+
+    protected float $cashBackPercentDeliveryInnerIOS = 0;
+
+    protected float $cashBackPercentDeliveryInnerAndroid = 0;
+
+    protected float $cashBackPercentDeliveryInnerWeb = 0;
+
+    protected float $cashBackPercentDeliveryInnerByCompany = 0;
+
+    protected float $cashBackPercentDeliveryInnerOther = 0;
+
+    protected float $cashBackPercentDeliveryInnerToDoorIOS = 0;
+
+    protected float $cashBackPercentDeliveryInnerToDoorAndroid = 0;
+
+    protected float $cashBackPercentDeliveryInnerToDoorWeb = 0;
+
+    protected float $cashBackPercentDeliveryInnerToDoorByCompany = 0;
+
+    protected float $cashBackPercentDeliveryInnerToDoorOther = 0;
+
     public function isOrdersCashbackAvailable(): bool
     {
         return $this->ordersCashbackAvailable;
@@ -115,5 +165,130 @@ class UserGroupOrdersSettingsDTO extends DTO
     public function getCashBackPercentTerminal(): float
     {
         return $this->cashBackPercentTerminal;
+    }
+
+    public function getCashBackPercentDeliveryIOS(): float
+    {
+        return $this->cashBackPercentDeliveryIOS;
+    }
+
+    public function getCashBackPercentDeliveryAndroid(): float
+    {
+        return $this->cashBackPercentDeliveryAndroid;
+    }
+
+    public function getCashBackPercentDeliveryWeb(): float
+    {
+        return $this->cashBackPercentDeliveryWeb;
+    }
+
+    public function getCashBackPercentDeliveryByCompany(): float
+    {
+        return $this->cashBackPercentDeliveryByCompany;
+    }
+
+    public function getCashBackPercentDeliveryOther(): float
+    {
+        return $this->cashBackPercentDeliveryOther;
+    }
+
+    public function getCashBackPercentPickupIOS(): float
+    {
+        return $this->cashBackPercentPickupIOS;
+    }
+
+    public function getCashBackPercentPickupAndroid(): float
+    {
+        return $this->cashBackPercentPickupAndroid;
+    }
+
+    public function getCashBackPercentPickupWeb(): float
+    {
+        return $this->cashBackPercentPickupWeb;
+    }
+
+    public function getCashBackPercentPickupByCompany(): float
+    {
+        return $this->cashBackPercentPickupByCompany;
+    }
+
+    public function getCashBackPercentPickupOther(): float
+    {
+        return $this->cashBackPercentPickupOther;
+    }
+
+    public function getCashBackPercentBookingIOS(): float
+    {
+        return $this->cashBackPercentBookingIOS;
+    }
+
+    public function getCashBackPercentBookingAndroid(): float
+    {
+        return $this->cashBackPercentBookingAndroid;
+    }
+
+    public function getCashBackPercentBookingWeb(): float
+    {
+        return $this->cashBackPercentBookingWeb;
+    }
+
+    public function getCashBackPercentBookingByCompany(): float
+    {
+        return $this->cashBackPercentBookingByCompany;
+    }
+
+    public function getCashBackPercentBookingOther(): float
+    {
+        return $this->cashBackPercentBookingOther;
+    }
+
+    public function getCashBackPercentDeliveryInnerIOS(): float
+    {
+        return $this->cashBackPercentDeliveryInnerIOS;
+    }
+
+    public function getCashBackPercentDeliveryInnerAndroid(): float
+    {
+        return $this->cashBackPercentDeliveryInnerAndroid;
+    }
+
+    public function getCashBackPercentDeliveryInnerWeb(): float
+    {
+        return $this->cashBackPercentDeliveryInnerWeb;
+    }
+
+    public function getCashBackPercentDeliveryInnerByCompany(): float
+    {
+        return $this->cashBackPercentDeliveryInnerByCompany;
+    }
+
+    public function getCashBackPercentDeliveryInnerOther(): float
+    {
+        return $this->cashBackPercentDeliveryInnerOther;
+    }
+
+    public function getCashBackPercentDeliveryInnerToDoorIOS(): float
+    {
+        return $this->cashBackPercentDeliveryInnerToDoorIOS;
+    }
+
+    public function getCashBackPercentDeliveryInnerToDoorAndroid(): float
+    {
+        return $this->cashBackPercentDeliveryInnerToDoorAndroid;
+    }
+
+    public function getCashBackPercentDeliveryInnerToDoorWeb(): float
+    {
+        return $this->cashBackPercentDeliveryInnerToDoorWeb;
+    }
+
+    public function getCashBackPercentDeliveryInnerToDoorByCompany(): float
+    {
+        return $this->cashBackPercentDeliveryInnerToDoorByCompany;
+    }
+
+    public function getCashBackPercentDeliveryInnerToDoorOther(): float
+    {
+        return $this->cashBackPercentDeliveryInnerToDoorOther;
     }
 }
