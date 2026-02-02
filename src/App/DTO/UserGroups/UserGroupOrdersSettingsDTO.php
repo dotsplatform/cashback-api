@@ -34,6 +34,8 @@ class UserGroupOrdersSettingsDTO extends DTO
 
     protected float $cashBackPercentByCompany = 0;
 
+    protected float $cashBackPercentByOperator = 0;
+
     protected float $cashBackPercentOther = 0;
 
     protected float $cashBackPercentOnline = 0;
@@ -50,6 +52,8 @@ class UserGroupOrdersSettingsDTO extends DTO
 
     protected float $cashBackPercentDeliveryByCompany = 0;
 
+    protected float $cashBackPercentDeliveryByOperator = 0;
+
     protected float $cashBackPercentDeliveryOther = 0;
 
     protected float $cashBackPercentPickupIOS = 0;
@@ -59,6 +63,8 @@ class UserGroupOrdersSettingsDTO extends DTO
     protected float $cashBackPercentPickupWeb = 0;
 
     protected float $cashBackPercentPickupByCompany = 0;
+
+    protected float $cashBackPercentPickupByOperator = 0;
 
     protected float $cashBackPercentPickupOther = 0;
 
@@ -70,6 +76,8 @@ class UserGroupOrdersSettingsDTO extends DTO
 
     protected float $cashBackPercentBookingByCompany = 0;
 
+    protected float $cashBackPercentBookingByOperator = 0;
+
     protected float $cashBackPercentBookingOther = 0;
 
     protected float $cashBackPercentDeliveryInnerIOS = 0;
@@ -80,6 +88,8 @@ class UserGroupOrdersSettingsDTO extends DTO
 
     protected float $cashBackPercentDeliveryInnerByCompany = 0;
 
+    protected float $cashBackPercentDeliveryInnerByOperator = 0;
+
     protected float $cashBackPercentDeliveryInnerOther = 0;
 
     protected float $cashBackPercentDeliveryInnerToDoorIOS = 0;
@@ -89,6 +99,8 @@ class UserGroupOrdersSettingsDTO extends DTO
     protected float $cashBackPercentDeliveryInnerToDoorWeb = 0;
 
     protected float $cashBackPercentDeliveryInnerToDoorByCompany = 0;
+
+    protected float $cashBackPercentDeliveryInnerToDoorByOperator = 0;
 
     protected float $cashBackPercentDeliveryInnerToDoorOther = 0;
 
@@ -147,6 +159,11 @@ class UserGroupOrdersSettingsDTO extends DTO
         return $this->cashBackPercentByCompany;
     }
 
+    public function getCashBackPercentByOperator(): float
+    {
+        return $this->cashBackPercentByOperator;
+    }
+
     public function getCashBackPercentOther(): float
     {
         return $this->cashBackPercentOther;
@@ -187,6 +204,11 @@ class UserGroupOrdersSettingsDTO extends DTO
         return $this->cashBackPercentDeliveryByCompany;
     }
 
+    public function getCashBackPercentDeliveryByOperator(): float
+    {
+        return $this->cashBackPercentDeliveryByOperator;
+    }
+
     public function getCashBackPercentDeliveryOther(): float
     {
         return $this->cashBackPercentDeliveryOther;
@@ -210,6 +232,11 @@ class UserGroupOrdersSettingsDTO extends DTO
     public function getCashBackPercentPickupByCompany(): float
     {
         return $this->cashBackPercentPickupByCompany;
+    }
+
+    public function getCashBackPercentPickupByOperator(): float
+    {
+        return $this->cashBackPercentPickupByOperator;
     }
 
     public function getCashBackPercentPickupOther(): float
@@ -237,6 +264,11 @@ class UserGroupOrdersSettingsDTO extends DTO
         return $this->cashBackPercentBookingByCompany;
     }
 
+    public function getCashBackPercentBookingByOperator(): float
+    {
+        return $this->cashBackPercentBookingByOperator;
+    }
+
     public function getCashBackPercentBookingOther(): float
     {
         return $this->cashBackPercentBookingOther;
@@ -262,6 +294,11 @@ class UserGroupOrdersSettingsDTO extends DTO
         return $this->cashBackPercentDeliveryInnerByCompany;
     }
 
+    public function getCashBackPercentDeliveryInnerByOperator(): float
+    {
+        return $this->cashBackPercentDeliveryInnerByOperator;
+    }
+
     public function getCashBackPercentDeliveryInnerOther(): float
     {
         return $this->cashBackPercentDeliveryInnerOther;
@@ -285,6 +322,11 @@ class UserGroupOrdersSettingsDTO extends DTO
     public function getCashBackPercentDeliveryInnerToDoorByCompany(): float
     {
         return $this->cashBackPercentDeliveryInnerToDoorByCompany;
+    }
+
+    public function getCashBackPercentDeliveryInnerToDoorByOperator(): float
+    {
+        return $this->cashBackPercentDeliveryInnerToDoorByOperator;
     }
 
     public function getCashBackPercentDeliveryInnerToDoorOther(): float
