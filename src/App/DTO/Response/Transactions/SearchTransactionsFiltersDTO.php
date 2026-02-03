@@ -22,6 +22,8 @@ class SearchTransactionsFiltersDTO extends DTO
 
     protected ?string $timezone = null;
 
+    protected ?string $operation = null;
+
     protected ?int $type = null;
 
     protected ?int $status = null;
@@ -38,6 +40,11 @@ class SearchTransactionsFiltersDTO extends DTO
     public function getUserId(): ?int
     {
         return $this->userId;
+    }
+
+    public function getOperation(): ?string
+    {
+        return $this->operation;
     }
 
     public function getType(): ?int
