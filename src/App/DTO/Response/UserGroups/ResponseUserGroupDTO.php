@@ -20,6 +20,8 @@ class ResponseUserGroupDTO extends DTO
 
     protected ?int $transitionAmount;
 
+    protected ?string $benefitsDescription = null;
+
     protected int $usersCount = 0;
 
     protected UserGroupSettingsDTO $settings;
@@ -49,6 +51,11 @@ class ResponseUserGroupDTO extends DTO
     public function getTransitionAmount(): ?int
     {
         return $this->transitionAmount;
+    }
+
+    public function getBenefitsDescription(): ?string
+    {
+        return $this->benefitsDescription;
     }
 
     public function getUsersCount(): int
