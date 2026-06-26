@@ -17,7 +17,6 @@ class StoreUserGroupDTO extends DTO
 
     protected ?int $transitionAmount = null;
 
-    /** @var array<string, string>|null map of language code => description text */
     protected ?array $benefitsDescription = null;
 
     public function getAccountId(): int
@@ -35,9 +34,6 @@ class StoreUserGroupDTO extends DTO
         return $this->transitionAmount;
     }
 
-    /**
-     * @return array<string, string>|null
-     */
     public function getBenefitsDescription(): ?array
     {
         return $this->benefitsDescription;

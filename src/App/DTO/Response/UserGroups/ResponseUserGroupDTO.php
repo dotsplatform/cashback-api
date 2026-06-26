@@ -20,7 +20,6 @@ class ResponseUserGroupDTO extends DTO
 
     protected ?int $transitionAmount;
 
-    /** @var array<string, string>|null map of language code => description text */
     protected ?array $benefitsDescription = null;
 
     protected int $usersCount = 0;
@@ -54,9 +53,6 @@ class ResponseUserGroupDTO extends DTO
         return $this->transitionAmount;
     }
 
-    /**
-     * @return array<string, string>|null
-     */
     public function getBenefitsDescription(): ?array
     {
         return $this->benefitsDescription;
