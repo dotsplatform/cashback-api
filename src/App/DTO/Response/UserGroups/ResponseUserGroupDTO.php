@@ -18,6 +18,8 @@ class ResponseUserGroupDTO extends DTO
 
     protected string $name;
 
+    protected ?array $title = null;
+
     protected ?int $transitionAmount;
 
     protected ?array $benefitsDescription = null;
@@ -46,6 +48,11 @@ class ResponseUserGroupDTO extends DTO
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getTitle(): ?array
+    {
+        return $this->title;
     }
 
     public function getTransitionAmount(): ?int
