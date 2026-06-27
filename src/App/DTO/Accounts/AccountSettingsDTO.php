@@ -20,6 +20,7 @@ class AccountSettingsDTO
         private ?int $cashbackExpirationInterval,
         private ?string $lang,
         private ?string $cashbackExpirationPeriod,
+        private bool $usersGroupsVisible = false,
     ) {
     }
 
@@ -36,6 +37,7 @@ class AccountSettingsDTO
             $data['cashbackExpirationInterval'] ?? null,
             $data['lang'] ?? null,
             $data['cashbackExpirationPeriod'] ?? null,
+            $data['usersGroupsVisible'] ?? false,
         );
     }
 
@@ -52,6 +54,7 @@ class AccountSettingsDTO
             'cashbackExpirationInterval' => $this->getCashbackExpirationInterval(),
             'lang' => $this->getLang(),
             'cashbackExpirationPeriod' => $this->getCashbackExpirationPeriod(),
+            'usersGroupsVisible' => $this->isUsersGroupsVisible(),
         ];
     }
 
@@ -88,6 +91,11 @@ class AccountSettingsDTO
     public function isGroupsTransitionAvailable(): bool
     {
         return $this->groupsTransitionAvailable;
+    }
+
+    public function isUsersGroupsVisible(): bool
+    {
+        return $this->usersGroupsVisible;
     }
 
     public function getCashbackExpirationInterval(): ?int
