@@ -21,7 +21,7 @@ class AccountSettingsDTO
         private ?string $lang,
         private ?string $cashbackExpirationPeriod,
         private bool $userGroupsVisible = false,
-        private array $levelMaxCaption = [],
+        private array $levelMaxText = [],
     ) {
     }
 
@@ -39,7 +39,7 @@ class AccountSettingsDTO
             $data['lang'] ?? null,
             $data['cashbackExpirationPeriod'] ?? null,
             $data['userGroupsVisible'] ?? false,
-            $data['levelMaxCaption'] ?? [],
+            $data['levelMaxText'] ?? [],
         );
     }
 
@@ -57,7 +57,7 @@ class AccountSettingsDTO
             'lang' => $this->getLang(),
             'cashbackExpirationPeriod' => $this->getCashbackExpirationPeriod(),
             'userGroupsVisible' => $this->isUserGroupsVisible(),
-            'levelMaxCaption' => $this->getLevelMaxCaption(),
+            'levelMaxText' => $this->getLevelMaxText(),
         ];
     }
 
@@ -104,9 +104,9 @@ class AccountSettingsDTO
     /**
      * @return array<string, string>
      */
-    public function getLevelMaxCaption(): array
+    public function getLevelMaxText(): array
     {
-        return $this->levelMaxCaption;
+        return $this->levelMaxText;
     }
 
     public function getCashbackExpirationInterval(): ?int
