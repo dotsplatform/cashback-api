@@ -21,6 +21,8 @@ class StoreUserGroupDTO extends DTO
 
     protected ?array $benefitsDescription = null;
 
+    protected ?array $levelProgressCaption = null;
+
     public function getAccountId(): int
     {
         return $this->accountId;
@@ -44,5 +46,10 @@ class StoreUserGroupDTO extends DTO
     public function getBenefitsDescription(): ?array
     {
         return $this->benefitsDescription;
+    }
+
+    public function getLevelProgressCaption(): ?array
+    {
+        return $this->levelProgressCaption;
     }
 }

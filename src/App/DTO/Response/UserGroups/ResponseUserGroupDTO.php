@@ -24,6 +24,8 @@ class ResponseUserGroupDTO extends DTO
 
     protected ?array $benefitsDescription = null;
 
+    protected ?array $levelProgressCaption = null;
+
     protected int $usersCount = 0;
 
     protected UserGroupSettingsDTO $settings;
@@ -63,6 +65,11 @@ class ResponseUserGroupDTO extends DTO
     public function getBenefitsDescription(): ?array
     {
         return $this->benefitsDescription;
+    }
+
+    public function getLevelProgressCaption(): ?array
+    {
+        return $this->levelProgressCaption;
     }
 
     public function getUsersCount(): int
