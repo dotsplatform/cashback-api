@@ -21,6 +21,7 @@ class AccountSettingsDTO
         private ?string $lang,
         private ?string $cashbackExpirationPeriod,
         private bool $usersGroupsVisible = false,
+        private array $levelProgressCaption = [],
     ) {
     }
 
@@ -38,6 +39,7 @@ class AccountSettingsDTO
             $data['lang'] ?? null,
             $data['cashbackExpirationPeriod'] ?? null,
             $data['usersGroupsVisible'] ?? false,
+            $data['levelProgressCaption'] ?? [],
         );
     }
 
@@ -55,6 +57,7 @@ class AccountSettingsDTO
             'lang' => $this->getLang(),
             'cashbackExpirationPeriod' => $this->getCashbackExpirationPeriod(),
             'usersGroupsVisible' => $this->isUsersGroupsVisible(),
+            'levelProgressCaption' => $this->getLevelProgressCaption(),
         ];
     }
 
@@ -96,6 +99,14 @@ class AccountSettingsDTO
     public function isUsersGroupsVisible(): bool
     {
         return $this->usersGroupsVisible;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getLevelProgressCaption(): array
+    {
+        return $this->levelProgressCaption;
     }
 
     public function getCashbackExpirationInterval(): ?int
