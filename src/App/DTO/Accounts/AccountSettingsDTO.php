@@ -101,9 +101,6 @@ class AccountSettingsDTO
         return $this->userGroupsVisible;
     }
 
-    /**
-     * @return array<string, string>
-     */
     public function getLevelMaxText(): array
     {
         return $this->levelMaxText;
