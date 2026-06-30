@@ -1,0 +1,34 @@
+<?php
+/**
+ * Description of UpdateUserGroupTranslationsDTO.php
+ * @copyright Copyright (c) DOTSPLATFORM, LLC
+ * @author    Bogdan Mamontov <bohdan.mamontov@dotsplatform.com>
+ */
+
+namespace Dotsplatform\CashbackApi\DTO\Request\UserGroups;
+
+use Dots\Data\DTO;
+
+class UpdateUserGroupTranslationsDTO extends DTO
+{
+    protected ?array $titleTranslations = null;
+
+    protected ?array $benefitsDescriptionTranslations = null;
+
+    protected ?array $levelProgressTextTranslations = null;
+
+    public function getTitleTranslations(): ?array
+    {
+        return $this->titleTranslations;
+    }
+
+    public function getBenefitsDescriptionTranslations(): ?array
+    {
+        return $this->benefitsDescriptionTranslations;
+    }
+
+    public function getLevelProgressTextTranslations(): ?array
+    {
+        return $this->levelProgressTextTranslations;
+    }
+}
