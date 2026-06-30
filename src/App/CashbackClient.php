@@ -21,6 +21,7 @@ use Dotsplatform\CashbackApi\DTO\Request\Transactions\TransactionsStatisticsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Transactions\UpdateTransactionNoteDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\StoreUserGroupOrdersSettingsDTO;
+use Dotsplatform\CashbackApi\DTO\Request\UserGroups\UpdateUserGroupTranslationsDTO;
 use Dotsplatform\CashbackApi\DTO\Request\UserGroups\UserGroupsFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Users\CreateUserDTO;
 use Dotsplatform\CashbackApi\DTO\Request\Users\UpdateUserDTO;
@@ -69,6 +70,8 @@ class CashbackClient extends HttpClient
     private const UPDATE_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const DELETE_USER_GROUP_URL_TEMPLATE = '/users-groups/{id}';
     private const UPDATE_USER_GROUP_ORDERS_SETTINGS_URL_TEMPLATE = '/users-groups/{id}/settings/orders';
+
+    private const UPDATE_USER_GROUP_TRANSLATIONS_URL_TEMPLATE = '/users-groups/{id}/translations';
     private const DELETE_USER_GROUPS_URL_TEMPLATE = '/users-groups/accounts/{id}';
     private const DISTRIBUTE_USERS_BETWEEN_GROUPS_URL_TEMPLATE = '/users-groups/accounts/{id}/distribute';
     private const GET_USERS_URL_TEMPLATE = '/users';
@@ -429,6 +432,23 @@ class CashbackClient extends HttpClient
         $response = $this->put(
             $url,
             $data,
+            $params,
+        );
+
+        return ResponseUserGroupDTO::fromArray($response);
+    }
+
+    public function updateUserGroupTranslations(
+        string $userGroupId,
+        UpdateUserGroupTranslationsDTO $dto,
+    ): ResponseUserGroupDTO {
+        $params['json'] = true;
+        $url = $this->parseUrlParams(self::UPDATE_USER_GROUP_TRANSLATIONS_URL_TEMPLATE, [
+            'id' => $userGroupId,
+        ]);
+        $response = $this->put(
+            $url,
+            $dto->toArray(),
             $params,
         );
 
