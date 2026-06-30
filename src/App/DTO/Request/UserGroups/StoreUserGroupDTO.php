@@ -33,7 +33,7 @@ class StoreUserGroupDTO extends DTO
         return $this->name;
     }
 
-    public function getTitle(): ?array
+    public function getTitleTranslations(): ?array
     {
         return $this->title;
     }
@@ -43,12 +43,12 @@ class StoreUserGroupDTO extends DTO
         return $this->transitionAmount;
     }
 
-    public function getBenefitsDescription(): ?array
+    public function getBenefitsDescriptionTranslations(): ?array
     {
         return $this->benefitsDescription;
     }
 
-    public function getLevelProgressText(): ?array
+    public function getLevelProgressTextTranslations(): ?array
     {
         return $this->levelProgressText;
     }
