@@ -18,13 +18,13 @@ class ResponseUserGroupDTO extends DTO
 
     protected string $name;
 
-    protected ?array $title = null;
+    protected ?array $titleTranslations = null;
 
     protected ?int $transitionAmount;
 
-    protected ?array $benefitsDescription = null;
+    protected ?array $benefitsDescriptionTranslations = null;
 
-    protected ?array $levelProgressText = null;
+    protected ?array $levelProgressTextTranslations = null;
 
     protected int $usersCount = 0;
 
@@ -54,7 +54,7 @@ class ResponseUserGroupDTO extends DTO
 
     public function getTitleTranslations(): ?array
     {
-        return $this->title;
+        return $this->titleTranslations;
     }
 
     public function getTransitionAmount(): ?int
@@ -64,12 +64,12 @@ class ResponseUserGroupDTO extends DTO
 
     public function getBenefitsDescriptionTranslations(): ?array
     {
-        return $this->benefitsDescription;
+        return $this->benefitsDescriptionTranslations;
     }
 
     public function getLevelProgressTextTranslations(): ?array
     {
-        return $this->levelProgressText;
+        return $this->levelProgressTextTranslations;
     }
 
     public function getUsersCount(): int
