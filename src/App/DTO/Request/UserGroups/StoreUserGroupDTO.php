@@ -17,6 +17,8 @@ class StoreUserGroupDTO extends DTO
 
     protected ?int $transitionAmount = null;
 
+    protected bool $visibleInLevels = true;
+
     public function getAccountId(): int
     {
         return $this->accountId;
@@ -30,5 +32,10 @@ class StoreUserGroupDTO extends DTO
     public function getTransitionAmount(): ?int
     {
         return $this->transitionAmount;
+    }
+
+    public function isVisibleInLevels(): bool
+    {
+        return $this->visibleInLevels;
     }
 }
