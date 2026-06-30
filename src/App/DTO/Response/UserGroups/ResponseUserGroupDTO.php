@@ -72,6 +72,21 @@ class ResponseUserGroupDTO extends DTO
         return $this->levelProgressTextTranslations;
     }
 
+    public function getTitle(string $lang): ?string
+    {
+        return $this->titleTranslations[$lang] ?? null;
+    }
+
+    public function getBenefitsDescription(string $lang): ?string
+    {
+        return $this->benefitsDescriptionTranslations[$lang] ?? null;
+    }
+
+    public function getLevelProgressText(string $lang): ?string
+    {
+        return $this->levelProgressTextTranslations[$lang] ?? null;
+    }
+
     public function getUsersCount(): int
     {
         return $this->usersCount;
