@@ -26,6 +26,8 @@ class ResponseUserGroupDTO extends DTO
 
     protected ?array $levelProgressTextTranslations = null;
 
+    protected bool $visibleInLevels = true;
+
     protected int $usersCount = 0;
 
     protected UserGroupSettingsDTO $settings;
@@ -85,6 +87,11 @@ class ResponseUserGroupDTO extends DTO
     public function getLevelProgressText(string $lang): ?string
     {
         return $this->levelProgressTextTranslations[$lang] ?? null;
+    }
+
+    public function isVisibleInLevels(): bool
+    {
+        return $this->visibleInLevels;
     }
 
     public function getUsersCount(): int
