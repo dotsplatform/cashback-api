@@ -17,6 +17,8 @@ class UpdateUserGroupTranslationsDTO extends DTO
 
     protected ?array $levelProgressTextTranslations = null;
 
+    protected ?array $highlightTranslations = null;
+
     public function getTitleTranslations(): ?array
     {
         return $this->titleTranslations;
@@ -30,5 +32,10 @@ class UpdateUserGroupTranslationsDTO extends DTO
     public function getLevelProgressTextTranslations(): ?array
     {
         return $this->levelProgressTextTranslations;
+    }
+
+    public function getHighlightTranslations(): ?array
+    {
+        return $this->highlightTranslations;
     }
 }
