@@ -19,6 +19,8 @@ class UpdateUserGroupTranslationsDTO extends DTO
 
     protected ?array $highlightTranslations = null;
 
+    protected ?array $lockedDescriptionTranslations = null;
+
     public function getTitleTranslations(): ?array
     {
         return $this->titleTranslations;
@@ -37,5 +39,10 @@ class UpdateUserGroupTranslationsDTO extends DTO
     public function getHighlightTranslations(): ?array
     {
         return $this->highlightTranslations;
+    }
+
+    public function getLockedDescriptionTranslations(): ?array
+    {
+        return $this->lockedDescriptionTranslations;
     }
 }

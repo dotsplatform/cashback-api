@@ -28,6 +28,8 @@ class ResponseUserGroupDTO extends DTO
 
     protected ?array $highlightTranslations = null;
 
+    protected ?array $lockedDescriptionTranslations = null;
+
     protected bool $visibleInLevels = true;
 
     protected int $usersCount = 0;
@@ -81,6 +83,11 @@ class ResponseUserGroupDTO extends DTO
         return $this->highlightTranslations;
     }
 
+    public function getLockedDescriptionTranslations(): ?array
+    {
+        return $this->lockedDescriptionTranslations;
+    }
+
     public function getTitle(string $lang): ?string
     {
         return $this->titleTranslations[$lang] ?? null;
@@ -99,6 +106,11 @@ class ResponseUserGroupDTO extends DTO
     public function getHighlight(string $lang): ?string
     {
         return $this->highlightTranslations[$lang] ?? null;
+    }
+
+    public function getLockedDescription(string $lang): ?string
+    {
+        return $this->lockedDescriptionTranslations[$lang] ?? null;
     }
 
     public function isVisibleInLevels(): bool
