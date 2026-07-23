@@ -16,6 +16,7 @@ class StoreOrderDTO
         private int $ordering_type,
         private int $payment_type,
         private int $price,
+        private ?int $total_price,
         private int $paidByCashBackAmount,
         private array $data,
         private string $userToken,
@@ -33,6 +34,7 @@ class StoreOrderDTO
             $data['ordering_type'] ?? 0,
             $data['payment_type'] ?? 0,
             $data['price'] ?? 0,
+            $data['total_price'] ?? null,
             $data['paid_by_cash_back_amount'] ?? 0,
             $data['data'] ?? [],
             $data['userToken'] ?? '',
@@ -49,6 +51,7 @@ class StoreOrderDTO
             'ordering_type' => $this->getOrderingType(),
             'payment_type' => $this->getPaymentType(),
             'price' => $this->getPrice(),
+            'total_price' => $this->getTotalPrice(),
             'paid_by_cash_back_amount' => $this->getPaidByCashBackAmount(),
             'data' => $this->getData(),
             'userToken' => $this->getUserToken(),
@@ -80,6 +83,11 @@ class StoreOrderDTO
     public function getPrice(): int
     {
         return $this->price;
+    }
+
+    public function getTotalPrice(): ?int
+    {
+        return $this->total_price;
     }
 
     public function getPaidByCashBackAmount(): int
