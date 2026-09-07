@@ -27,7 +27,17 @@ abstract class HttpClient
     public function __construct()
     {
         $this->serviceHost = config('cashback.cashback-server.url');
-        $this->gatewayToken = (string) config('cashback.cashback-server.token');
+        $this->gatewayToken = $this->resolveGatewayToken();
+    }
+
+    private function resolveGatewayToken(): string
+    {
+        $token = config('cashback.cashback-server.token');
+        if (!is_string($token)) {
+            return '';
+        }
+
+        return $token;
     }
 
     protected function makeClient(): GuzzleClient
