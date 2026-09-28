@@ -17,12 +17,27 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class HttpClient
 {
+    private const INTERNAL_GATEWAY_TOKEN_HEADER = 'X-Internal-Gateway-Token';
+
     protected string $serviceHost;
+
+    protected string $gatewayToken;
     protected GuzzleClient $client;
 
     public function __construct()
     {
         $this->serviceHost = config('cashback.cashback-server.url');
+        $this->gatewayToken = $this->resolveGatewayToken();
+    }
+
+    private function resolveGatewayToken(): string
+    {
+        $token = config('cashback.cashback-server.token');
+        if (!is_string($token)) {
+            return '';
+        }
+
+        return $token;
     }
 
     protected function makeClient(): GuzzleClient
@@ -32,7 +47,8 @@ abstract class HttpClient
                 [
                     'base_uri' => $this->serviceHost,
                     'headers' => [
-                        'Accept' => 'application/json'
+                        'Accept' => 'application/json',
+                        self::INTERNAL_GATEWAY_TOKEN_HEADER => $this->gatewayToken,
                     ]
                 ]
             );
