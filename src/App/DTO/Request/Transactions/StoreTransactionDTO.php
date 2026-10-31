@@ -21,6 +21,7 @@ class StoreTransactionDTO implements Arrayable
         private int $type,
         private ?string $createdByUserToken,
         private TransactionSource $transactionSource,
+        private ?string $idempotencyKey = null,
     ) {
     }
 
@@ -35,13 +36,13 @@ class StoreTransactionDTO implements Arrayable
             $data['createdByUserToken'] ?? null,
                 TransactionSource::tryFrom($data['transactionSource'] ?? TransactionSource::DOTS->value)
                 ?? TransactionSource::DOTS,
-
+            $data['idempotencyKey'] ?? null,
         );
     }
 
     public function toArray(): array
     {
-        return [
+        $data = [
             'userToken' => $this->getUserToken(),
             'userPhone' => $this->getUserPhone(),
             'amount' => $this->getAmount(),
@@ -50,6 +51,12 @@ class StoreTransactionDTO implements Arrayable
             'createdByUserToken' => $this->getCreatedByUserToken(),
             'transactionSource' => $this->getTransactionSource()->value,
         ];
+        // Sent only when set, so requests without a key stay exactly as before.
+        if ($this->getIdempotencyKey() !== null) {
+            $data['idempotencyKey'] = $this->getIdempotencyKey();
+        }
+
+        return $data;
     }
 
     public function getUserToken(): ?string
@@ -85,5 +92,13 @@ class StoreTransactionDTO implements Arrayable
     public function getTransactionSource(): TransactionSource
     {
         return $this->transactionSource;
+    }
+
+    /**
+     * Unique per account (max 64 chars): a repeated key returns the original transaction and credits nothing.
+     */
+    public function getIdempotencyKey(): ?string
+    {
+        return $this->idempotencyKey;
     }
 }

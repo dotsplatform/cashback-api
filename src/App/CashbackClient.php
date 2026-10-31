@@ -35,6 +35,7 @@ use Dotsplatform\CashbackApi\DTO\Response\SyrveAccountResponse;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\ResponseTransactionDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsFiltersDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Transactions\SearchTransactionsResponseDTO;
+use Dotsplatform\CashbackApi\DTO\Response\Transactions\StoredTransactionsResponse;
 use Dotsplatform\CashbackApi\DTO\Response\UserGroups\ResponseUserGroupDTO;
 use Dotsplatform\CashbackApi\DTO\Response\Users\ResponseUserDTO;
 use Dotsplatform\CashbackApi\Http\Exception\InvalidParamsDataException;
@@ -319,7 +320,33 @@ class CashbackClient extends HttpClient
         return $this->get(self::GET_TRANSACTION_URL_TEMPLATE, $params);
     }
 
+    /**
+     * Kept for existing callers (and their test stubs, which override it with a void return type).
+     * Use storeTransactions() to get the ids of transactions sent with an idempotency key.
+     */
     public function createTransactions(StoreUsersTransactionParamsDTO $dto): void
+    {
+        $this->postTransactions($dto);
+    }
+
+    /**
+     * Transactions with an idempotency key are stored right away and listed in the response
+     * (a repeated key returns the original transaction with isDuplicate = true and credits nothing).
+     * Transactions without a key are queued by the service, as with createTransactions(), and are not listed.
+     *
+     * @throws InvalidParamsDataException
+     * @throws NotFoundException
+     * @throws ServerErrorException
+     * @throws UnprocessableEntityException
+     */
+    public function storeTransactions(StoreUsersTransactionParamsDTO $dto): StoredTransactionsResponse
+    {
+        $responseData = $this->postTransactions($dto);
+
+        return StoredTransactionsResponse::fromArray($responseData['transactions'] ?? []);
+    }
+
+    private function postTransactions(StoreUsersTransactionParamsDTO $dto): ?array
     {
         $params = $this->getRequestHeaders($dto->getAccount());
         $data = [
@@ -327,7 +354,8 @@ class CashbackClient extends HttpClient
             'applyType' => $dto->getApplyType(),
         ];
         $params['json'] = true;
-        $this->post(self::CREATE_TRANSACTIONS_URL_TEMPLATE, $data, $params);
+
+        return $this->post(self::CREATE_TRANSACTIONS_URL_TEMPLATE, $data, $params);
     }
 
     /**
